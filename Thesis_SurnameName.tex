@@ -31,35 +31,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Main Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% WICHTIG!!! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% Diese Datei verwendet biblatex mit dem biber-Backend. Damit dies %%%%%%%%%
-%%%%%% funktioniert, muss Biber als Standard-Bibliographyprogramm ein- %%%%%%%%%%
-%%%%%% gestellt sein. Dies kann über die Konfigurationseinstellungen %%%%%%%%%%%%
-%%%%%% Ihres jeweiligen Tex-Editors erreicht werden. In TexStudio zum %%%%%%%%%%%
-%%%%%% Beispiel per Optionen -> TexStudio konfigurieren -> Erzeugen -> %%%%%%%%%%
-%%%%%% Standardbibliographieprogramm -> Biber. Gegebenenfalls kann es %%%%%%%%%%%
-%%%%%% auch nötig sein (alte) .bbl-Dateien vor dem Kompilieren zu löschen, %%%%%%
-%%%%%% falls diese nicht mit Biber erzeugt wurden. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% before switching to Biber. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% IMPORTANT!!! %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% This file uses biblatex with the Biber backend. For this to work you %%%%%
-%%%%%% need to select Biber as your standard bibliography program. This can %%%%%
-%%%%%% be done via the Configuration Settings in your Tex-Editor. For example, %%
-%%%%%% in TexStudio go Options -> Configure TexStudio -> Build -> %%%%%%%%%%%%%%%
-%%%%%% -> Bibliography Program: Biber. You may also need to delete the (old) %%%%
-%%%%%% .bbl file in the folder where your .tex file is if it was created %%%%%%%%
-%%%%%% before switching to Biber. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \begin{document}
 	
 
@@ -99,8 +70,8 @@
 		\begin{tabular}[ht]{l c l}
 				Examiner: & \hfill  & Prof. Dr. Clemens Puppe\\
 				Co-Examiner: & \hfill & Prof. Dr. xxx xxx\\ % hier den Zweitprüfer eintragen/co-examiner here
-				Supervisor: & \hfill  & xxx xxx\\ % hier den Betreuer eintragen/supervisor here
-				Submissed Date: & \hfill & xx/xx/202x % Abgabedatum hier eintragen/hand-in date here
+				Supervisor: & \hfill  & Matthias Ammann\\
+				Submission Date: & \hfill & xx/xx/202x % Abgabedatum hier eintragen/hand-in date here
 		\end{tabular}
 	\end{titlepage}
 	
@@ -124,150 +95,9 @@
 	\doublespacing % doppelter Zeilenabstand für das restliche Dokument/double line spacing from here on
 	
 	\chapter{Introduction}
-
-
-	This small template is supposed to help you write your seminar thesis with \LaTeX{}. You can delete this text and replace it with the text of your seminar thesis.  When writing your thesis, remember that quality matters more than quantity (within a reasonable range, of course). Make your points clearly and understandably. Be as precise and concise as possible
-	
-	The following sections give examples on how to write basic functionality (tables, equations, graphics, pictures etc.) in \LaTeX. Of course, this is just for the purpose of illustration. Delete these sections (or comment them out using \%) when you write your actual thesis.
-	
-
-	\chapter{Some \LaTeX{} Essentials}
-	\LaTeX{} helps you write a well-structured thesis that looks neat. Once you got used to it, using \LaTeX{} is great as it helps you avoid many mistakes. For example, it will automatically eliminate any extra spaces (if you put more than one). 
-	A simple linebreak is treated like a space.
-	
-	A double linebreak (like this one here) creates a new paragraph. The \textbackslash\textit{chapter} command starts a new chapter, the \textbackslash\textit{section}, \textbackslash\textit{subsection} etc. commands  start new (sub)sections. If the command is followed by an asterisk, it will not be numbered (nor appear in the table of contents). Should you ever need to start a new page manually, \textbackslash\textit{newpage} will do the trick. 
-	
-	\section{First Section}
-	A new section is allowed to begin everywhere. Note, however, that a new chapter will always start a new right-hand page (i.e. an empty left-hand page is inserted if need be).\footnote{You can create footnotes using the command \textbackslash\textit{footnote}.}
-	
-	\subsection{A Subsection}
-	A Subsection. Note how  \LaTeX{} automatically takes cares of the numbering and adjusts the font size.
-	
-	\subsection{Another Subsection}
-	Structure your thesis according to the MECE principles (Mutually Exclusive, Collectively Exhaustive). That is, substructures do not overlap (thematically) and collectively cover the topic of the superstructure. This includes having at least two items at every level of the structure  (e.g., not something like 1.1, 1.1.1, 1.2 etc.).
-	
-	\section{Figures}
-	You can also include pictures in Tex. The part after \textbackslash\textit{begin}\{\textit{figure}\} means that the picture should be included right here (h), otherwise on top (t), and if necessary below (b). 
-	%
-	
-	\begin{figure}[htb]
-		\begin{center}
-			\includegraphics[width=7cm]{grafiken/demandcurve.png}
-			\caption{Demand Curve  \parencite[from][]{mas1995microeconomic}} \label{picture_reference}
-		\end{center}
-	\end{figure}
-	
-	Figures can be created with \LaTeX{}. But you can also use figures created with other programs and include them using the command \textbackslash\textit{includegraphics}\{`\textit{pathofgraphic}'\}. Unless specified otherwise, the path is interpreted \textit{relative} to the folder in which the \textit{.tex} file is stored. Thus, if your graphic file is in the same folder as your .\textit{tex} file, the path is simply the file name including type-suffix (.\textit{png}, .\textit{jpeg} etc.).
-	
-	Adding the \textbackslash\textit{label}\{`\textit{labelname}'\} to figures, tables, equations etc. (as we did here for the demand curve that is Figure~\ref{picture_reference}) creates an endpoint which you can refer to from anywhere in the main document. \LaTeX adjusts the numbering automatically if you insert other figures, tables, equations etc. before it.
-	
-	\section{Tables}
-	You can also include tables if you want. Here comes Table~\ref{tabel_reference} as an example. Unless specified otherwise (e.g., using the \textit{h} parameter), tables are placed at the top of the corresponding page. Again, this gives the whole document a neat look. 
-	\begin{table}
-		\begin{center}
-			\begin{tabular}{|l||c|c|c|}\hline
-				Package & Question A & Question B & Question C \\\hline\hline
-				Package 1& 	6& 13& 24\\
-				Package 2& 	20& 22& 25\\
-				Package 3& 	1& 10& 35\\
-				Package 4& 	4& 11& 16\\
-				Package 5& 	3& 18& 19\\
-				Package 6& 	15& 21& 27\\
-				Package 7& 	2& 23& 26\\
-				Package 8& 	12& 17& 36\\
-				Package 9& 	5& 9& 14\\
-				Package 10& 7& 8& 30\\
-				\hline
-			\end{tabular}
-			\caption{Distribution of Packages}
-			\label{tabel_reference}
-		\end{center}
-	\end{table}
-	
-	\section{Lists and Enumerations}
-	There are several ways of creating lists in \LaTeX{}, e.g., \textit{itemize}, \textit{enumerate} and \textit{description}. 
-	
-	\subsection{Simple Lists}
-	Use the \textit{itemize} command for bullet-point-like lists. 
-	\begin{itemize}
-		\item item 1
-		\item item 2
-	\end{itemize}
-	Should you wish to use a symbol that is different from the standard bullet, you simply specify it after the \textbackslash\textit{item} command:
-	\begin{itemize}
-		\item[-] item 1
-		\item[*] item 2
-	\end{itemize}
-	
-	\subsection{Numbered Lists/Enumerations}
-	For numbered lists use the \textit{enumerate} environment:
-	\begin{enumerate}
-		\item item 1
-		\item item 2
-	\end{enumerate}
-
-	\subsection{Descriptions}
-	Using the  \textit{description} environment individual item are presented using descriptive labels (printed in bold font) instead of bullets or numbers.
-	\begin{description}
-		\item[first] item 1
-		\item[second] item 2
-	\end{description}
-	
-	\subsection{Nested Lists}
-	Different types of lists can also be nested:
-	\begin{enumerate}
-		\item  identify determinants of a good thesis:
-		\begin{description}
-			\item[careful literature review] This includes:
-			\begin{itemize}
-				\item scan literature
-				\item filter according to quality and relevance
-				\item build understanding and structure your work
-			\end{itemize}
-			\item[contribution] What is your contribution? How does it build on and extend the existing literature? 
-			\item[clarity] Concise and easily understandably writing style.
-		\end{description}
-		\item work on thesis
-		\item revise and improve
-	\end{enumerate}
-	
-	\section{Mathematical Components}
-	
-	\subsection{Formulas}
-	Easy formulas can be written like this:
-	\[a=\frac{b\cdot c}{d}\]
-	or within the text as $i=1/k$.
-	
-	Formulas across multiple lines can be set using the \textbackslash\textit{align} environment.
-	% Die &-Zeichen legen die Ausrichtungspunkte in jeder zeile fest. Im folgenden Beispiel sind alle Zeilen rechts der =-Zeichen ausgerichtet.
-	% & signs specify the points of alignment in each row of the alignment environment. In the example below, all lines are alinged "to the right" of the = sign.
-	\begin{align}\label{formula_reference}
-		\delta(n,x) =&\ U_n(x)-U_n(x+1)\\
-		=&\ U_{n}(x) - U_{n-1}(x+1)  - \left(U_n(x+1)-U_{n-1}(x+1)\right) \nonumber\\ % der \nonumber-Befehl unterdrückt die Nummerierung der Gleichung in dieser Zeile/the \nonumber command suppresses equation numbering in this line
-		=&\dots \nonumber.
-	\end{align}
-	and referred to as formula \eqref{formula_reference} using a label and the \textbackslash\textit{ref}\{`\textit{labelname}>'\} command.
-	
-	\subsection{Theorems, Definitions etc.}
-	\begin{thrm}
-		\label{lemma_reference} This is a theorem. For a right triangle: $ a^2 + b^2 = c^2 $.
-	\end{thrm}
-	\begin{proof}
-		Here comes your proof.
-	\end{proof}
-	\begin{coroll}
-		And a corollary.
-	\end{coroll}
-	\begin{definition}
-		Or a definition.
-	\end{definition}
-	
-	\section{Citations}
-	Within the text you could cite an article by \textcite{nehring2007structure} or the book by \textcite{arrow1970social}. Or use a citation referring to a statement/sentence/paragraph \parencite{mas1995microeconomic}. The bibliography is built based on the .\textit{bib} file(s) you include. These can be conveniently created using literature management software like Mendeley or Citavi. Everything you cite in your paper, will automatically appear in your list of references. 
 	
 	
 	\chapter{Conclusion}
-	At the end of the thesis you should write a (short) conclusion. In it you summarize your main findings and highlight the aspects that seem most important to you. You can also point out other questions that would be worth considering (that is, identify potential for  further research). 
 	
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -287,7 +117,7 @@
 	\noindent Karlsruhe,  xx/xx/xxxx
 	\\ \\ \\ \\
 	------------------------------------\\
-	Name Surname
+	Francisco Waggershauser
 	
 	
 	\addcontentsline{toc}{chapter}{Declaration on Proper Scientific Conduct} % Eintrag zum Inhaltsverzeichnis hinzufügen/add entry to table of contents
