@@ -1,0 +1,34 @@
+% Packages, layout and theorem environments. Notation macros live in notation.tex.
+
+\setcounter{tocdepth}{\subsectiontocdepth}
+
+\usepackage[utf8]{inputenc}
+\usepackage[bottom=4cm, inner=3cm, outer=3cm]{geometry}
+\usepackage[headsepline]{scrlayer-scrpage}
+\usepackage[backend=biber, citestyle=authoryear-comp, bibstyle=authoryear-comp, mergedate=compact, natbib=true, sorting=nyt, sortcites=true]{biblatex}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{csquotes}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{hyperref}
+
+\addbibresource{references.bib}
+\graphicspath{{figures/}}
+
+\setkomafont{pageheadfoot}{\scshape}
+\pagestyle{scrheadings}
+\addtokomafont{disposition}{\rmfamily}
+
+% Theorem environments, one shared counter per chapter (Lemma 3.1, Theorem 3.2, ...)
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}

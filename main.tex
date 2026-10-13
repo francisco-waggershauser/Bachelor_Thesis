@@ -1,0 +1,42 @@
+\documentclass[paper=a4, fontsize=11pt, toc=listof, toc=bib, open=right, onehalfspacing, titlepage=firstiscover, headings=normal]{scrbook}
+
+\input{preamble}
+\input{notation}
+
+% Compile only selected chapters, e.g. the five correction pages for Matthias.
+% Page numbers and references stay consistent. Comment out to compile everything.
+%\includeonly{chapters/03_model}
+
+\begin{document}
+
+\frontmatter
+\input{frontmatter/titlepage}
+
+\newgeometry{bottom=4.5cm, inner=2cm, outer=2.5cm}
+
+\tableofcontents
+\listoftables
+\listoffigures
+
+\mainmatter
+\doublespacing
+
+\include{chapters/01_introduction}
+\include{chapters/02_background}
+\include{chapters/03_model}
+\include{chapters/04_buffer}
+\include{chapters/05_results/05_results}
+\include{chapters/06_discussion}
+\include{chapters/07_conclusion}
+
+\printbibliography
+\cleardoublepage
+
+\appendix
+\include{appendix/A_proofs}
+\include{appendix/B_tables}
+
+\backmatter
+\input{frontmatter/declaration}
+
+\end{document}
