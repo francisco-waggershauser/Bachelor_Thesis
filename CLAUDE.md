@@ -8,7 +8,7 @@ Supervisor Matthias Ammann. Synced with Overleaf via GitHub, Overleaf only sees 
 - Pull `main` before every edit. Francisco may have pushed from Overleaf in the meantime.
 - Never edit a passage Francisco is currently working on in Overleaf.
 - One chapter per file. New chapters go into `main.tex` via `\include`, result blocks into
-  `chapters/05_results/05_results.tex` via `\input`.
+  `chapters/04_results/04_results.tex` via `\input`.
 - Figures are copied into `figures/` by hand. Reference them by file name only
   (`\includegraphics{block2_fig_q.pdf}`), `\graphicspath` points to `figures/`.
 - No generated number macros. Numbers are typed in, and every number comes from the
