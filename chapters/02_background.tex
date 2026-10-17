@@ -18,7 +18,7 @@ We define a \textit{picking sequence} following \textcite{bouveret2011} as a seq
 
 The central picking sequence of this work, the Round Robin algorithm, has the sequence $1,2,\dots,n,1,2,\dots$, truncated after $m$ turns. We define one round as round $t$, which contains the turns $(t-1)n+1$ until $tn$. The last round can be incomplete. The good that agent $i$ takes in round $t$ is $i_t$. The bundle of agent $i$ is $A_i=\{i_1,\dots,i_{|A_i|}\}$.
 
-Following \textcite{manurangsi2021}, we define two variables $r$ and $q$. $r$ is the number of \textit{full rounds} defined as $r = \lfloor \frac{m}{n} \rfloor$ and $q = m - nr$ which is the remainder of goods in the last round. $q=0$ implies that that $m$ is divisible by $n$ and there is no incomplete round. Applied to the Round Robin algorithm, that means that the agents $1,\dots,q$ get $r+1$ goods and the other remaining agents $r$ goods.
+Following \textcite{manurangsi2021}, we define two variables $r$ and $q$. Here, $r$ is the number of \textit{full rounds} defined as $r = \lfloor \frac{m}{n} \rfloor$ and $q = m - nr$ which is the remainder of goods in the last round. If $q=0$ implies that $m$ is divisible by $n$ and there is no incomplete round. Applied to the Round Robin algorithm, that means that the agents $1,\dots,q$ get $r+1$ goods and the other remaining agents $r$ goods.
 
 \begin{example}
 Let $n=3$, $m=7$, thus $r = \lfloor \frac{7}{3}\rfloor =2$ and $q = 1$: the sequence of Round Robin is 1231231. The bundle sizes for the agents are 3, 2, 2.
@@ -29,6 +29,18 @@ Let $n=3$, $m=7$, thus $r = \lfloor \frac{7}{3}\rfloor =2$ and $q = 1$: the sequ
 FUNCTION: Defines envy freeness, EF1, EFX and its approximate version, the alpha-EFX ratio used
 as the target quantity, each attributed to its source. The section shows how the notions relate
 to each other.
+
+\subsubsection{Envy-freeness (EF)}
+
+The fair division problem domain had developed various fairness concepts throughout the time. The goal is to find a \textit{fair allocation} that can fulfil such concept. One of the most established fairness notions is \textit{envy-freeness} (EF). We denote to \textcite{amanatidis2023survey} which defines (EF) as $v_i(A_i)\geq v_i(A_j) \forall i,j$. That means, agent $i's$ bundle has more value for him that any other bundle. For indivisible goods, it turned out that EF is a very strict notion and rarely achievable. The simple example of two agents $n=2$ with only one good $M = \{ g\}$ shows that. There is no allocation, where the agents without the good is not envious towards the other agent.
+
+\subsubsection{Envy-freeness up to one good (EF1)}
+Consequently, different relaxations of the envy-free notion began to emerge. One of the most established relaxations is \textit{envy-freeness up to on good} (EF1). The concept of EF1 goes back to \textcite{lipton2004}, and got defined by \textcite{budish2011} as follows: An Allocation $A$ is EF1, if $\forall i,j$ with $A_j \neq \emptyset$ there is a $g \in A_j$ with $v_i(A_i) \geq v_i(A_j \backslash \{g\})$. Therefore, agent $i$ \textit{is} envious towards agents $j$ because from his point of view, the bundle $A_j$ has more value than his own. However, agent $i$ stops being envious towards the bundle of $j$ if the most expensive good from is bundle gets eliminated. Its existence follows from the envy-cycle elimination algorithm of Lipton et al. (2004, Theorem 2.1 and Lemma 2.2).
+
+\subsubsection{Envy-freeness up to any good}
+Envy-freeness up to one good (EF1) turned out to be quite easily computable, as it is also a relatively weak fairness concept. The next major refinement of the fairness concept is \textit{envy-freeness up to any good} (EFX). The origin of this notion is \textcite{caragiannis2019}. The Allocation $A$ is EFX if $v_i(A_i) \geq v_i(A_j\backslash \{g\})$ $\forall i,j$ and every $g \in A_j$ with $v_i(g) >0$. 
+
+
 
 \section{Why Round Robin Is EF1, and What EFX Additionally Requires}\label{sec:buffer}
 FUNCTION: Restates the known argument that round robin is EF1 and reads it as a buffer that is
