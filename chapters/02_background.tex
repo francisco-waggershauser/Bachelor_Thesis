@@ -30,25 +30,46 @@ FUNCTION: Defines envy freeness, EF1, EFX and its approximate version, the alpha
 as the target quantity, each attributed to its source. The section shows how the notions relate
 to each other.
 
-\subsubsection{Envy-freeness (EF)}
+\paragraph{Envy-freeness (EF).}
+The fair division literature has developed various fairness concepts over time. The goal is to find a \textit{fair allocation} that fulfils such a concept. One of the most established fairness notions is \textit{envy-freeness} (EF). Following \textcite[Def.~1]{amanatidis2023survey}, an allocation $A$ is EF if $v_i(A_i)\geq v_i(A_j)$ for all $i,j\in N$. That means, every agent values their own bundle at least as much as any other bundle. For indivisible goods, EF turns out to be a very strict notion that often cannot be achieved. The simple example of two agents ($n=2$) and a single good ($M=\{g\}$) shows this: in every allocation, the agent without the good envies the other agent, as long as they value the good positively.
 
-The fair division problem domain had developed various fairness concepts throughout the time. The goal is to find a \textit{fair allocation} that can fulfil such concept. One of the most established fairness notions is \textit{envy-freeness} (EF). We denote to \textcite{amanatidis2023survey} which defines (EF) as $v_i(A_i)\geq v_i(A_j) \forall i,j$. That means, agent $i's$ bundle has more value for him that any other bundle. For indivisible goods, it turned out that EF is a very strict notion and rarely achievable. The simple example of two agents $n=2$ with only one good $M = \{ g\}$ shows that. There is no allocation, where the agents without the good is not envious towards the other agent.
+\paragraph{Envy-freeness up to one good (EF1).}
+Consequently, different relaxations of envy-freeness began to emerge. One of the most established relaxations is \textit{envy-freeness up to one good} (EF1). The idea goes back to \textcite{lipton2004}, who bound the envy between two agents by the value of a single good, and \textcite[Def.~3]{budish2011} formalised it as ``envy bounded by a single good''. An allocation $A$ is EF1 if for all $i,j\in N$ with $A_j\neq\emptyset$ there exists a good $g\in A_j$ with $v_i(A_i)\geq v_i(A_j\setminus\{g\})$. Since removing the good that $i$ values most lowers $v_i(A_j)$ the most, this is equivalent to
+\[
+  v_i(A_i)\;\geq\; v_i(A_j)-\max_{g\in A_j} v_i(g).
+\]
+Hence, agent $i$ may still envy agent $j$, but the envy disappears once the good in $A_j$ that $i$ values most is removed. An EF1 allocation always exists: the envy-cycle elimination algorithm of \textcite[Thm.~2.1]{lipton2004} computes one in polynomial time. Section~\ref{sec:buffer} shows that Round Robin also always returns an EF1 allocation.
 
-\subsubsection{Envy-freeness up to one good (EF1)}
-Consequently, different relaxations of the envy-free notion began to emerge. One of the most established relaxations is \textit{envy-freeness up to on good} (EF1). The concept of EF1 goes back to \textcite{lipton2004}, and got defined by \textcite{budish2011} as follows: An Allocation $A$ is EF1, if $\forall i,j$ with $A_j \neq \emptyset$ there $\exists$ $g \in A_j$ with $v_i(A_i) \geq v_i(A_j \backslash \{g\})$. \textbf{HIER NOCH MIT DEM MAX VALUE OF $g\in A_j$}. Therefore, agent $i$ \textbf{is} envious towards agent $j$ because from his point of view, the bundle $A_j$ has more value than his own. However, agent $i$ stops being envious towards the bundle of $j$ if the most expensive good from is bundle gets eliminated. Its existence follows from the envy-cycle elimination algorithm of Lipton et al. (2004, Theorem 2.1 and Lemma 2.2).
+\paragraph{Envy-freeness up to any good (EFX).}
+EF1 can always be achieved, but it is a relatively weak fairness notion: the envy only has to vanish after removing the good the envious agent likes most. The next major refinement is \textit{envy-freeness up to any good} (EFX), introduced by \textcite[Def.~4.5]{caragiannis2019}. An allocation $A$ is EFX if $v_i(A_i)\geq v_i(A_j\setminus\{g\})$ for all $i,j\in N$ and all $g\in A_j$ with $v_i(g)>0$. The condition is hardest to satisfy for the good that $i$ values least, so whenever $A_j$ contains a good that $i$ values positively, this is equivalent to
+\[
+  v_i(A_i)\;\geq\; v_i(A_j)-\min\{v_i(g) : g\in A_j,\ v_i(g)>0\}.
+\]
+In this case, agent $i$ may still envy agent $j$, but the envy disappears after removing \emph{any} good from $A_j$, in particular the one that $i$ values least. The standard formulation in \textcite[Def.~4]{amanatidis2023survey} drops the condition $v_i(g)>0$. The two versions differ only when some goods have value zero. Since our model generates strictly positive values (Chapter~\ref{ch:model}), they coincide in this thesis.
 
-\subsubsection{Envy-freeness up to any good}
-Envy-freeness up to one good (EF1) turned out to be quite easily computable, as it is also a relatively weak fairness concept. The next major refinement of the fairness concept is \textit{envy-freeness up to any good} (EFX). The origin of this notion is \textcite{caragiannis2019}. The Allocation $A$ is EFX if $v_i(A_i) \geq v_i(A_j\backslash \{g\})$ $\forall i,j$ and $\forall$ $g \in A_j$ with $v_i(g) >0$. \textbf{HIER NOCH DEN MIN VALUE WÄHLEN}. In this case, agent $i$ \textbf{is} still envious towards agents $j's$ bundle $A_j$ but stops to envy his bundle after the \textbf{cheapest} (or any) good gets eliminated. 
+\paragraph{Hierarchy.}
+EFX is one of the central notions of current research in fair division \parencite{amanatidis2023survey}. All of these fairness notions are logically connected: $\mathrm{EF}\Rightarrow\mathrm{EFX}\Rightarrow\mathrm{EF1}$, but not the other way around \parencite[p.~8]{amanatidis2023survey}. Whether an EFX allocation always exists is open for four or more agents (Section~\ref{sec:existence}).
 
-\subsubsection{Hierarchy}
-The current state of research has EFX as one of the main scopes in fair division theory. All of those fairness notions are logically connected. The following applies $EF \Rightarrow EFX \Rightarrow EF1$ but not the other way around. Ist jedes Bündel höchstens ein Gut groß, ist jede Allokation EFX, denn nach dem Entfernen bleibt nichts übrig. Bei $m\le n$ gibt RR jedem höchstens ein Gut. Deshalb gilt ab hier $m>n$, und $m=n$ (house allocation) ist abgegrenzt.
+If every bundle contains at most one good, every allocation is EFX, because removing that good leaves an empty bundle of value zero. For $m\leq n$, Round Robin gives every agent at most one good, so EFX holds trivially. We therefore assume $m>n$ from now on. This also excludes the case $m=n$, in which every agent receives exactly one good (house allocation). % TODO: source for the term house allocation, or drop it
 
-\subsubsection{$\astar$-EFX and our Target Value}
-Instead of focusing on exact EFX allocations, a growing line of work has taken a different approach by aiming to compute allocations that are approximately EFX, for different notions of approximation. The first such notion is in terms of
-multiplicative approximations to the values obtained by the agents. \textcite{amanatidis2023survey} defines $\alpha$-EFX as $v_i(A_i) \geq \alpha \cdot v_i(A_j \backslash\{g\})$ for all positive $g \in A_j$.
-Hence, we can rearrange the $\alpha$-EFX equation to $\alpha_{ij} = \frac{v_i(A_i)}{v_i(A_j\backslash{g})}$. $\aij$ is a quantitative value for how "close" the Allocation $A_i$ is from being (EFX). When we compare all possible comparisons between agents $\astar = min\{ 1,min_{i \neq j}\aij\}$. $\astar = 1$ if and only if, when $A$ is EFX. It is important to note that $\aij$ can be bigger than 1, but $\astar$ is capped at $1$. Furthermore, if $A_j$ has only one good, $\aij$ is not defined. If $\astar = 0,8$, that means that the most neglected agent has $80\%$ of value in his bundle that he needs to be envy-free up to any good. 
+\paragraph{$\alpha$-EFX and our target quantity.}
+Since the existence of exact EFX allocations is open in general, a second line of research relaxes EFX by a multiplicative factor: an agent only has to receive a fixed share $\alpha$ of the value that EFX would guarantee. Following \textcite[Def.~8]{amanatidis2023survey}, an allocation $A$ is \textit{$\alpha$-EFX} for $\alpha\in(0,1]$ if
+\[
+  v_i(A_i)\;\geq\;\alpha\cdot v_i(A_j\setminus\{g\})
+\]
+for all $i,j\in N$ and all $g\in A_j$ with $v_i(g)>0$. Earlier versions of this notion appear as $c$-EFX in \textcite[Def.~2.5]{plaut2020} and as $\alpha$-EFX in \textcite[Def.~2.2]{amanatidis2018comparing}.
 
+For a pair of agents $i\neq j$, we measure how close the allocation comes to EFX by the largest $\alpha$ for which this inequality holds for every such $g$. Again, the binding good is the one that $i$ values least, which gives
+\[
+  \aij \;=\; \frac{v_i(A_i)}{v_i(A_j)-\min\{v_i(g) : g\in A_j,\ v_i(g)>0\}}.
+\]
+Taking the worst pair over all comparisons between agents gives our target quantity
+\[
+  \astar \;=\; \min\Big\{1,\ \min_{i\neq j}\aij\Big\}.
+\]
+By construction, $\astar=1$ if and only if $A$ is EFX. It is important to note that $\aij$ can be larger than $1$, but $\astar$ is capped at $1$. Furthermore, if $A_j$ contains only one good that $i$ values positively, the denominator is zero: removing this good leaves nothing that $i$ values, so EFX holds trivially for this pair and $\aij$ is not defined. Such pairs do not enter the minimum (Chapter~\ref{ch:model}). For example, $\astar=0.8$ means that the worst-off agent values their own bundle at $80\%$ of what EFX would require in the comparison that binds most.
 
+This relaxation matters for Round Robin. An EF1 allocation is not necessarily $\alpha$-EFX for any $\alpha\in(0,1]$ \parencite[Prop.~3.1]{amanatidis2018comparing}. Section~\ref{sec:buffer} shows that this also holds for the allocations that Round Robin produces, which is why we study $\astar$ in the average case.
 
 
 \section{Why Round Robin Is EF1, and What EFX Additionally Requires}\label{sec:buffer}
