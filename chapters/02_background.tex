@@ -7,22 +7,22 @@ round robin achieves EF1 but not necessarily EFX.
 
 \section{Setting and Notation}\label{sec:setting}
 FUNCTION: Introduces agents, goods, additive valuations, allocations, picking sequences and
-round robin, together with the number of full rounds and the remainder of goods. All later
+Round Robin, together with the number of full rounds and the remainder of goods. All later
 chapters use this notation.
 
-We are considering a set of agents $N = \{1,...,n\}$ as well as a set of individable goods $M = \{g_1,...,g_m\}$. Each agent has an additive \textit{valuation function} $v_i(S)$, where $S \subseteq M$ and $v_i(S)=\sum_{g\in S} v_i(g)$, with $v_i(g) \geq 0$. The model (see Chapter~\ref{ch:model}) generates strictly positive, continuous values. 
+We are considering a set of agents $N = \{1,...,n\}$ as well as a set of indivisible goods $M = \{g_1,...,g_m\}$. Each agent has an additive \textit{valuation function} $v_i(S)$, where $S \subseteq M$ and $v_i(S)=\sum_{g\in S} v_i(g)$, with $v_i(g) \geq 0$. The model (see Chapter~\ref{ch:model}) generates strictly positive, continuous values. 
 An \textit{allocation} $A = (A_1,...,A_n)$ is a tuple of subsets of M, so that every agent $i \in N$ gets a \textit{bundle}, $A_i \subseteq M$, $A_i \cap A_j = \emptyset$ for all agents $i, j \in N$ and $i \neq j$ and $\bigcup_{i \in N} A_i = M$, assigned.
 
-We define a \textit{picking sequence} as a sequence $(\sigma_1,\dots,\sigma_m) \in N^m$. In turn $k$ Agent $\sigma_k$ chooses the good with the highest $v_{\sigma_k}$ from the remaining goods. After \textcite{bouveret2011}: each agents picks his most valuable available good in his turn.
+We define a \textit{picking sequence} like \textcite{bouveret2011} as a sequence $(\sigma_1,\dots,\sigma_m) \in N^m$. In turn $k$ Agent $\sigma_k$ chooses the good with the highest $v_{\sigma_k}(g)$ from the remaining goods.
 
-The central picking sequence of this work, the Round Robin algortihm, has the sequence $1,2,\dots,n,1,2,\dots,$. truncated after $m$ turns. We define one round as Round $t$, which contains the turns $(t-1)n+1$ until $tn$. The last round can be incomplete. The good that Agent $i$ takes in Round $t$ is $i_t$. So the set goods for Agent i is the allocation $A_i=\{i_1,\dots,i_{|A_i|}\}$ with $|A_i|=r+1$ for $i\le q$ and $r$ otherwise.
+The central picking sequence of this work, the Round Robin algorithm, has the sequence $1,2,\dots,n,1,2,\dots,$; truncated after $m$ turns. We define one round as round $t$, which contains the turns $(t-1)n+1$ until $tn$. The last round can be incomplete. The good that Agent $i$ takes in round $t$ is $i_t$. So the set goods for Agent i is the bundle $A_i=\{i_1,\dots,i_{|A_i|}\}$.
 
 
-For Further usage we follow \cite{manurangsi2021} and write to variables $r$ and $q$. r is the amount of \textit{full rounds} defined as $r = \lfloor \frac{m}{n} \rfloor$ and, $q = m - nr$ which is the rest of goods in the last round. $q=0$ implies that that m is dividable by n and there is no incomplete round. Applied to the Round Robin algorithm, that means that the Agents $1,...,q$ get $r+1$ goods and the other remaining agents $r$ goods.
+For Further usage we follow \textcite{manurangsi2021} and write two variables $r$ and $q$. r is the number of \textit{full rounds} defined as $r = \lfloor \frac{m}{n} \rfloor$ and, $q = m - nr$ which is the remainder of goods in the last round. $q=0$ implies that that m is divisible by n and there is no incomplete round. Applied to the Round Robin algorithm, that means that the Agents $1,...,q$ get $r+1$ goods and the other remaining agents $r$ goods.
 
-\subsubsection{Example}
+\begin{example}
 Let $n=3$, $m=7$, thus $r = \lfloor \frac{7}{3}\rfloor =2$ and $q = 1$: the sequence of Round Robin is 1231231. The bundle sizes for the agents are 3, 2, 2
-
+\end{example}
 
 
 \section{Fairness Notions}\label{sec:notions}
