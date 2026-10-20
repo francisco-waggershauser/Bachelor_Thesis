@@ -14,22 +14,52 @@ comparisons the design can identify.
 
 \section{Instance Generation}\label{sec:instances}
 
-Our Simulation model starts by determining  the Value that an agent attributes to a specific good. Our way of generating those values is a two step method. In the first step, we designate how the agents rank the available goods. This value $\Zig$ contains of a ratio of objective value $W_g$ and subjective value $\etaig$. Both, $W_g$ and $\etaig$ are pulled from the standard normal distribution $W_g,\etaig\sim\mathcal{N}(0,1)$. The ratio gets adjusted by $\rho \in [0,1]$. $\Zig$ is defined as $\Zig = \sqrt{\rho}\cdot W_g + \sqrt{1-\rho}\cdot \etaig$. Every variable is statistically independent. Two properties, which motivate this separation is that $Var(\Zig)=1$ $\forall \rho$ and the correlation $Corr(\Zig,Z_{ig}) = \rho$ for $i\neq j$. Thus, $\rho$ only influence how similar the agents rank the goods, but the not the distribution of the single values. In the second step. $\Zig$ gets stretched with we get our valuation function $v_i(g) = exp(\theta\cdot \Zig)$. Where $\theta >0$  is the variable of how much the values get stretched. $exp(\theta \cdot \Zig)$ makes the value lognormal distributed and is independent from $\rho$. The values $v_i(g)$ are strict positive and continuos distributed.
+Our simulation model starts by determining the value that an agent attributes to a specific good. We generate these values in a two-step method. In the first step, we determine how the agents rank the available goods. For every agent $i$ and good $g$, we draw a latent score $\Zig$ that consists of a common component $\Wg$, shared by all agents, and a private component $\etaig$, which reflects the individual taste of agent $i$:
+\[
+  \Zig=\sqrt{\rho}\,\Wg+\sqrt{1-\rho}\,\etaig,\qquad \Wg,\etaig\sim\mathcal{N}(0,1).
+\]
+All $\Wg$ and $\etaig$ are mutually independent, and the parameter $\rho\in[0,1]$ sets the weight of the common component. Two properties motivate this construction: $\Var(\Zig)=1$ for every $\rho$, and $\Corr(\Zig,Z_{jg})=\rho$ for $i\neq j$. Thus, $\rho$ only influences how similarly the agents rank the goods, but not the distribution of the single scores.
 
-When $\rho = 0$ our $\Zig$ are independent and gleichverteilte Orders, whereas $\rho =1$ makes the Orders identical. Motivation for this model were the two models \textit{full independence} and \textit{full correlation} from \textcite{bouveret2011}. $\rho$ influences therefore a world in which agents agree more.
+In the second step, we stretch $\Zig$ to obtain the valuation
+\[
+  v_i(g)=\exp(\theta\,\Zig),
+\]
+where $\theta>0$ controls how strongly the values are spread. Each $v_i(g)$ is lognormally distributed with parameters $0$ and $\theta^2$, and this distribution does not depend on $\rho$. The values $v_i(g)$ are strictly positive and continuously distributed, so ties between goods occur with probability zero.
 
-On the other hand $\theta$ controls the \textit{distance} between the goods, but the ranks stay the same. A $\theta \rightarrow0$ means the goods are the same value (1). We use the various advantages the lognormal distribution gives us: Positive values and a single independent variable to control the value spread.
+For $\rho=0$, the rankings of different agents are independent and uniformly distributed over all orderings of the goods, whereas $\rho=1$ makes all rankings identical. These two endpoints coincide with the models \textit{full independence} and \textit{full correlation} of \textcite[p.~74]{bouveret2011}. A higher $\rho$ therefore describes a world in which agents agree more.
 
+On the other hand, $\theta$ controls the \textit{distance} between the values of the goods, while the rankings stay the same. As $\theta\to0$, all values tend to $1$, so every good is worth almost the same. We choose the lognormal distribution for two advantages: its values are positive, and a single parameter controls the spread of the values. This is our own modelling choice; we found no direct precedent for it in the literature.
 
-Additionally, we translated our $\rho$ and $\theta$ to interpretable axis: The Spearman Correlation Coefficient $\rho_S=\frac{6}{\pi} \cdot \arcsin(\frac{\rho}{2})$ and the Gini Coefficient $=2\Phi(\theta/\sqrt2)-1$. The values which are important are in the following table: 
+We translate $\rho$ and $\theta$ into two interpretable axes. The first is the Spearman rank correlation between the valuations of two agents over the goods,
+\[
+  \rho_S=\frac{6}{\pi}\arcsin\Big(\frac{\rho}{2}\Big).
+\]
+The second is the Gini coefficient of the values of a single agent over the goods,
+\[
+  G=2\,\Phi\big(\theta/\sqrt{2}\big)-1,
+\]
+where $\Phi$ denotes the standard normal distribution function. We use Spearman instead of the Pearson correlation of the values, because the Pearson correlation of the values depends on $\theta$, whereas the Spearman correlation depends on $\rho$ only. Each axis thus reflects exactly one parameter. Table~\ref{tab:axes} lists the levels used in this thesis. From now on, we report every Gini value together with $\theta$ in parentheses.
 
-%hier tabelle einfügen%
+\begin{table}[ht]
+  \centering
+  \caption{Parameter levels and their interpretable counterparts.}\label{tab:axes}
+  \begin{tabular}{lcccccc}
+    \hline
+    Agreement $\rho$ & 0 & 0.25 & 0.5 & 0.75 & 1 & \\
+    Spearman $\rho_S$ & 0 & 0.24 & 0.48 & 0.73 & 1 & \\
+    \hline
+    Dispersion $\theta$ & 0.1 & 0.25 & 0.5 & 0.75 & 1.0 & 1.5 \\
+    Gini $G$ & 0.06 & 0.14 & 0.28 & 0.40 & 0.52 & 0.71 \\
+    \hline
+  \end{tabular}
+\end{table}
 
-It is important to note, that Spearman as an Axis describes the distribution and not the instance. With finite goods $m$, it is possible that the correlation of the instance between the goods is not correspond to the value spearman (or $\rho$). So the spearman value is interpreted as \textit{the values drawn from a world with rank correlation of Spearman} and not \textit{the agents agree to $\rho_S$} 
+It is important to note that the Spearman axis describes the distribution, not a single instance. With a finite number of goods $m$, the rank correlation between two agents in a single instance can differ considerably from $\rho_S$. For example, for $\rho=0.5$ and $m=8$, the middle $90\%$ of instances range from $-0.17$ to $0.86$ (own computation, not part of the stored results). We therefore read a Spearman value as \textit{the values are drawn from a world with rank correlation $\rho_S$}, and not as \textit{the agents agree to $\rho_S$}.
 
-In similar simulation studies, who have similarities to ours are \textcite{branzei2025} who mixes a common and private value $v=\rho w+(1-\rho)u$. Their $\rho$ however, is not statistically independed while ours is a correlation. As well as \textcite{dickerson2014} who distinguishes between his UNIFORM and CORRELATED Model.
+Similar simulation models appear in \textcite[p.~8]{branzei2025}, who mixes a common and a private value as $v=\rho w+(1-\rho)u$. Their $\rho$, however, is a mixing weight, while ours is a correlation. \textcite[p.~1406]{dickerson2014} distinguish between a UNIFORM and a CORRELATED model.
 
-All of our measure results are based on this distribution famlily. We dedicate a whole chapter for the limitations of our model i Chapter 5.
+All of our measured results rest on this one distribution family. We discuss this limitation in a dedicated section of Chapter~\ref{ch:discussion}.
+
 
 \section{Mechanisms}\label{sec:mechanisms}
 
