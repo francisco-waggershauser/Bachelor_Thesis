@@ -12,9 +12,13 @@ allocating items without any method. Finally it describes the design grid, the s
 between exploratory and confirmatory runs, the use of common random numbers and which
 comparisons the design can identify.
 
+
+Hier noch irgendwie einfügen wie die stufenweise simulation abläuft. Vllt so als überblick. Später.
+
+
 \section{Instance Generation}\label{sec:instances}
 
-Our simulation model starts by determining the value that an agent attributes to a specific good. We generate these values in a two-step method. In the first step, we determine how the agents rank the available goods. For every agent $i$ and good $g$, we draw a latent score $\Zig$ that consists of a common component $\Wg$, shared by all agents, and a private component $\etaig$, which reflects the individual taste of agent $i$:
+Our simulation model starts by determining the value that an agent attributes to a specific good. We generate these values in a two-step method. In the first step, we determine how the agents rank the available goods. For every agent $i$ and good $g$, we draw a score $\Zig$ that consists of a common component $\Wg$, shared by all agents, and a private component $\etaig$, which reflects the individual taste of agent $i$:
 \[
   \Zig=\sqrt{\rho}\,\Wg+\sqrt{1-\rho}\,\etaig,\qquad \Wg,\etaig\sim\mathcal{N}(0,1).
 \]
@@ -38,7 +42,7 @@ The second is the Gini coefficient of the values of a single agent over the good
 \[
   G=2\,\Phi\big(\theta/\sqrt{2}\big)-1,
 \]
-where $\Phi$ denotes the standard normal distribution function. We use Spearman instead of the Pearson correlation of the values, because the Pearson correlation of the values depends on $\theta$, whereas the Spearman correlation depends on $\rho$ only. Each axis thus reflects exactly one parameter. Table~\ref{tab:axes} lists the levels used in this thesis. From now on, we report every Gini value together with $\theta$ in parentheses.
+where $\Phi$ denotes the standard normal distribution function. Each axis thus reflects exactly one parameter. Table~\ref{tab:axes} lists the levels used in this thesis. From now on, we report every Gini value together with $\theta$ in parentheses.
 
 \begin{table}[ht]
   \centering
@@ -54,14 +58,43 @@ where $\Phi$ denotes the standard normal distribution function. We use Spearman 
   \end{tabular}
 \end{table}
 
-It is important to note that the Spearman axis describes the distribution, not a single instance. With a finite number of goods $m$, the rank correlation between two agents in a single instance can differ considerably from $\rho_S$. For example, for $\rho=0.5$ and $m=8$, the middle $90\%$ of instances range from $-0.17$ to $0.86$ (own computation, not part of the stored results). We therefore read a Spearman value as \textit{the values are drawn from a world with rank correlation $\rho_S$}, and not as \textit{the agents agree to $\rho_S$}.
+It is important to note that the Spearman axis describes the distribution, not a single instance. With a finite number of goods $m$, the rank correlation between two agents in a single instance can differ considerably from $\rho_S$. We therefore read a Spearman value as \textit{the values are drawn from a world with rank correlation $\rho_S$}, and not as \textit{the agents agree to $\rho_S$}.
 
 Similar simulation models appear in \textcite[p.~8]{branzei2025}, who mixes a common and a private value as $v=\rho w+(1-\rho)u$. Their $\rho$, however, is a mixing weight, while ours is a correlation. \textcite[p.~1406]{dickerson2014} distinguish between a UNIFORM and a CORRELATED model.
 
 All of our measured results rest on this one distribution family. We discuss this limitation in a dedicated section of Chapter~\ref{ch:discussion}.
 
 
-\section{Mechanisms}\label{sec:mechanisms}
+\section{Mechanisms}\label
+A mechanism simulates under which rules the agents choose the goods with their defined values from 3.1. He only gets the valuations $v_i(g)$ and his output is an Allocation $A = (A_1,...A_n)$. The machanism is not aware nor being directly influced in his choice by $\rho or \theta$ and it doesnt know from which cell the instance is from.
+
+As mentioned in 2.1 the central mechanism of this work is the Round Robin and his sequence. all mechanisms follow the order of the sequence, this also counts for the last incomplete round.The mechanism stops when there are no more goods and the remaining turns are dropped. For $q>0$, the sequence decides who gets the last additional good.
+
+Additonal to the Round Robin algortihm, we chose 3 adjusted mechanism with slightly adjusted sequences.
+
+
+
+Kleine Tabelle, Beispiel $n=4$:
+Sequenz	Runde 1	spätere Runden
+
+Snake (balanced alternation)	1234	abwechselnd 4321 und 1234
+Last first	1234	4123
+Last round reversed	1234	1234, nur die letzte Runde 4321
+
+Basis for the 4 sequences is that each mechanism is "recursively balanced" which is equivalent to EF1 \cite{celine2026}. An Mechanism is recursively balanced when each agents has one turn per round. With that we have the same basis for comparison
+
+In fact, the stated mechanisms are already used in literature: snake mechanism is called "balanced alternation" \cite{celine2026} and also \cite{budish2011} uses snake sequence in his work. "Last round reversed" is for $q>0$ used in \cite{manurangsi2021}. For $m<2n$ is Snake equal to Last Round Reversed.
+
+Its is also important to emphasise that the allocation only depends on the first step of the instance generation $Z_{ig}$. The mechanisms only see the value and therefore resulting order. $exp(\theta \cdot)$ is strictly monotonous, therefore $\theta$ does not change the order of the values of the goods.
+
+Thus, $\theta$ changes how a fixed allocation is evaluated, not the allocation itself. This counts for every picking sequence.
+
+The have a baseline, we also want to compare Round Robin with random distribution. For that we introduce the "balanced randomness" mechanism. Its randomly distributes the goods to all Allocations of the size of the Round Robin Allocation, regardless of the good value. Reason for that is we want to make sure we can depict "random distriburion" Therefore the mechanism shows compared to the RR mechanism the EFX improvement when you choose your preference. The setting of this mechanism also hinders agents dont have an empty bundle, which would make the EFX-quote trivially worse. This is an own created mechanism.
+Trivially, this mechanism does not guarantee EF1.
+
+
+
+
 
 \section{Target Quantity}\label{sec:target}
 
