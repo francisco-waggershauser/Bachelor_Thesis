@@ -66,34 +66,34 @@ All of our measured results rest on this one distribution family. We discuss thi
 
 
 \section{Mechanisms}\label{sec:mechanisms}
-A mechanism simulates under which rules the agents choose the goods with their defined values from 3.1. He only gets the valuations $v_i(g)$ and his output is an Allocation $A = (A_1,...A_n)$. The machanism is not aware nor being directly influced in his choice by $\rho or \theta$ and it doesnt know from which cell the instance is from.
+A mechanism describes the rules under which the agents receive the goods, given the values from Section~\ref{sec:instances}. It only gets the valuations $v_i(g)$, and its output is an allocation $A=(A_1,\dots,A_n)$. The mechanism is neither aware of $\rho$ or $\theta$ nor directly influenced by them, and it does not know from which cell of the design the instance comes.
 
-As mentioned in 2.1 the central mechanism of this work is the Round Robin and his sequence. all mechanisms follow the order of the sequence, this also counts for the last incomplete round.The mechanism stops when there are no more goods and the remaining turns are dropped. For $q>0$, the sequence decides who gets the last additional good.
+As defined in Section~\ref{sec:setting}, the central mechanism of this work is Round Robin with its picking sequence. All sequential mechanisms follow the order of their sequence, and this also holds for the last, possibly incomplete round. The mechanism stops when there are no more goods, and the remaining turns are dropped. For $q>0$, the sequence therefore also decides which agents receive the additional goods.
 
-Additonal to the Round Robin algortihm, we chose 3 adjusted mechanism with slightly adjusted sequences.
+In addition to Round Robin, we consider three mechanisms with slightly adjusted sequences. Table~\ref{tab:sequences} shows their turn orders for $n=4$.
 
+\begin{table}[ht]
+  \centering
+  \caption{Turn order of the four picking sequences for $n=4$.}\label{tab:sequences}
+  \begin{tabular}{lll}
+    \hline
+    Sequence & Round 1 & Later rounds \\
+    \hline
+    Round Robin & 1234 & 1234 \\
+    Snake & 1234 & alternately 4321 and 1234 \\
+    Last first & 1234 & 4123 \\
+    Last round reversed & 1234 & 1234, only the last round 4321 \\
+    \hline
+  \end{tabular}
+\end{table}
 
+In every full round, each agent picks exactly once, and in the last round at most once. Hence, all four sequences are \textit{recursively balanced}, which is equivalent to guaranteeing an EF1 allocation for every additive valuation \parencite[Prop.~2.1]{celine2026}. All four mechanisms therefore share the same worst-case guarantee, which gives us a common basis for comparison.
 
-Kleine Tabelle, Beispiel $n=4$:
-Sequenz	Runde 1	spätere Runden
+Two of the sequences already appear in the literature. The snake sequence is called \textit{balanced alternation} by \textcite{celine2026}, and \textcite[p.~1065]{budish2011} describes a draft that reverses the order in every round. For $q>0$, last round reversed is exactly the algorithm of \textcite[Sec.~5.1]{manurangsi2021}. For $q=0$, our variant reverses the full last round, whereas theirs coincides with standard Round Robin. Last first is our own variant. For $m<2n$, snake and last round reversed are identical.
 
-Snake (balanced alternation)	1234	abwechselnd 4321 und 1234
-Last first	1234	4123
-Last round reversed	1234	1234, nur die letzte Runde 4321
+It is also important to emphasise that the allocation depends on the instance only through the rankings that $\Zig$ induces. The mechanisms only see the values and therefore the resulting order of the goods. Since $x\mapsto\exp(\theta x)$ is strictly increasing, $\theta$ does not change any agent's ranking of the goods. Thus, $\theta$ changes how a fixed allocation is evaluated, but not the allocation itself. This holds for every picking sequence and also for the random baseline below, which ignores the values entirely. Similarly, ties between goods occur with probability zero (Section~\ref{sec:instances}), so the tie-breaking rule plays no role. The agents are exchangeable in our model, so letting agent $1$ pick first is no restriction.
 
-Basis for the 4 sequences is that each mechanism is "recursively balanced" which is equivalent to EF1 \cite{celine2026}. An Mechanism is recursively balanced when each agents has one turn per round. With that we have the same basis for comparison
-
-In fact, the stated mechanisms are already used in literature: snake mechanism is called "balanced alternation" \cite{celine2026} and also \cite{budish2011} uses snake sequence in his work. "Last round reversed" is for $q>0$ used in \cite{manurangsi2021}. For $m<2n$ is Snake equal to Last Round Reversed.
-
-Its is also important to emphasise that the allocation only depends on the first step of the instance generation $Z_{ig}$. The mechanisms only see the value and therefore resulting order. $exp(\theta \cdot)$ is strictly monotonous, therefore $\theta$ does not change the order of the values of the goods.
-
-Thus, $\theta$ changes how a fixed allocation is evaluated, not the allocation itself. This counts for every picking sequence.
-
-The have a baseline, we also want to compare Round Robin with random distribution. For that we introduce the "balanced randomness" mechanism. Its randomly distributes the goods to all Allocations of the size of the Round Robin Allocation, regardless of the good value. Reason for that is we want to make sure we can depict "random distriburion" Therefore the mechanism shows compared to the RR mechanism the EFX improvement when you choose your preference. The setting of this mechanism also hinders agents dont have an empty bundle, which would make the EFX-quote trivially worse. This is an own created mechanism.
-Trivially, this mechanism does not guarantee EF1.
-
-
-
+To have a baseline, we also compare Round Robin with a random allocation. For that, we introduce the \textit{balanced random} mechanism. It draws an allocation uniformly at random among all allocations with the same bundle sizes as Round Robin, regardless of the values of the goods. The reason is that we want to depict allocating the goods without any method. Compared with Round Robin, this mechanism therefore isolates the improvement in EFX that comes from choosing by preference. Fixing the bundle sizes also prevents empty or very unequal bundles. An unbalanced random allocation would presumably fail EFX more often for this reason alone, so our baseline is generous. This mechanism is our own modelling choice. Since it ignores the valuations, it does not guarantee EF1.
 
 
 \section{Target Quantity}\label{sec:target}
