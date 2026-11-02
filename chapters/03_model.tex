@@ -122,20 +122,19 @@ We deliberately do not use the mean of $\astar$ as a key figure. It mixes how of
 
 \section{Design and Data}\label{sec:design}
 
-In this chapter we present the Simulation Gatter. Our Simulation gatter $n \in \{2,3,4,5 \}$,$m = n+1,\dots,4n$, five $\rho$-Steps, six $\theta$-steps and five mechanisms. 
+In this section, we present the simulation grid. It consists of $n\in\{2,3,4,5\}$ agents, $m=n+1,\dots,4n$ goods, the five levels of $\rho$ and the six levels of $\theta$ from Table~\ref{tab:axes}, and the five mechanisms from Section~\ref{sec:mechanisms}. This gives $42$ pairs $(n,m)$, each combined with $5$ levels of $\rho$ and $6$ levels of $\theta$. Thus, we have $1260$ cells per mechanism and $6300$ cells in total, each with $R=20{,}000$ instances. With this number of instances, the standard error of every EFX rate is at most $0.0035$ (Section~\ref{sec:target}). Unless stated otherwise, our figures use the reference levels $\rho=0.5$ (Spearman $0.48$) and $\theta=1$ (Gini $0.52$).
 
-That means, we have 42 (n,m) pairs, each with 5 rho steps and 6 theta steps respectively. Thus, we have 1260 cases per Mechanism, that means in sum 6300 cells, generating $R = 20000$ respectively. This sounds overwhelming but the number can be adapted individually, and is deliberately set to showcase the trends of variables. 
+From each cell, we derive $r$ and $q$. Since $n$, $m$, $r$ and $q$ are linked arithmetically by $m=rn+q$, only specific comparisons are meaningful:
+\begin{itemize}
+  \item $q$ at fixed $r$, which isolates divisibility (Section~\ref{sec:divisibility});
+  \item $n$ at fixed $(r,q)$, that is, more agents with the same number of goods per agent (Section~\ref{sec:agents}).
+\end{itemize}
+It is not possible to interpret an effect of $m$ alone, or a comparison between different $n$ at fixed $m$.
 
-Out of the cells we can derivate $r$ and $q$. And since they correlate arithmetically only specific comparisons are reasonable:
+For reproducibility, we use fixed seeds. The seed of an instance depends only on the master seed and on $k$. Hence, instance $k$ uses the same random numbers $\Wg$ and $\etaig$ for all levels of $\rho$ and $\theta$ and for all mechanisms (common random numbers). Consequently, curves over $\rho$, over $\theta$ and over mechanisms are paired and not independent of each other. Differences between such curves are estimated more precisely, but their error bars must not be compared as if they came from independent samples. Over $\theta$, the pairing is even perfect: the allocation stays the same, and only its evaluation changes (Section~\ref{sec:mechanisms}).
 
-1. q at fixed r (Divisability 4.2)
-2. n at fixed (r,q); more agents with the same number of goods per agents (Number of Agents 4.4). It is not possible to interpret an effect of m alone, or a comparison between n on fixed m.
+We ran the simulation twice. A first, exploratory run with $R=2000$ and seed $12345$ served only to develop hypotheses. All numbers reported in this thesis come from a separate confirmatory run with $R=20{,}000$ and seed $20260927$, which we fixed before the run. The three alternative picking sequences run on exactly the same instances as Round Robin. Their comparison (Section~\ref{sec:sequences}) is exploratory, because we formulated the corresponding hypothesis only after the run.
 
-To ensure the recreation of instances and randomness at the same time we use Seeds. The seed of one instance relies on the (master seed, k). The same instance k utilizes the same random numbers $W_g$, $\eta_{ig}$ for all $\rho, \theta$ and mechanism. Consequently, curves over $\rho, \theta$ and mechanism are paired and not untereinander independent. 
-
-The model was simulated first in an explorative and confirming Run, with only $R=2000$ and Seed$=12345$. The numbers of the bachelor thesis rely on a separate $R=200000$, Seed$=20260927$.
-
-So when the other sequences run, the allocate the exact same values under the same Cell's instances. 
-
-The result of the Simulation is a file per Cell with the raw $\alpha$-Matrix. Hier später noch erwähenn öffentliches reposetory und die Software Version von pythen die notwendig ist.
+The output of the simulation is one file per cell that contains the raw matrix of $\aij$ values. The tolerance $\varepsilon$ is applied only in the evaluation.
+% TODO: public repository, Python and NumPy versions (NumPy does not guarantee identical random numbers across versions)
 
