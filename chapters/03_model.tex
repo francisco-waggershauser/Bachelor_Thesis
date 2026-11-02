@@ -97,23 +97,27 @@ To have a baseline, we also compare Round Robin with a random allocation. For th
 
 
 \section{Target Quantity}\label{sec:target}
-As introduced in Section~\ref{sec:notions}, EFX is a rather strict fairness notion, RoundRobin does not find it always, so we introduced $\aij$ and $\astar$ to measure \textit{how close} is the Allocation to EFX. Since RR does not guarantee any constant $\alpha$, the only reliable and informative metric is the average case.
+As introduced in Section~\ref{sec:notions}, EFX is a rather strict fairness notion, and Round Robin does not always achieve it. We therefore use $\aij$ and $\astar$ to measure \textit{how close} an allocation is to EFX. Since Round Robin does not guarantee any constant $\alpha$ (Section~\ref{sec:buffer}), only the average case is informative.
 
-A cell $X = (n,m,\rho, \theta, mechanism)$ is the basis of the stepwise simulation. For each cell we genereate $R$ intances, $k =  1,\dots,R$ with the values $\astar_k$. 
+A cell $X=(n,m,\rho,\theta,\text{mechanism})$ is the unit of our simulation. For each cell, we generate $R$ instances, $k=1,\dots,R$, with values $\astar_k$.
 
-$\astar$ is for each instance defined, because our model only considers $m > n$ goods and the values of the goods are strictly positve. Therefore there exists always at least one pair that defines $\astar$.
+Since all values are strictly positive, a pair $(i,j)$ is vacuous exactly when $|A_j|=1$. Nevertheless, $\astar$ is defined for every instance: because our model only considers $m>n$, at least one agent $j$ receives two or more goods, and every pair with this agent as $j$ is not vacuous. To absorb rounding errors, we count an instance as EFX if $\astar\geq1-\varepsilon$. Whether we set $\varepsilon=0$ or $\varepsilon=10^{-6}$ does not change any result.
 
-Based on that we define the emprical survival function $S_X(\alpha) = Pr[\astar >= \alpha | X]$ for $\alpha \in (0,1]$, where the Schätzer Survival Function $\hat{S}_X(\alpha) = \frac{1}{R}\sum^R_{k=1}1\{\astar_k >= \alpha\}$.
+Based on this, we define the survival function
+\[
+  \Surv(\alpha)=\Pr\big[\astar\geq\alpha \mid X\big],\qquad \alpha\in(0,1],
+\]
+and its empirical estimator
+\[
+  \Survhat(\alpha)=\frac{1}{R}\sum_{k=1}^{R}\mathbf{1}\{\astar_k\geq\alpha\}.
+\]
+Hence, $\Surv(1)$ is the share of instances that are EFX. The curve below $\alpha=1$ shows how far the remaining instances are away from EFX. $\Surv$ is non-increasing in $\alpha$, since every instance with $\astar\geq\alpha_1$ also satisfies $\astar\geq\alpha_2$ for $\alpha_1>\alpha_2$.
 
-Therefore $S_X(1)$ is the ratio of instances that are EFX. The trend below shows, how far the remaining instances are away from EFX (since $S_X(\alpha_1)$ includes all instances from $S_X(\alpha_2)$ if $\alpha_1 >\alpha_2$)
+We summarise each cell by two key figures. The first is the \textit{EFX rate} $\Survhat(1)$. Its standard error $\sqrt{\Survhat(1)\,(1-\Survhat(1))/R}$ is at most $0.0035$ for $R=20{,}000$, attained at an EFX rate of $0.5$.
 
-Aggregated, we have two key figures: First, the EFX rate which equals to $\hat{S}_X(1)$. The standard error $= \sqrt{\frac{\hat{S}_X(1)(1-\hat{S}_X(1))}{R}}$ for $R =20000$ is $0,0035$
+The second is the $5\%$ quantile $Q_{0.05}$ of $\astar$, computed only over the instances with $\astar<1$. It answers the question: if Round Robin fails to find an EFX allocation, how far from EFX is it in the worst $5\%$ of these failures? We consider this quantile reliable only if a cell contains at least $200$ failures, and we grey out cells with fewer failures in our figures.
 
-Second, the 5-Percent-quantile $Q_{0,05}$ of $\astar$. Please note that we only consider the quantile of the instances with $\astar < 1$. Because, it answers the question: If RR fails to find a EFX Allocation, how bad is it in the worst $5\%$ of the cases.
-
-We defined as a threshold 200 instances to give a reliable quantile.
-
-A conscious decision was to not choose the average EFX quote. The reason for that is simple: It mixes how many times EFX and how far away from EFX and the key figure cannot state the properties of the result clearly.
+We deliberately do not use the mean of $\astar$ as a key figure. It mixes how often an allocation is EFX with how far it is from EFX, so it cannot state either property clearly. In addition, the many instances with exactly $\astar=1$ distort it.
 
 
 \section{Design and Data}\label{sec:design}
