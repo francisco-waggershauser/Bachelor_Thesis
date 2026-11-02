@@ -101,7 +101,7 @@ As introduced in Section~\ref{sec:notions}, EFX is a rather strict fairness noti
 
 A cell $X=(n,m,\rho,\theta,\text{mechanism})$ is the unit of our simulation. For each cell, we generate $R$ instances, $k=1,\dots,R$, with values $\astar_k$.
 
-Since all values are strictly positive, a pair $(i,j)$ is vacuous exactly when $|A_j|=1$. Nevertheless, $\astar$ is defined for every instance: because our model only considers $m>n$, at least one agent $j$ receives two or more goods, and every pair with this agent as $j$ is not vacuous. To absorb rounding errors, we count an instance as EFX if $\astar\geq1-\varepsilon$. Whether we set $\varepsilon=0$ or $\varepsilon=10^{-6}$ does not change any result.
+Since all values are strictly positive, a pair $(i,j)$ is empty exactly when $|A_j|=1$. Nevertheless, $\astar$ is defined for every instance: because our model only considers $m>n$, at least one agent $j$ receives two or more goods, and every pair with this agent as $j$ is not empty.
 
 Based on this, we define the survival function
 \[
@@ -121,3 +121,21 @@ We deliberately do not use the mean of $\astar$ as a key figure. It mixes how of
 
 
 \section{Design and Data}\label{sec:design}
+
+In this chapter we present the Simulation Gatter. Our Simulation gatter $n \in \{2,3,4,5 \}$,$m = n+1,\dots,4n$, five $\rho$-Steps, six $\theta$-steps and five mechanisms. 
+
+That means, we have 42 (n,m) pairs, each with 5 rho steps and 6 theta steps respectively. Thus, we have 1260 cases per Mechanism, that means in sum 6300 cells, generating $R = 20000$ respectively. This sounds overwhelming but the number can be adapted individually, and is deliberately set to showcase the trends of variables. 
+
+Out of the cells we can derivate $r$ and $q$. And since they correlate arithmetically only specific comparisons are reasonable:
+
+1. q at fixed r (Divisability 4.2)
+2. n at fixed (r,q); more agents with the same number of goods per agents (Number of Agents 4.4). It is not possible to interpret an effect of m alone, or a comparison between n on fixed m.
+
+To ensure the recreation of instances and randomness at the same time we use Seeds. The seed of one instance relies on the (master seed, k). The same instance k utilizes the same random numbers $W_g$, $\eta_{ig}$ for all $\rho, \theta$ and mechanism. Consequently, curves over $\rho, \theta$ and mechanism are paired and not untereinander independent. 
+
+The model was simulated first in an explorative and confirming Run, with only $R=2000$ and Seed$=12345$. The numbers of the bachelor thesis rely on a separate $R=200000$, Seed$=20260927$.
+
+So when the other sequences run, the allocate the exact same values under the same Cell's instances. 
+
+The result of the Simulation is a file per Cell with the raw $\alpha$-Matrix. Hier später noch erwähenn öffentliches reposetory und die Software Version von pythen die notwendig ist.
+
