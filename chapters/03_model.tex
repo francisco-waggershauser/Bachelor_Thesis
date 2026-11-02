@@ -93,9 +93,27 @@ Two of the sequences already appear in the literature. The snake sequence is cal
 
 It is also important to emphasise that the allocation depends on the instance only through the rankings that $\Zig$ induces. The mechanisms only see the values and therefore the resulting order of the goods. Since $x\mapsto\exp(\theta x)$ is strictly increasing, $\theta$ does not change any agent's ranking of the goods. Thus, $\theta$ changes how a fixed allocation is evaluated, but not the allocation itself. This holds for every picking sequence and also for the random baseline below, which ignores the values entirely. Similarly, ties between goods occur with probability zero (Section~\ref{sec:instances}), so the tie-breaking rule plays no role. The agents are exchangeable in our model, so letting agent $1$ pick first is no restriction.
 
-To have a baseline, we also compare Round Robin with a random allocation. For that, we introduce the \textit{balanced random} mechanism. It draws an allocation uniformly at random among all allocations with the same bundle sizes as Round Robin, regardless of the values of the goods. The reason is that we want to depict allocating the goods without any method. Compared with Round Robin, this mechanism therefore isolates the improvement in EFX that comes from choosing by preference. Fixing the bundle sizes also prevents empty or very unequal bundles. An unbalanced random allocation would presumably fail EFX more often for this reason alone, so our baseline is generous. This mechanism is our own modelling choice. Since it ignores the valuations, it does not guarantee EF1.
+To have a baseline, we also compare Round Robin with a random allocation. For that, we introduce the \textit{balanced random} mechanism. It draws an allocation uniformly at random among all allocations with the same bundle sizes as Round Robin, regardless of the values of the goods. The reason is that we want to depict allocating the goods without any method. Compared with Round Robin, this mechanism therefore isolates the improvement in EFX that comes from choosing by preference. Fixing the bundle sizes also prevents empty or very unequal bundles. An unbalanced random allocation would presumably fail EFX more often for this reason alone. This mechanism is our own modelling choice. Since it ignores the valuations, it does not guarantee EF1.
 
 
 \section{Target Quantity}\label{sec:target}
+As introduced in Section~\ref{sec:notions}, EFX is a rather strict fairness notion, RoundRobin does not find it always, so we introduced $\aij$ and $\astar$ to measure \textit{how close} is the Allocation to EFX. Since RR does not guarantee any constant $\alpha$, the only reliable and informative metric is the average case.
+
+A cell $X = (n,m,\rho, \theta, mechanism)$ is the basis of the stepwise simulation. For each cell we genereate $R$ intances, $k =  1,\dots,R$ with the values $\astar_k$. 
+
+$\astar$ is for each instance defined, because our model only considers $m > n$ goods and the values of the goods are strictly positve. Therefore there exists always at least one pair that defines $\astar$.
+
+Based on that we define the emprical survival function $S_X(\alpha) = Pr[\astar >= \alpha | X]$ for $\alpha \in (0,1]$, where the Schätzer Survival Function $\hat{S}_X(\alpha) = \frac{1}{R}\sum^R_{k=1}1\{\astar_k >= \alpha\}$.
+
+Therefore $S_X(1)$ is the ratio of instances that are EFX. The trend below shows, how far the remaining instances are away from EFX (since $S_X(\alpha_1)$ includes all instances from $S_X(\alpha_2)$ if $\alpha_1 >\alpha_2$)
+
+Aggregated, we have two key figures: First, the EFX rate which equals to $\hat{S}_X(1)$. The standard error $= \sqrt{\frac{\hat{S}_X(1)(1-\hat{S}_X(1))}{R}}$ for $R =20000$ is $0,0035$
+
+Second, the 5-Percent-quantile $Q_{0,05}$ of $\astar$. Please note that we only consider the quantile of the instances with $\astar < 1$. Because, it answers the question: If RR fails to find a EFX Allocation, how bad is it in the worst $5\%$ of the cases.
+
+We defined as a threshold 200 instances to give a reliable quantile.
+
+A conscious decision was to not choose the average EFX quote. The reason for that is simple: It mixes how many times EFX and how far away from EFX and the key figure cannot state the properties of the result clearly.
+
 
 \section{Design and Data}\label{sec:design}
