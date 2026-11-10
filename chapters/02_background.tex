@@ -38,7 +38,7 @@ Consequently, different relaxations of envy-freeness began to emerge. One of the
 \[
   v_i(A_i)\;\geq\; v_i(A_j)-\max_{g\in A_j} v_i(g).
 \]
-Hence, agent $i$ may still envy agent $j$, but the envy disappears once the good in $A_j$ that $i$ values most is removed. An EF1 allocation always exists: the envy-cycle elimination algorithm of \textcite[Thm.~2.1]{lipton2004} computes one in polynomial time. Section~\ref{sec:leadgap} shows that Round Robin also always returns an EF1 allocation.
+Hence, agent $i$ may still envy agent $j$, but the envy disappears once the good in $A_j$ that $i$ values most is removed. An EF1 allocation always exists: the envy-cycle elimination algorithm of \textcite[Thm.~2.1]{lipton2004} computes one in polynomial time. Section~\ref{sec:rrEF1} shows that Round Robin also always returns an EF1 allocation.
 
 \paragraph{Envy-freeness up to any good (EFX).}
 EF1 can always be achieved, but it is a relatively weak fairness notion: the envy only has to vanish after removing the good the envious agent likes most. The next major refinement is \textit{envy-freeness up to any good} (EFX), introduced by \textcite[Def.~4.5]{caragiannis2019}. An allocation $A$ is EFX if $v_i(A_i)\geq v_i(A_j\setminus\{g\})$ for all $i,j\in N$ and all $g\in A_j$ with $v_i(g)>0$. The condition is hardest to satisfy for the good that $i$ values least, so whenever $A_j$ contains a good that $i$ values positively, this is equivalent to
@@ -69,15 +69,14 @@ Taking the worst pair over all comparisons between agents gives our target quant
 \]
 By construction, $\astar=1$ if and only if $A$ is EFX. It is important to note that $\aij$ can be larger than $1$, but $\astar$ is capped at $1$. Furthermore, if $A_j$ contains only one good that $i$ values positively, the denominator is zero: removing this good leaves nothing that $i$ values, so EFX holds trivially for this pair and $\aij$ is not defined. Such pairs do not enter the minimum (Chapter~\ref{ch:model}). For example, $\astar=0.8$ means that the worst-off agent values their own bundle at $80\%$ of what EFX would require in the comparison that binds most.
 
-This relaxation matters for Round Robin. An EF1 allocation is not necessarily $\alpha$-EFX for any $\alpha\in(0,1]$ \parencite[Prop.~3.1]{amanatidis2018comparing}. Section~\ref{sec:leadgap} shows that this also holds for the allocations that Round Robin produces, which is why we study $\astar$ in the average case.
+This relaxation matters for Round Robin. An EF1 allocation is not necessarily $\alpha$-EFX for any $\alpha\in(0,1]$ \parencite[Prop.~3.1]{amanatidis2018comparing}. Section~\ref{sec:rrEF1} shows that this also holds for the allocations that Round Robin produces, which is why we study $\astar$ in the average case.
 
 
-\section{Why Round Robin Is EF1, and What EFX Additionally Requires}\label{sec:leadgap}
-FUNCTION: Restates the known argument that round robin is EF1 and reads it as a lead that is
-never negative. EFX holds exactly when this lead covers a gap between two single goods. A
-worst case example in which the lead vanishes while the gap stays large shows that round robin
-has no constant approximation guarantee for EFX. This motivates the average case question of the
-thesis. The lead and the gap are the explanatory tool for all results in Chapter 4.
+\section{Why Round Robin Is EF1 but Not Approximately EFX}\label{sec:rrEF1}
+FUNCTION: Restates the known argument that round robin is EF1. A worst case example shows that
+round robin has no constant approximation guarantee for EFX. This motivates the average case
+question of the thesis. The reading of this argument as a lead against a gap is in
+Appendix~\ref{sec:leadgap}.
 
 \section{Does an EFX Allocation Exist?}\label{sec:existence}
 FUNCTION: Summarises where the literature proves EFX existence and defines the region of our
