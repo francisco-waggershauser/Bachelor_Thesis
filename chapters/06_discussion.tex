@@ -1,15 +1,91 @@
 \chapter{Discussion}\label{ch:discussion}
-
-FUNCTION: This chapter discusses what concerns all results jointly. Limitations of individual
-results are already discussed where they arise in Chapters 4 and 5.
+%% FUNCTION: Discusses what concerns all results jointly. Limitations of individual results are
+%% already discussed where they arise in Chapters 4 and 5.
 
 \section{Limitations}\label{sec:limitations}
-FUNCTION: A single family of value distributions, paired rather than independent comparisons,
-the existence assumption in the open region, Spearman describes the distribution and not an
-instance, the generous random benchmark, the exploratory status of reversing the last round, and
-the assumption that agents pick truthfully.
+
+\paragraph{One family of value distributions.}
+All measured results rest on a single model: lognormal values whose ranks are linked by a common
+component (Section~\ref{sec:instances}). The proven results do not depend on it.
+Corollary~\ref{cor:bundlesize} and Proposition~\ref{prop:identical} hold for every valuation of the
+stated kind, and Proposition~\ref{prop:theta-limit} holds for every level of agreement. Every EFX
+rate, every count and every survival curve, however, could look different under another
+distribution, for instance with heavier tails or with agents who differ in how dispersed their
+values are. \textcite[Conclusion]{celine2026} make the same point for average case analyses of
+picking sequences in general. Other models with a common and an individual component exist
+\parencite{dickerson2014,branzei2025}; we did not run them.
+
+\paragraph{Paired comparisons.}
+All curves over agreement, dispersion and mechanisms use the same random numbers
+(Section~\ref{sec:design}). Differences between curves are therefore estimated precisely, but the
+counts over cells in Chapters~\ref{ch:results} and~\ref{ch:random} are not independent
+confirmations. They show how consistent a pattern is within our design, not how likely it is to
+hold in another one.
+
+\paragraph{Existence assumed in the open region.}
+For four or more agents with at least four goods more than agents and less than full agreement, it
+is unknown whether an EFX allocation always exists. In this region, which contains the reference
+cell, we assume existence (Section~\ref{sec:existence}). If the assumption were false for some
+instances, part of the failures we attribute to Round Robin would be failures of the problem
+itself. For two and three agents, under full agreement and for few goods, existence is proven, and
+all our conclusions about Round Robin hold there without the assumption.
+
+\paragraph{Agreement describes a world, not an instance.}
+The Spearman value describes the distribution from which instances are drawn. With twelve goods,
+the rank correlation between two agents in a single instance can differ considerably from it
+(Section~\ref{sec:instances}). Our recommendations about agreement therefore refer to groups of
+people who agree to a certain degree on average, not to a measured correlation in one situation.
+
+\paragraph{Design choices.}
+The balanced random allocation is a generous model of dividing the goods somehow, because it fixes
+the bundle sizes (Section~\ref{sec:random}); an unbalanced random allocation would fare worse, so
+the advantage of Round Robin is if anything understated. Two counts in Chapter~\ref{ch:results}
+and Section~\ref{sec:reversed} are exploratory, because we fixed their rules after having seen
+individual cells. Finally, our design covers two to five agents and at most four goods per agent.
+Statements about larger settings rely on the literature, not on our data.
+
+\paragraph{Truthful picking.}
+In our model, every agent picks their favourite remaining good. In practice, an agent who knows the
+others' preferences can sometimes do better by picking strategically, so sequential allocation is
+in general not strategyproof \parencite[Sec.~4]{bouveret2011}. Drafts used in practice face the
+same problem \parencite[p.~1065]{budish2011}. Under identical preferences, sequential allocation is
+strategyproof \parencite[Prop.~6]{bouveret2011}, so our results under full agreement are not
+affected. For the other levels of agreement, our EFX rates describe sincere picking.
 
 \section{Outlook}\label{sec:outlook}
-FUNCTION: Open questions at the level of a bachelor thesis: the limit without divisibility,
-whether the EFX rate stays below one for every positive dispersion beyond the smallest case,
-robustness to other value distributions, and the measured patterns that remain unexplained.
+
+Several of our measured patterns lack a proof or an explanation, and each of them is a natural
+next step.
+
+\paragraph{Limits without divisibility.}
+Without divisibility, the EFX rate does not approach $1$ as dispersion vanishes
+(Section~\ref{sec:dispersion-limit}). We conjecture that the limit lies strictly between $0$ and
+$1$ below full agreement. A proof would have to describe the comparison of first-order terms that
+decides EFX when an agent with $r$ goods compares their bundle with one of $r+1$ goods.
+
+\paragraph{No guarantee for positive dispersion.}
+We proved that the EFX rate stays below $1$ for every positive dispersion only for the smallest
+case, two agents with four goods. Extending this to every cell would show that the limit theorem
+cannot be strengthened to a threshold below which Round Robin is always EFX.
+
+\paragraph{Unexplained patterns.}
+Three measured patterns remain without explanation: under full agreement, more goods per agent
+lower the EFX rate instead of raising it (Section~\ref{sec:goods-rate}); the break at $m=2n+1$
+deepens with agreement (Section~\ref{sec:bundlesize}); and among the cells without divisibility,
+the EFX rate is lowest for a remainder in the middle (Section~\ref{sec:divisibility-rate}). The
+argument behind EF1 for Round Robin, read as a lead of one bundle over another
+(Appendix~\ref{sec:leadgap}), is a candidate for explaining all three.
+
+\paragraph{Other distributions and other sequences.}
+A robustness check with other value distributions would test how far our recommendations carry
+over. Beyond reversing the last round, other simple picking sequences such as reversing the order
+in every round are used in practice \parencite[p.~1065]{budish2011}; \textcite[Conclusion]{celine2026}
+propose to examine whether their worst-case comparisons of such sequences carry over to the
+average case, and an analysis with respect to EFX along the lines of this thesis would be one way
+to do so.
+
+\paragraph{Existence.}
+Our simulations cannot settle whether EFX allocations always exist for four or more agents
+\parencite[Open Problem~2]{amanatidis2023survey}. They only show where Round Robin finds one and
+where an existence proof would make the failures we report unambiguously failures of the
+mechanism.

@@ -1,5 +1,73 @@
 \chapter{Conclusion}\label{ch:conclusion}
+%% FUNCTION: Collects the recommendations of Chapters 4 and 5 in answer to the research question
+%% and presents them in one decision table with a status column.
 
-FUNCTION: This chapter collects the recommendations of Chapters 4 and 5 in answer to the research
-question and presents them in one decision table with a status column (proven, measured,
-exploratory).
+We asked how often Round Robin achieves EFX and under which conditions it is therefore a good
+heuristic for EFX. Round Robin is attractive because people can carry it out by hand, and it
+always guarantees EF1. It has, however, no constant guarantee for approximate EFX, so its value
+as a heuristic for EFX can only be judged in the average case. We simulated $20{,}000$ instances
+for each combination of two to five agents, up to four goods per agent, five levels of agreement
+and six levels of dispersion, and varied one condition at a time around a reference cell with
+four agents and twelve goods.
+
+In the reference cell, Round Robin achieves EFX in $0.293$ of the instances. Whether this is a
+good or a poor result depends on the conditions, and Table~\ref{tab:decision} collects them. Three
+conditions favour Round Robin: little agreement among the agents, similar values together with a
+number of goods divisible by the number of agents, and few goods per agent with distinct
+favourite goods, where EFX is even guaranteed. Three conditions work against it: strong
+agreement, strongly differing values and many agents. Under full agreement without
+divisibility, Round Robin fails EFX with certainty, and reversing the order of the last round is
+a remedy that is just as easy to carry out. Compared with dividing the goods somehow, Round Robin
+is far ahead unless the agents agree strongly.
+
+\begin{table}[ht]
+  \centering
+  \caption{When Round Robin is a good heuristic for EFX. Status: proven results hold for every
+  valuation of the stated kind; measured results hold in our simulation design; exploratory
+  results rest on rules fixed after individual cells were known.}
+  \label{tab:decision}
+  \small
+  \begin{tabular}{p{4.3cm}p{5.6cm}p{2.2cm}l}
+    \toprule
+    Situation & Recommendation & Status & Section \\
+    \midrule
+    At most two goods per person, distinct favourite goods
+      & Use Round Robin; EFX is guaranteed
+      & proven & \ref{sec:bundlesize} \\
+    Similar values, number of goods divisible
+      & Round Robin or any split into equal bundle sizes is almost always EFX
+      & proven (limit), measured & \ref{sec:dispersion-limit} \\
+    Similar values, number of goods not divisible
+      & Round Robin is better than a random split, but often narrowly misses EFX
+      & measured & \ref{sec:divisibility}, \ref{sec:random} \\
+    Strongly differing values
+      & Divisibility no longer matters; Round Robin fails more often and more deeply
+      & measured & \ref{sec:dispersion}, \ref{sec:divisibility} \\
+    Little to moderate agreement
+      & Use Round Robin; far better than a random split
+      & measured & \ref{sec:agreement}, \ref{sec:random} \\
+    Strong agreement
+      & Expect Round Robin to fail more often and by more
+      & measured & \ref{sec:agreement} \\
+    Full agreement, number of goods not divisible
+      & Never plain Round Robin; reverse the last round, which helps with few goods per person or similar values
+      & proven (Round Robin), measured, exploratory (remedy) & \ref{sec:divisibility-identical}, \ref{sec:reversed} \\
+    More goods per person
+      & Raises the EFX rate, unless agreement is strong
+      & measured, exploratory & \ref{sec:goods} \\
+    More people, same goods per person
+      & EFX becomes rarer; with agreement, failures also become deeper
+      & measured & \ref{sec:agents} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Our contributions are threefold. First, we measure how often Round Robin achieves EFX and how far
+it misses it, for small numbers of agents and for correlated values, where existing results are
+either asymptotic or concern other targets. Second, we prove three simple statements that delimit
+the measurements: a guarantee for at most two goods per agent with distinct favourite goods, the
+certain failure under identical valuations without divisibility, and the limit for vanishing
+dispersion with equal bundle sizes. Third, we compare Round Robin with a random split and with a
+reversed last round, which turns the average case results into advice for people who divide goods
+by hand. All measured statements rest on one family of value distributions and, for four and five
+agents, on the assumption that an EFX allocation exists (Section~\ref{sec:limitations}).
