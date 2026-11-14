@@ -1,14 +1,14 @@
 \chapter{Round Robin, EF1 and EFX}\label{ch:background}
 
-FUNCTION: This chapter provides the concepts that every later result relies on and explains why
-round robin achieves EF1 but not necessarily EFX.
+%% FUNCTION: This chapter provides the concepts that every later result relies on and explains why
+%% round robin achieves EF1 but not necessarily EFX.
 
 
 
 \section{Setting and Notation}\label{sec:setting}
-FUNCTION: Introduces agents, goods, additive valuations, allocations, picking sequences and
-Round Robin, together with the number of full rounds and the remainder of goods. All later
-chapters use this notation.
+%% FUNCTION: Introduces agents, goods, additive valuations, allocations, picking sequences and
+%% Round Robin, together with the number of full rounds and the remainder of goods. All later
+%% chapters use this notation.
 
 We consider a set of agents $N = \{1,\dots,n\}$ as well as a set of indivisible goods $M = \{g_1,\dots,g_m\}$. Each agent has an additive \textit{valuation function} $v_i(S)$, where $S \subseteq M$ and $v_i(S)=\sum_{g\in S} v_i(g)$, with $v_i(g) \geq 0$. The model (see Chapter~\ref{ch:model}) generates strictly positive, continuous values. 
 
@@ -16,9 +16,10 @@ An \textit{allocation} $A = (A_1,\dots,A_n)$ is a tuple of subsets of $M$ ($A_i 
 
 We define a \textit{picking sequence} following \textcite{bouveret2011} as a sequence $(\sigma_1,\dots,\sigma_m) \in N^m$. In turn $k$ agent $\sigma_k$ chooses the good with the highest $v_{\sigma_k}(g)$ from the remaining goods. Ties are broken by a fixed rule; under continuous valuations they occur with probability zero (Chapter~\ref{ch:model}).
 
-The central picking sequence of this work, the Round Robin algorithm, has the sequence $1,2,\dots,n,1,2,\dots$, truncated after $m$ turns. We define one round as round $t$, which contains the turns $(t-1)n+1$ until $tn$. The last round can be incomplete. The good that agent $i$ takes in round $t$ is $i_t$. The bundle of agent $i$ is $A_i=\{i_1,\dots,i_{|A_i|}\}$.
+The central picking sequence of this work, the Round Robin algorithm, repeats the order
+$1,2,\dots,n$ until $m$ turns are reached. We define one round as round $t$, which contains the turns $(t-1)n+1$ until $tn$. The last round can be incomplete. The good that agent $i$ takes in round $t$ is $i_t$. The bundle of agent $i$ is $A_i=\{i_1,\dots,i_{|A_i|}\}$.
 
-Following \textcite{manurangsi2021}, we define two variables $r$ and $q$. Here, $r$ is the number of \textit{full rounds} defined as $r = \lfloor \frac{m}{n} \rfloor$ and $q = m - nr$ which is the remainder of goods in the last round. If $q=0$ implies that $m$ is divisible by $n$ and there is no incomplete round. Applied to the Round Robin algorithm, that means that the agents $1,\dots,q$ get $r+1$ goods and the other remaining agents $r$ goods.
+Following \textcite{manurangsi2021}, we define two variables $r$ and $q$. Here, $r$ is the number of \textit{full rounds} defined as $r = \lfloor \frac{m}{n} \rfloor$ and $q = m - nr$ which is the remainder of goods in the last round. If $q=0$, then $m$ is divisible by $n$ and there is no incomplete round. Applied to the Round Robin algorithm, that means that the agents $1,\dots,q$ get $r+1$ goods and the other remaining agents $r$ goods.
 
 \begin{example}
 Let $n=3$, $m=7$, thus $r = \lfloor \frac{7}{3}\rfloor =2$ and $q = 1$: the sequence of Round Robin is 1231231. The bundle sizes for the agents are 3, 2, 2.
@@ -26,9 +27,9 @@ Let $n=3$, $m=7$, thus $r = \lfloor \frac{7}{3}\rfloor =2$ and $q = 1$: the sequ
 
 
 \section{Fairness Notions}\label{sec:notions}
-FUNCTION: Defines envy freeness, EF1, EFX and its approximate version, the alpha-EFX ratio used
-as the target quantity, each attributed to its source. The section shows how the notions relate
-to each other.
+%% FUNCTION: Defines envy freeness, EF1, EFX and its approximate version, the alpha-EFX ratio used
+%% as the target quantity, each attributed to its source. The section shows how the notions relate
+%% to each other.
 
 \paragraph{Envy-freeness (EF).}
 The fair division literature has developed various fairness concepts over time. The goal is to find a \textit{fair allocation} that fulfils such a concept. One of the most established fairness notions is \textit{envy-freeness} (EF). Following \textcite[Def.~1]{amanatidis2023survey}, an allocation $A$ is EF if $v_i(A_i)\geq v_i(A_j)$ for all $i,j\in N$. That means, every agent values their own bundle at least as much as any other bundle. For indivisible goods, EF turns out to be a very strict notion that often cannot be achieved. The simple example of two agents ($n=2$) and a single good ($M=\{g\}$) shows this: in every allocation, the agent without the good envies the other agent, as long as they value the good positively.
@@ -73,14 +74,99 @@ This relaxation matters for Round Robin. An EF1 allocation is not necessarily $\
 
 
 \section{Why Round Robin Is EF1 but Not Approximately EFX}\label{sec:rrEF1}
-FUNCTION: Restates the known argument that round robin is EF1. A worst case example shows that
-round robin has no constant approximation guarantee for EFX. This motivates the average case
-question of the thesis. The reading of this argument as a lead against a gap is in
-Appendix~\ref{sec:leadgap}.
+%% FUNCTION: Restates the known argument that round robin is EF1. A worst case example shows that
+%% round robin has no constant approximation guarantee for EFX, which motivates the average case
+%% question of the thesis.
+
+Round Robin always returns an EF1 allocation \parencite[p.~12:7]{caragiannis2019}. The argument
+is short, and it shows where EFX can fail, so we restate it following
+\textcite[Thm.~1]{amanatidis2023survey}. Recall that $i_t$ denotes the good that agent $i$ picks
+in round $t$.
+
+\begin{proposition}\label{prop:rrEF1}
+Let $A$ be the Round Robin allocation. For agents $i<j$, we have $v_i(A_i)\geq v_i(A_j)$. For
+agents $i>j$, we have $v_i(A_i)\geq v_i(A_j)-v_i(j_1)$. In particular, $A$ is EF1.
+\end{proposition}
+
+\begin{proof}
+Let $i<j$. In every round, agent $i$ picks before agent $j$, so the good $j_t$ was still available
+when $i$ picked $i_t$, and $v_i(i_t)\geq v_i(j_t)$. Since $|A_i|\geq|A_j|$, summing over the rounds
+gives $v_i(A_i)\geq v_i(A_j)$. Let $i>j$. Now $j$ picks before $i$ in every round, but the good
+$j_{t+1}$ that $j$ picks in the next round was still available when $i$ picked $i_t$, so
+$v_i(i_t)\geq v_i(j_{t+1})$. Since $|A_i|\geq|A_j|-1$, summing over the rounds gives
+$v_i(A_i)\geq v_i(A_j\setminus\{j_1\})$.
+\end{proof}
+
+Envy can therefore only point from an agent who picks later to an agent who picks earlier, and it
+disappears once the earlier agent's first good is removed. EFX, in contrast, requires that the
+envy disappears after removing the earlier agent's \emph{least} valuable good. Nothing in the
+argument controls this, and the following example shows that the gap can be arbitrarily large.
+
+\begin{example}\label{ex:witness}
+Let $n=2$, $m=4$ and $0<\delta<1/3$, with values
+\[
+  v_1=(10,\,1,\,9,\,1),\qquad v_2=(1,\,3\delta,\,2\delta,\,\delta)
+\]
+for the goods $g_1,\dots,g_4$. Round Robin with the sequence $(1,2,1,2)$ proceeds as follows:
+agent $1$ takes $g_1$, agent $2$ takes $g_2$, agent $1$ takes $g_3$, and agent $2$ takes $g_4$.
+Hence $A_1=\{g_1,g_3\}$ and $A_2=\{g_2,g_4\}$. Agent $2$ values their own bundle at $4\delta$ and
+agent $1$'s bundle at $1+2\delta$; removing the good in $A_1$ that agent $2$ values least, $g_3$,
+leaves a value of $1$. Thus $\alpha_{21}=4\delta$. Agent $1$ does not envy agent $2$ at all
+($\alpha_{12}=19$), so $\astar=4\delta$, which tends to $0$ as $\delta\to0$.
+\end{example}
+
+The allocation in the example is EF1, as Proposition~\ref{prop:rrEF1} guarantees, but for every
+$\alpha\in(0,1]$ there is an instance in which it is not $\alpha$-EFX (proven). This is the Round
+Robin counterpart of the general observation that an EF1 allocation need not be $\alpha$-EFX for
+any $\alpha>0$ \parencite[Prop.~3.1]{amanatidis2018comparing}. In every single instance,
+$\astar>0$, but no positive lower bound holds for all instances. A worst case analysis therefore
+says nothing about how well Round Robin approximates EFX, and only the average case over a
+distribution of instances is informative. This is the approach of this thesis.
 
 \section{Does an EFX Allocation Exist?}\label{sec:existence}
-FUNCTION: Summarises where the literature proves EFX existence and defines the region of our
-design where it is open. For that region the chapter states explicitly that we assume existence,
-and gives the reasons for this assumption. This tells the reader for every result whether a
-failure of round robin is a failure of the mechanism or possibly of the problem itself.
+%% FUNCTION: Summarises where the literature proves EFX existence and defines the region of our
+%% design where it is open. For that region the section states explicitly that we assume
+%% existence, and why. This tells the reader for every result whether a failure of round robin is
+%% a failure of the mechanism or possibly of the problem itself.
 
+When Round Robin fails to find an EFX allocation, this can mean two things: Round Robin missed an
+EFX allocation that exists, or no EFX allocation exists at all. For additive valuations, whether
+an EFX allocation always exists is open for four or more agents
+\parencite[Open Problem~2]{amanatidis2023survey}. For several special cases, however, existence
+is proven, and Table~\ref{tab:existence} lists those that cover cells of our design.
+
+\begin{table}[ht]
+  \centering
+  \caption{Proven existence of EFX allocations and the cells of our design they cover.}
+  \label{tab:existence}
+  \small
+  \begin{tabular}{p{4.6cm}p{4.4cm}p{4.2cm}}
+    \toprule
+    Condition & Source & Cells covered \\
+    \midrule
+    Two agents & \textcite{plaut2020} & all cells with $n=2$ \\
+    Three agents, additive valuations & \textcite{chaudhury2024} & all cells with $n=3$ \\
+    Identical valuations & \textcite{plaut2020}; alternative proof for additive valuations by \textcite[Prop.~1]{branzei2025} & all cells with $\rho=1$ \\
+    At most three types of valuations & \textcite{hv2025} & only $\rho=1$ \\
+    $m\leq n+2$, additive valuations & \textcite[Thm.~5.1]{amanatidis2020multiple} & $m=n+1,n+2$ \\
+    $m\leq n+3$ & \textcite{mahara2024general} & $m=n+1,\dots,n+3$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+In our design, existence is therefore open exactly for four or more agents, at least four goods
+more than agents and less than full agreement: for $n=4$ from $m=8$ on and for $n=5$ from $m=9$
+on, each with $\rho<1$. This region contains the reference cell. In this region, we
+\textbf{assume} that an EFX allocation exists. Two observations support the assumption. Its
+existence is widely conjectured \parencite[p.~2]{branzei2025}, and the local search of
+\textcite{branzei2025} found an EFX allocation in every instance tested, including instances with
+independent and with correlated values. None of these instances lies in our open region, the
+closest being four agents with forty goods and independent values, so the assumption rests on the
+direction of this evidence, not on a test of our cells. Under the assumption, every failure of
+Round Robin is a failure of the mechanism. Outside the open region, this holds without any
+assumption, and our results state in every section which case applies.
+
+For approximate EFX, allocations that are $0.618$-EFX are known to exist and can be computed
+efficiently \parencite[Thm.~4.4]{amanatidis2020multiple}; the best possible factor is open
+\parencite[Open Problem~3]{amanatidis2023survey}. These algorithms are not meant to be carried
+out by hand, which is the setting that motivates this thesis.
