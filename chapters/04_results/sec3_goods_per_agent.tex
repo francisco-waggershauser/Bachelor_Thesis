@@ -1,9 +1,27 @@
-\section{Bundle Size}\label{sec:bundlesize}
-%% FUNCTION: Shows that round robin is guaranteed to be EFX when every agent receives at most two
-%% goods and all favourite goods differ, and that this guarantee breaks as soon as one agent
-%% receives three goods. Since this break coincides with a change in divisibility, the section
-%% leads to the next one.
+\section{Goods per Agent}\label{sec:goods}
+%% FUNCTION: Shows how the EFX rate of round robin changes with the number of goods per agent r
+%% when the number of goods is divisible by the number of agents (q = 0; m = 8, 12, 16 for n = 4).
+%% Special case: if every agent receives at most two goods and all favourite goods differ, round
+%% robin is guaranteed to be EFX (proven); the guarantee breaks at m = 2n + 1. Since this break
+%% coincides with the first remainder, the section leads to divisibility.
 
+\subsection{EFX Rate}\label{sec:goods-rate}
+%% FUNCTION: Paragraphs (1) to (3). The count over all cells needs a measurement rule that is
+%% fixed before counting (Befundstand A.2 no. 32); otherwise mark as exploratory.
+
+\subsection{At Most Two Goods and Distinct Favourite Goods}\label{sec:bundlesize}
+%% FUNCTION: Paragraph (4). Lemma and corollary with proof, checked in the stored cells; how often
+%% the condition holds; the break at m = 2n + 1 (block1_fig_break.pdf, possibly only panel n = 4).
+
+\subsection{Severity of Failures}\label{sec:goods-severity}
+%% FUNCTION: Paragraphs (5) to (7). Survival curves, one line per r. Relation to literature,
+%% recommendation, question of the next section (divisibility).
+
+%% ---------------------------------------------------------------------------------------------
+%% EXISTING TEXT in the old structure (block "Bundle Size", written before 10.11.). It is switched
+%% off until it is redistributed over the three subsections above. Nothing is deleted. The
+%% explanation via lead and gap moves to Appendix C.
+\iffalse
 \paragraph{Main result.}
 We call an instance \textit{collision-free} if all agents have different favourite goods. More generally, we define the \textit{collision rate} of an instance as $1-\#\{\text{distinct favourite goods}\}/n$, so an instance is collision-free exactly when its collision rate is $0$. The collision rate only describes an instance; we do not interpret it as a cause. For $\rho=1$, all agents have the same favourite good, so the collision rate always equals $1-1/n$ and collision-freeness never occurs.
 
@@ -63,3 +81,4 @@ Our results align with \textcite[p.~17]{manurangsi2021}, who argue asymptoticall
 
 \paragraph{Recommendation.}
 If every agent receives at most two goods and all favourite goods differ, Round Robin is the method of choice: EFX is guaranteed, and both conditions can be checked in advance. With more agents and more agreement, however, this situation quickly becomes rare, and beyond two goods per agent the guarantee breaks. Since the break at $m=2n+1$ coincides with the first remainder $q=1$, the next section asks which role divisibility plays.
+\fi

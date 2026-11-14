@@ -13,6 +13,16 @@ between exploratory and confirmatory runs, the use of common random numbers and 
 comparisons the design can identify.
 
 
+%% TARGET STRUCTURE (binding outline of 14.11., applied when Chapter 3 is revised; the text
+%% below still has the old section order):
+%% 3.1 Scenario: n, m, r, q; identification, hence r and q instead of m
+%% 3.2 Values: rho, theta, Spearman, Gini
+%% 3.3 Allocation and Evaluation: round robin, alpha_ij, alpha*, survival function,
+%%     EFX rate = S-hat(1), conditional 5% quantile
+%% 3.4 Design and Reference Cell: grid, R = 20,000, paired seeds, precision SE <= 0.0035,
+%%     confirmatory vs exploratory, reference cell lies in the region of the existence assumption
+%% Random allocation and other sequences are NOT introduced here (they move to Chapter 5).
+
 Hier noch irgendwie einfügen wie die stufenweise simulation abläuft. Vllt so als überblick. Später.
 
 
@@ -133,7 +143,7 @@ It is not possible to interpret an effect of $m$ alone, or a comparison between 
 
 For reproducibility, we use fixed seeds. The seed of an instance depends only on the master seed and on $k$. Hence, instance $k$ uses the same random numbers $\Wg$ and $\etaig$ for all levels of $\rho$ and $\theta$ and for all mechanisms (common random numbers). Consequently, curves over $\rho$, over $\theta$ and over mechanisms are paired and not independent of each other. Differences between such curves are estimated more precisely, but their error bars must not be compared as if they came from independent samples. Over $\theta$, the pairing is even perfect: the allocation stays the same, and only its evaluation changes (Section~\ref{sec:mechanisms}).
 
-We ran the simulation twice. A first, exploratory run with $R=2000$ and seed $12345$ served only to develop hypotheses. All numbers reported in this thesis come from a separate confirmatory run with $R=20{,}000$ and seed $20260927$, which we fixed before the run. The three alternative picking sequences run on exactly the same instances as Round Robin. Their comparison (Section~\ref{sec:sequences}) is exploratory, because we formulated the corresponding hypothesis only after the run.
+We ran the simulation twice. A first, exploratory run with $R=2000$ and seed $12345$ served only to develop hypotheses. All numbers reported in this thesis come from a separate confirmatory run with $R=20{,}000$ and seed $20260927$, which we fixed before the run. The three alternative picking sequences run on exactly the same instances as Round Robin. Their comparison (Section~\ref{sec:reversed}) is exploratory, because we formulated the corresponding hypothesis only after the run.
 
 The output of the simulation is one file per cell that contains the raw matrix of $\aij$ values. The tolerance $\varepsilon$ is applied only in the evaluation.
 % TODO: public repository, Python and NumPy versions (NumPy does not guarantee identical random numbers across versions)

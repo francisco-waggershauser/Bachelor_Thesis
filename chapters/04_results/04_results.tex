@@ -1,32 +1,27 @@
-\chapter{Results by Condition}\label{ch:results}
+\chapter{Results: One Condition at a Time}\label{ch:results}
 
-FUNCTION: This is the main part of the thesis. Each section varies one quantity while all other
-quantities stay at the reference levels (ceteris paribus): agreement, dispersion, goods per agent
-at a fixed remainder, the remainder at a fixed number of goods per agent, and the number of agents
-at a fixed number of goods per agent and remainder. A final section compares round robin with the
-balanced random benchmark and with reversing the last round. Each section ends with a
-recommendation and closes with the question that the next one answers.
+%% FUNCTION: This is the main part of the thesis. A short head recalls the reference cell and the
+%% order of every section. Each section then varies exactly one quantity while all other quantities
+%% stay at the reference cell: agreement, dispersion, goods per agent at remainder zero, the
+%% remainder at three goods per agent, and the number of agents at three goods per agent and
+%% remainder zero. Everything about one quantity is said in one place before the next begins.
+%% The comparison with random allocation is Chapter 5, not part of this chapter.
+%%
+%% WRITING TEMPLATE per section (order of paragraphs; subsections are only x.1 EFX Rate,
+%% x.2 special case with proof (where one exists), x.3 Severity of Failures):
+%% (1) what the quantity means in everyday terms and how we vary it, two or three sentences
+%% (2) read the main figure: key statement, cell values in the text (rate, R, failures), status
+%% (3) does it hold in general? one count over all cells
+%% (4) special case: statement, proof, "checked in the stored cells", figure only if needed
+%% (5) severity: read the survival curves, the whole curve, not only the quantile
+%% (6) relation to literature, including whether EFX existence is proven in these cells
+%% (7) recommendation in one sentence, then one sentence on the question of the next section
+%% Each section is one file; drop a section by removing its input line.
 
-WRITING TEMPLATE per block (order of paragraphs, NOT subsection headings):
-(1) main result with status (proven, measured, conjectured) and main figure: x axis the varied
-    quantity, y axis the EFX rate, all other quantities at the reference levels; cell values in
-    the surrounding text
-(2) does it hold in general? one count over all cells
-(3) special cases with proofs, a figure only where needed
-(4) how badly round robin fails: survival curves of one cell, one line per level, read off in text
-(5) relation to literature, incl. whether EFX existence is proven in these cells
-(6) recommendation in one sentence, then one sentence leading to the next block's question
-Each block is one file; drop a block by removing its input line.
+In the following we show the EFX-quotes of the cell n=4, m = 12, theta = 1 and rho = 0.5. We demonstrate the key insight through this example. We analyse one variable at a time while the rest is ceteris paribus. 
 
-
-A: Eine Übersichtsabbildung am Anfang von Kapitel 4, vor Block 1: EFX rate über alle Instanzen gegen $m$, Panels $n$, Spearman 0,48, drei Gini-Linien, dazu grau der balancierte Zufall. Sie dient als Orientierung für alle fünf Blöcke: Man sieht schon den Sägezahn (Block 2), das Niveau nach $n$ (Block 4) und den Abstan
-
-In the following we show the EFX-quotes of the cell n=4, m = 12, theta = 1 and rho = 1. We demonstrate the key insight through this example. We analyse one variable at a time while the rest is ceteris paribus. 
-
-\input{chapters/04_results/block3_agreement}
-\input{chapters/04_results/block_dispersion}
-\input{chapters/04_results/block1_bundlesize}
-\input{chapters/04_results/block2_divisibility}
-\input{chapters/04_results/block4_agents}
-\input{chapters/04_results/block_random}
-% Dropped 10.11.: \input{chapters/04_results/block5_sequences}
+\input{chapters/04_results/sec1_agreement}
+\input{chapters/04_results/sec2_dispersion}
+\input{chapters/04_results/sec3_goods_per_agent}
+\input{chapters/04_results/sec4_divisibility}
+\input{chapters/04_results/sec5_agents}

@@ -1,0 +1,25 @@
+\chapter{Round Robin versus Random Allocation}\label{ch:random}
+
+FUNCTION: This chapter compares round robin with allocating the goods somehow. It introduces
+the balanced random allocation as a generous benchmark, shows where round robin is far ahead and
+where it fails EFX systematically, and presents reversing the last round as a simple remedy that
+is just as easy to carry out by hand.
+
+\section{Balanced Random Allocation as a Generous Benchmark}\label{sec:random}
+FUNCTION: Defines the balanced random allocation (same bundle sizes as round robin, values
+ignored) and explains why it is a generous model of allocating without any method. Figure:
+EFX rate of round robin and of random allocation against Spearman in the reference cell. With
+little or moderate agreement, round robin is far ahead (measured).
+
+\section{Where Round Robin Fails Systematically}\label{sec:random-failure}
+FUNCTION: With full agreement and a number of goods not divisible by the number of agents, round
+robin fails to reach EFX with certainty (proven, Section~\ref{sec:divisibility-identical}), while
+random allocation fails only almost always. Wording: systematic failure to reach EFX, never
+unfair, since round robin remains EF1. Figure: full agreement, $n=4$, EFX rate against $m$ for
+round robin, last round reversed and random allocation.
+
+\section{Reversing the Last Round as a Simple Remedy}\label{sec:reversed}
+FUNCTION: Short and exploratory. Reversing the last round removes exactly the pairs at which
+round robin fails there. The guarantees are results of other authors (Manurangsi and Suksompong
+2021; Amanatidis, Markakis and Ntokos 2020). Measured: it helps substantially when agents receive
+few goods or values are similar.
