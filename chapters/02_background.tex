@@ -16,8 +16,8 @@ An \textit{allocation} $A = (A_1,\dots,A_n)$ is a tuple of subsets of $M$ ($A_i 
 
 We define a \textit{picking sequence} following \textcite{bouveret2011} as a sequence $(\sigma_1,\dots,\sigma_m) \in N^m$. In turn $k$ agent $\sigma_k$ chooses the good with the highest $v_{\sigma_k}(g)$ from the remaining goods. Ties are broken by a fixed rule; under continuous valuations they occur with probability zero (Chapter~\ref{ch:model}).
 
-The central picking sequence of this work, the Round Robin algorithm, repeats the order
-$1,2,\dots,n$ until $m$ turns are reached. We define one round as round $t$, which contains the turns $(t-1)n+1$ until $tn$. The last round can be incomplete. The good that agent $i$ takes in round $t$ is $i_t$. The bundle of agent $i$ is $A_i=\{i_1,\dots,i_{|A_i|}\}$.
+The central picking sequence of this work is Round Robin. It repeats the order
+$1,2,\dots,n$ until $m$ turns are reached. Round $t$ consists of the turns $(t-1)n+1$ to $tn$. The last round can be incomplete. The good that agent $i$ takes in round $t$ is $i_t$. The bundle of agent $i$ is $A_i=\{i_1,\dots,i_{|A_i|}\}$.
 
 Following \textcite{manurangsi2021}, we define two variables $r$ and $q$. Here, $r$ is the number of \textit{full rounds} defined as $r = \lfloor \frac{m}{n} \rfloor$ and $q = m - nr$ which is the remainder of goods in the last round. If $q=0$, then $m$ is divisible by $n$ and there is no incomplete round. Applied to the Round Robin algorithm, that means that the agents $1,\dots,q$ get $r+1$ goods and the other remaining agents $r$ goods.
 
@@ -100,7 +100,7 @@ $v_i(A_i)\geq v_i(A_j\setminus\{j_1\})$.
 Envy can therefore only point from an agent who picks later to an agent who picks earlier, and it
 disappears once the earlier agent's first good is removed. EFX, in contrast, requires that the
 envy disappears after removing the earlier agent's \emph{least} valuable good. Nothing in the
-argument controls this, and the following example shows that the gap can be arbitrarily large.
+argument controls this, and the following example shows that the shortfall can be arbitrarily large.
 
 \begin{example}\label{ex:witness}
 Let $n=2$, $m=4$ and $0<\delta<1/3$, with values

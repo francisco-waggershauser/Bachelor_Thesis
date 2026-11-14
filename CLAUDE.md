@@ -1,7 +1,7 @@
 # Thesis repo: rules for Claude
 
 Bachelor thesis of Francisco Waggershauser, KIT ECON, Chair of Economic Theory.
-Working title (since 13.10.2026, may change until submission): *When Does Round-Robin Achieve EFX? A Simulation-Based Average-Case Analysis*.
+Working title (since 14.11.2026, may change until submission): *How Often Does Round Robin Achieve EFX? A Simulation-Based Average-Case Analysis*.
 Supervisor Matthias Ammann. Synced with Overleaf via GitHub, Overleaf only sees `main`.
 
 ## Workflow

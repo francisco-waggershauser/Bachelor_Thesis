@@ -1,6 +1,23 @@
 % Abstract, \input from main.tex
 \chapter*{Abstract}
+%% FUNCTION: States the question, the method, the main findings and the recommendation in one
+%% paragraph.
 
-FUNCTION: States the question (how often does round robin achieve EFX, and when is it therefore
-a good heuristic), the method (simulation, one condition at a time around a reference cell), the
-main findings and the recommendation, in one paragraph.
+Round Robin, in which people take turns picking their favourite remaining good, is a fair
+division procedure that can be carried out by hand. It always guarantees envy-freeness up to one
+good (EF1), but it offers no guarantee, not even an approximate one, for the stronger notion of
+envy-freeness up to any good (EFX). We therefore ask how often Round Robin achieves EFX in the
+average case and under which conditions it is a good heuristic for EFX. We simulate
+$20{,}000$ instances for each combination of two to five agents, up to four goods per agent and
+lognormal values with five levels of agreement and six levels of dispersion, and vary one
+condition at a time around a reference cell. In the reference cell with four agents and twelve
+goods, Round Robin achieves EFX in $29\%$ of the instances. It achieves EFX more often when agents
+agree little, when values are similar and the number of goods is divisible by the number of
+agents, and when every agent receives more goods; it achieves EFX less often, and misses it by
+more, when agents agree strongly, values differ greatly or more agents take part. We prove that
+Round Robin is always EFX when every agent receives at most two goods and all favourite goods
+differ, and that it is never EFX under identical valuations when the number of goods is not
+divisible by the number of agents. Compared with a random allocation of equal bundle sizes,
+Round Robin is far ahead unless agents agree strongly, and reversing the order of the last round
+removes its systematic failure under identical valuations. A decision table summarises when Round
+Robin can be relied on.

@@ -1,12 +1,72 @@
 \chapter{Introduction}\label{ch:intro}
+%% FUNCTION: Motivates the question and states what the thesis contributes: practice first
+%% (round robin works by hand), then theory (EF1 guaranteed, EFX existence open from four agents
+%% on, no approximation guarantee for EFX), then the gap, the research question, the
+%% contributions and a roadmap. No mathematics in this chapter (chair writing guide).
 
-FUNCTION: This chapter motivates the question and states what the thesis contributes. It starts
-from practice: round robin can be run without a computer, since people simply take turns picking
-their favourite item, whereas procedures that reliably find EFX allocations cannot be explained
-or executed by hand. It then gives the theoretical motivation. Round robin guarantees EF1, EFX
-existence is open for four or more agents, and round robin can be arbitrarily far from EFX in
-the worst case, so only an average case analysis is informative. The chapter places the thesis
-relative to existing average case work on picking sequences, states the research question, lists
-the contributions and ends with a roadmap.
-No mathematics in this chapter (chair writing guide).
+When heirs divide an estate, flatmates split the furniture of a shared flat or children share a
+box of toys, a common procedure is to take turns: everyone picks the item they like best among
+those that remain, in a fixed order, round after round. This procedure is called Round Robin. It
+needs no computer, no money and no announcement of how much anyone values each item; everyone
+only has to make a choice when it is their turn. Variants of it are used in practice, for instance
+in a draft at Harvard Business School that allocated courses to students and reversed the order
+of choosing in every round \parencite[p.~1065]{budish2011}.
 
+Procedures that do better are available, but they cannot be carried out by hand. A local search
+procedure, for instance, finds a fair allocation in the sense studied here in every instance that
+has been tested, but it does so by moving goods between bundles thousands of times
+\parencite{branzei2025}. For a family at a kitchen table, the realistic alternative to Round Robin
+is therefore not the best possible allocation, but dividing the goods somehow. The question is
+whether taking turns is good enough.
+
+What counts as fair is a question of theory. The most demanding standard, that nobody prefers
+another person's share to their own, often cannot be met when goods are indivisible: with one
+painting and two heirs, one of them is left without it. The literature therefore uses weaker
+standards. Round Robin always meets a weak one: if someone prefers another person's share, this
+preference disappears once a single good, the one they like best, is removed from the other
+share \parencite{caragiannis2019,amanatidis2023survey}. This standard is called envy-freeness up
+to one good (EF1). A stronger standard requires that the
+preference disappears after removing \emph{any} single good from the other share, even the one
+they like least; it is called envy-freeness up to any good (EFX). Whether an allocation meeting this stronger standard always exists is one of the
+main open questions of the field for four or more people
+\parencite[Open Problem~2]{amanatidis2023survey}. Round Robin offers no guarantee for it, not even
+an approximate one: in some situations, its allocation misses the stronger standard by an
+arbitrarily large factor (Chapter~\ref{ch:background}). A guarantee for the worst case therefore
+says nothing useful, and only the typical case can tell whether Round Robin is a good way to reach
+the stronger standard.
+
+Existing studies of the typical case of such turn-taking procedures concern other goals. Some
+ask which order of turns maximises the expected total or minimum satisfaction
+\parencite{bouveret2011,kalinowski2013}. Others prove that, as the number of people grows and their
+valuations are independent, Round Robin even reaches the most demanding standard once there are
+enough goods, and that a variant which reverses the order of the last round reaches the stronger
+standard with high probability \parencite{manurangsi2021}. These results are asymptotic and assume
+that people value goods independently of each other. For a few people, for people who largely
+agree on what is valuable, and for the question of how far Round Robin misses the stronger standard
+when it fails, we found no analysis. \textcite[p.~11]{branzei2025} remarks that Round Robin often
+fails it, especially when valuations are correlated, but does not quantify this.
+
+This thesis asks: \emph{how often does Round Robin achieve EFX, and under which conditions is it
+therefore a good heuristic for EFX?} We answer the question by simulation. We
+vary five conditions one at a time around a common reference case: how much the people agree,
+how far apart the values of the goods lie, how many goods each person receives, whether the goods
+can be divided evenly, and how many people take part. For each combination, we draw
+20{,}000 situations and measure both how often Round Robin succeeds and how far it misses when
+it fails.
+
+The thesis makes three contributions. First, it measures how often Round Robin reaches the
+stronger standard and how far it misses it, for two to five people and for valuations that range
+from independent to identical. Second, it proves three simple statements that delimit these
+measurements: Round Robin always succeeds when everyone receives at most two goods and nobody
+shares a favourite good; it always fails when everyone ranks the goods identically and the goods
+cannot be divided evenly; and when all goods are worth almost the same and can be divided evenly,
+it almost always succeeds. Third, it compares Round Robin with dividing the goods at random and
+with reversing the last round, and it collects the results in a table that tells people who divide
+goods by hand when to rely on Round Robin.
+
+Chapter~\ref{ch:background} defines the fairness standards and explains why Round Robin meets the
+weaker but not the stronger one. Chapter~\ref{ch:model} describes the simulation.
+Chapter~\ref{ch:results} presents the results one condition at a time, and
+Chapter~\ref{ch:random} compares Round Robin with random allocation and with reversing the last
+round. Chapter~\ref{ch:discussion} discusses limitations and open questions, and
+Chapter~\ref{ch:conclusion} concludes with the decision table.
