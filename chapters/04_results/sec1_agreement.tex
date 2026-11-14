@@ -1,25 +1,120 @@
 \section{Agreement}\label{sec:agreement}
 %% FUNCTION: Shows that round robin achieves EFX less often in a world where agents agree more on
-%% what is valuable, first in the reference cell, then as a count over all cells. Under full
-%% agreement without divisibility it never achieves EFX (proven). Survival curves show that
-%% failures also become more severe. Because the size of the effect depends on how far values
-%% are spread, the next section turns to dispersion.
+%% what is valuable, first in the reference cell, then as a count over all cells. The only proven
+%% case, full agreement without divisibility, is deferred to Section 4.4. Survival curves show
+%% that failures also become more severe. Because the size of the effect depends on how far
+%% values are spread, the next section turns to dispersion.
 
-In a world with more agreement, Round Robin achieves EFX less often. Figure~\ref{fig:agreement}
-shows the EFX rate against the Spearman rank correlation of the world from which the instances
-are drawn, for our reference cell with $n=4$ agents, $m=12$ goods and Gini $0.52$ ($\theta=1$).
-All other quantities are fixed, so the figure varies only agreement. Without agreement, Round
-Robin achieves EFX in a share of $0.741$ of the instances. The rate falls to $0.515$, $0.293$ and
-$0.109$ at Spearman $0.24$, $0.48$ and $0.73$, and reaches $0.000$ under full agreement. Each
-rate rests on $R=20{,}000$ instances, and the points are paired, since all levels of agreement
-use the same random seeds (Chapter~\ref{ch:model}). This result is measured, not proven.
+Agreement describes how similarly the agents rank the goods. Heirs who all want the same
+painting agree strongly; flatmates with different tastes agree little. In our model, agreement
+is the parameter $\rho$, which we report as the Spearman rank correlation of the world from which
+the instances are drawn (Section~\ref{sec:instances}). We vary it over its five levels, Spearman
+$0$, $0.24$, $0.48$, $0.73$ and $1$, and keep everything else at the reference cell: $n=4$
+agents, $m=12$ goods and Gini $0.52$ ($\theta=1$).
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\linewidth]{fig_agreement_rate.pdf}
-    \caption{EFX rate of Round Robin against the Spearman rank correlation of the world from which
-    instances are drawn, for $n=4$ agents, $m=12$ goods and Gini $0.52$ ($\theta=1$).
-    Each point rests on $R=20{,}000$ instances.}
-    \label{fig:agreement}
+\subsection{EFX Rate}\label{sec:agreement-rate}
+
+As Figure~\ref{fig:agreement} shows, Round Robin achieves EFX less often in a world with more
+agreement. Without agreement, $0.741$ of the instances are EFX. The EFX rate falls to $0.515$ at
+Spearman $0.24$, to $0.293$ at Spearman $0.48$ and to $0.109$ at Spearman $0.73$. Under full
+agreement it is $0.0003$, which are $6$ of $20{,}000$ instances. In absolute numbers, Round Robin
+fails EFX in $5{,}178$, $9{,}706$, $14{,}135$, $17{,}829$ and $19{,}994$ of the $R=20{,}000$
+instances per level. The decline is steep from the start: each of the first two steps costs about
+$0.22$, and at Spearman $0.48$ the EFX rate is already less than half of its value without agreement. This result is
+measured, not proven. Its direction is plausible, because under agreement the good that one agent
+picks tends to be the good that the next agent wanted as well. Later agents then lose goods they
+value highly to earlier agents, and exactly these goods make the earlier bundles attractive to
+them. We state this explanation as a conjecture; we did not test it.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig41_agreement_rate.pdf}
+  \caption{EFX rate of Round Robin against the Spearman rank correlation of the world from which
+  the instances are drawn, for $n=4$ agents, $m=12$ goods and Gini $0.52$ ($\theta=1$). Each
+  point rests on $R=20{,}000$ instances.}
+  \label{fig:agreement}
 \end{figure}
 
+The decline is not a property of the reference cell alone. For each of the $42$ pairs $(n,m)$
+and each of the six levels of dispersion, we follow the EFX rate over the five levels of
+agreement. In $240$ of these $252$ courses, the EFX rate falls strictly at each of the four
+steps (measured). The $12$ exceptions are exactly the courses with $q=0$ and Gini $0.06$
+($\theta=0.1$). There the EFX rate equals $1$ at every level of agreement, so it cannot fall;
+Section~\ref{sec:dispersion-limit} explains this ceiling. The $252$ courses are not independent
+confirmations, since all cells share the same random seeds (Section~\ref{sec:design}).
+
+Only one case of this pattern is proven. Under full agreement, Round Robin is almost surely not
+EFX whenever the number of goods is not divisible by the number of agents
+(Section~\ref{sec:divisibility-identical}). The reference cell is divisible, so this result does
+not apply to it, and the six EFX instances at Spearman $1$ show that failure is not certain
+there. For divisible cells under full agreement, the EFX rate depends on dispersion
+(Section~\ref{sec:dispersion}).
+
+\subsection{Severity of Failures}\label{sec:agreement-severity}
+
+The EFX rate counts how often Round Robin fails, but not by how much. Figure~\ref{fig:agreement-survival}
+therefore shows, for every level of agreement, the share of instances with $\astar\geq\alpha$.
+Each curve ends at $\alpha=1$ in the EFX rate of Figure~\ref{fig:agreement}. The earlier a curve
+drops below $1$ and the lower it runs, the more severe are the failures.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig41_agreement_survival.pdf}
+  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per level of
+  Spearman rank correlation, for $n=4$ agents, $m=12$ goods and Gini $0.52$ ($\theta=1$). Each
+  curve rests on $R=20{,}000$ instances and ends at $\alpha=1$ in the EFX rate. The point on
+  each curve marks the $5\%$ quantile of $\astar$ among the instances that are not EFX.}
+  \label{fig:agreement-survival}
+\end{figure}
+
+The curves are ordered over the whole range: a curve for more agreement never lies above a curve
+for less agreement by more than $0.0001$. For small $\alpha$ they lie close together, with
+shares between $0.997$ and $0.928$ at $\alpha=0.2$, and from there on they fan out. At $\alpha=0.8$, the share of instances that reach at least this
+level is $0.846$ without agreement and $0.667$, $0.457$, $0.243$ and $0.018$ at the four higher
+levels. At $\alpha=0.6$, the shares are $0.925$, $0.812$, $0.651$, $0.468$ and $0.191$. More
+agreement therefore does not only move instances from EFX to slightly below EFX. It moves them
+into the middle range of $\astar$. The curve for full agreement has a different shape from the
+others: it falls steeply between $\alpha=0.3$ and $\alpha=0.7$ and is almost flat above $0.8$.
+In this world nearly every instance fails, and most failures are moderate. A share of $0.592$ of
+the instances still reaches $\astar\geq0.4$, but only $0.018$ reaches $\astar\geq0.8$.
+
+Very severe failures remain rare at every level. The share of instances with $\astar<0.2$ rises
+from $0.003$ without agreement to $0.072$ under full agreement. This is why the conditional
+$5\%$ quantile, the point on each curve, moves little: it is $0.32$, $0.27$, $0.23$, $0.21$ and
+$0.18$ for the five levels. Read alone, it would suggest that failures hardly become more severe.
+The curves show otherwise. The median of $\astar$ among the instances that are not EFX falls
+from $0.74$ to $0.68$, $0.60$, $0.54$ and $0.44$. We computed this median for this comparison
+only; it is not one of our two key figures. In summary, in a world with more agreement, Round
+Robin fails more often, and it also fails by more (measured).
+
+Two restrictions apply. The curves share the same random seeds, so their distances are estimated
+precisely, but the curves are not independent samples. Moreover, we read the curves of one cell.
+The same ordering appears in the neighbouring cell with $m=13$ goods and for Gini $0.28$
+($\theta=0.5$), where all curves lie higher: for $m=12$, the median among the instances that are
+not EFX then falls from $0.90$ to $0.77$, and at least $0.994$ of the instances reach
+$\astar\geq0.4$ at every level of agreement. We did not examine other cells.
+
+\paragraph{Relation to literature.}
+The two ends of our agreement axis are the models \textit{full independence} and
+\textit{full correlation} of \textcite[p.~74]{bouveret2011}. They observe that full correlation
+is the worst case for the utility that agents obtain from a picking sequence, and they mention a
+model with intermediate correlation without developing it. Our results cover this intermediate
+range for a different target, EFX, and show that the EFX rate deteriorates gradually and not only
+at the end point. \textcite[p.~11]{branzei2025} remarks that Round Robin fails to produce an EFX
+allocation in many instances, especially for correlated valuations, without reporting numbers.
+Our measurements quantify this remark for small instances. Both her correlated model
+\parencite[p.~8]{branzei2025} and the CORRELATED model of \textcite[p.~1406]{dickerson2014}
+combine a common value of a good with an individual term, as ours does. As for existence, the
+reference cell with $n=4$ and $m=12$ lies in the region where the existence of an EFX allocation
+is open for every level of agreement below Spearman $1$. There we assume existence
+(Section~\ref{sec:existence}), and under this assumption every failure reported here is a failure
+of Round Robin. Under full agreement, existence is proven
+\parencite{plaut2020}, with an alternative proof for additive valuations by
+\textcite[Prop.~1]{branzei2025}, so the $19{,}994$ failures at Spearman $1$ are failures of Round
+Robin without any assumption.
+
+\paragraph{Recommendation.}
+The less the people involved agree on what is valuable, the more Round Robin can be relied on to
+deliver EFX; where they agree strongly, Round Robin should be expected to miss EFX, and by a
+clear margin. How large these effects are depends on how far apart the values of the goods lie,
+which is the subject of the next section.
