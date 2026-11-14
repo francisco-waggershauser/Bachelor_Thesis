@@ -1,25 +1,129 @@
 \chapter{Round Robin versus Random Allocation}\label{ch:random}
+%% FUNCTION: Compares round robin with allocating the goods somehow. Introduces the balanced
+%% random allocation as a generous benchmark, shows where round robin is far ahead and where it
+%% fails EFX systematically, and presents reversing the last round as a simple remedy that is just
+%% as easy to carry out by hand. Section 5.3 is exploratory.
 
-FUNCTION: This chapter compares round robin with allocating the goods somehow. It introduces
-the balanced random allocation as a generous benchmark, shows where round robin is far ahead and
-where it fails EFX systematically, and presents reversing the last round as a simple remedy that
-is just as easy to carry out by hand.
+Chapter~\ref{ch:results} judged Round Robin on its own. In practice, however, the alternative to
+Round Robin is rarely an algorithm that searches for an EFX allocation, but simply dividing the
+goods somehow. This chapter compares Round Robin with such an allocation and then with a variant
+of Round Robin that is just as easy to carry out by hand.
 
 \section{Balanced Random Allocation as a Generous Benchmark}\label{sec:random}
-FUNCTION: Defines the balanced random allocation (same bundle sizes as round robin, values
-ignored) and explains why it is a generous model of allocating without any method. Figure:
-EFX rate of round robin and of random allocation against Spearman in the reference cell. With
-little or moderate agreement, round robin is far ahead (measured).
+
+We model dividing the goods without any procedure by the \textit{balanced random allocation}.
+It draws an allocation uniformly at random among all allocations in which every agent receives
+the same number of goods as under Round Robin, and it ignores the values entirely. Fixing the
+bundle sizes is generous towards the benchmark: it rules out empty and very unequal bundles,
+which would cause EFX to fail for this reason alone. The benchmark is our own modelling choice;
+we found no precedent for it in the literature. Since it ignores the values, it does not
+guarantee EF1, whereas Round Robin always does. The balanced random allocation runs on exactly the
+same instances as Round Robin, so every comparison between the two is paired.
+
+As Figure~\ref{fig:random-agreement} shows, Round Robin is far ahead in the reference cell. The
+balanced random allocation achieves EFX in only $0.007$ of the instances without agreement and
+in $0.002$ to $0.005$ at the other levels. Round Robin achieves $0.741$ without agreement and
+$0.293$ at Spearman $0.48$. Only under full agreement does the order reverse, at a very low level:
+Round Robin reaches $0.0003$, the random allocation $0.0019$. When random allocations fail, they
+also fail by more: their conditional $5\%$ quantile lies around $0.10$ at every level of
+agreement, against $0.18$ to $0.32$ for Round Robin (measured).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig5_random_agreement.pdf}
+  \caption{EFX rate of Round Robin and of the balanced random allocation against the Spearman
+  rank correlation, for $n=4$ agents, $m=12$ goods and Gini $0.52$ ($\theta=1$). Both mechanisms
+  are applied to the same $R=20{,}000$ instances per point.}
+  \label{fig:random-agreement}
+\end{figure}
+
+The comparison over all cells confirms the picture below strong agreement. Up to Spearman $0.48$
+($\rho=0.5$), Round Robin is behind the random allocation in none of the $756$ cells; the median
+difference in the EFX rate is $0.60$ without agreement, $0.42$ at Spearman $0.24$ and $0.22$ at
+Spearman $0.48$. At Spearman $0.73$ ($\rho=0.75$), Round Robin is behind in $37$ of $252$ cells,
+all of them with $q>0$ and at most four goods more than agents, and the median difference shrinks
+to $0.06$ (measured).
+
+Part of the advantage is not specific to Round Robin. With equal bundle sizes and similar values,
+every allocation tends to be EFX (Proposition~\ref{prop:theta-limit}): in the reference cell at
+Gini $0.06$ ($\theta=0.1$), the random allocation reaches $0.9997$. The advantage of Round Robin
+appears as soon as values differ. At Gini $0.14$ ($\theta=0.25$), the random allocation falls to
+$0.451$, while Round Robin stays at $0.959$; at Gini $0.28$ ($\theta=0.5$), the two reach $0.033$
+and $0.574$. Choosing by preference is what makes this difference.
 
 \section{Where Round Robin Fails Systematically}\label{sec:random-failure}
-FUNCTION: With full agreement and a number of goods not divisible by the number of agents, round
-robin fails to reach EFX with certainty (proven, Section~\ref{sec:divisibility-identical}), while
-random allocation fails only almost always. Wording: systematic failure to reach EFX, never
-unfair, since round robin remains EF1. Figure: full agreement, $n=4$, EFX rate against $m$ for
-round robin, last round reversed and random allocation.
+
+The comparison reverses in one situation: under full agreement when the number of goods is not
+divisible by the number of agents. There, Round Robin fails EFX with certainty
+(Proposition~\ref{prop:identical}): the agent who picks last always envies the agent who picks
+first, even after removing any good from the first agent's bundle. In all $180$ cells with
+$\rho=1$ and $q>0$, not a single instance is EFX. The random allocation fails only almost always:
+it is ahead of Round Robin in $169$ of these cells and level in the other $11$, where both reach
+zero. The median gap is small, $0.034$, because the random allocation rarely succeeds either. The
+gap is largest when there are few goods: with $n=4$ agents and $m=5$ goods, the random allocation
+reaches $0.098$ at Gini $0.52$ ($\theta=1$), against zero for Round Robin.
+
+This is a systematic failure to reach EFX, not unfairness in a broader sense: Round Robin still
+guarantees EF1 in these cells, which the random allocation does not. The weakness lies in Round
+Robin, not in the problem, because with identical valuations an EFX allocation always exists
+\parencite{plaut2020}. Under full agreement with divisibility, neither mechanism is clearly ahead:
+Round Robin is behind in $35$ of $72$ cells, level in $8$ and ahead in $29$.
 
 \section{Reversing the Last Round as a Simple Remedy}\label{sec:reversed}
-FUNCTION: Short and exploratory. Reversing the last round removes exactly the pairs at which
-round robin fails there. The guarantees are results of other authors (Manurangsi and Suksompong
-2021; Amanatidis, Markakis and Ntokos 2020). Measured: it helps substantially when agents receive
-few goods or values are similar.
+
+The proof of Proposition~\ref{prop:identical} shows where Round Robin fails: an agent who receives
+$r$ goods compares their bundle with an agent who picked earlier in every round and also receives
+an extra good. A simple change removes exactly this comparison. In the variant
+\textit{last round reversed}, the agents pick in the order $1,\dots,n$ in every round except the
+last, in which the order is $n,\dots,1$. With $q>0$, the extra goods therefore go to the agents who
+picked last so far. This is the algorithm of \textcite[Sec.~5.1]{manurangsi2021}. For $q=0$, our
+variant also reverses the last, complete round, whereas theirs coincides with Round Robin. The
+variant is as easy to carry out by hand as Round Robin, and since every agent picks at most once
+per round, it also guarantees EF1 \parencite[Prop.~2.1]{celine2026}.
+
+Two known results explain its effect. \textcite[Claim~5.3]{manurangsi2021} prove that under this
+variant, an agent with $r$ goods never violates EFX towards an agent with $r+1$ goods, for every
+valuation. For $m=n+1$, the variant gives the remaining good to the agent who picked last, and
+this allocation is always EFX; the construction appears in the proof of
+\textcite[Thm.~5.1]{amanatidis2020multiple}, and \textcite[p.~8]{branzei2025} also notes it.
+These guarantees are results of other authors. What we add is their size in our design. We
+formulated the hypothesis that the variant improves on Round Robin only after the simulation had
+run, so this section is exploratory.
+
+Across all cells in which not both mechanisms reach $1$, the variant achieves a higher EFX rate
+than Round Robin in $1{,}191$ of $1{,}200$ cells and a lower one in none; the remaining $9$ cells
+are level. At $m=n+1$, all $120$ cells reach exactly $1$. Under full agreement with $q>0$, where
+Round Robin is always zero, the variant is above zero in $174$ of $180$ cells, with a median EFX
+rate of $0.699$ (measured). Figure~\ref{fig:random-full} shows, however, that this median rests
+on few goods and similar values. For $n=4$ agents and Gini $0.52$ ($\theta=1$), the variant reaches
+$1.000$ at $m=5$, $0.688$ at $m=6$ and $0.323$ at $m=7$, but at most $0.075$ from $m=8$ on, and
+there all three mechanisms lie close to zero. At Gini $0.28$ ($\theta=0.5$), the variant holds up
+longer: $0.960$ at $m=6$, $0.826$ at $m=7$ and still $0.274$ at $m=13$, while Round Robin is zero
+at every $q>0$ and the random allocation stays below $0.10$. In the cells with $q>0$, the
+remaining failures of the variant must come from pairs with equal bundle sizes or from an agent
+with $r+1$ goods comparing with an agent with $r$ goods, because Claim~5.3 rules out the other
+pairs; which of the two dominates we did not measure.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig5_random_full_agreement.pdf}
+  \caption{EFX rate under full agreement (Spearman $1$) against the number of goods $m$, for
+  $n=4$ agents and Gini $0.52$ ($\theta=1$): Round Robin, last round reversed and the balanced
+  random allocation, applied to the same $R=20{,}000$ instances per point.}
+  \label{fig:random-full}
+\end{figure}
+
+\paragraph{Relation to literature.}
+\textcite[Thm.~5.2]{manurangsi2021} show that the variant is EFX with probability
+$1-O(1/\sqrt{q})$ for independent values with bounded density on $[0,1]$, and they remark that it
+fails with constant probability when $q$ is a constant of at least two
+\parencite[p.~17]{manurangsi2021}. Their result is asymptotic and assumes independent values; our
+measurements add the size of the effect for few agents and correlated values, compared with
+standard Round Robin and with a random allocation. \textcite[Conclusion]{celine2026}
+name the average case analysis of picking sequences as an open direction.
+
+\paragraph{Recommendation.}
+Unless the people involved agree strongly, Round Robin is far better than dividing the goods
+somehow. When everyone agrees and the goods cannot be divided evenly, the last round should be
+reversed, which helps substantially as long as everyone receives few goods or the values are
+similar.
