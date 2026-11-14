@@ -1,20 +1,166 @@
 \section{Dispersion}\label{sec:dispersion}
 %% FUNCTION: Shows how the EFX rate of round robin changes with the dispersion of values, all
-%% other quantities at the reference cell. First sentence: round robin uses only rankings, so its
-%% allocation is the same for every level of dispersion; dispersion only changes how this fixed
-%% allocation is evaluated. Main figure: EFX rate against Gini with all six levels, reference cell
-%% (m = 12, q = 0) and additionally m = 13 (q = 1), because the interaction is the message.
+%% other quantities at the reference cell. Round robin uses only rankings, so its allocation is the
+%% same for every level of dispersion; dispersion only changes how this fixed allocation is
+%% evaluated. With equal bundle sizes the EFX rate tends to one as dispersion vanishes (proven);
+%% without divisibility it does not. Since this limit depends on bundle sizes, the next section
+%% turns to the number of goods per agent.
+
+Dispersion describes how far apart the values of the goods lie. When siblings divide a set of
+similar books, every book is worth about the same; when they divide an estate with one house and
+many small items, the values differ greatly. In our model, dispersion is the parameter $\theta$,
+which we report as the Gini coefficient of the values of a single agent
+(Section~\ref{sec:instances}). We vary it over its six levels, from Gini $0.06$ ($\theta=0.1$) to
+Gini $0.71$ ($\theta=1.5$), and keep everything else at the reference cell: $n=4$ agents, $m=12$
+goods and Spearman $0.48$ ($\rho=0.5$).
+
+One fact shapes the whole section. Round Robin only uses the agents' rankings of the goods, and
+dispersion does not change any ranking. The allocation is therefore the same for every level of
+dispersion (proven, Section~\ref{sec:mechanisms}); dispersion only changes how the agents
+evaluate this fixed allocation. All differences in this section arise from evaluating the same
+allocations, so the comparison across levels is perfectly paired.
 
 \subsection{EFX Rate}\label{sec:dispersion-rate}
-%% FUNCTION: Paragraphs (1) to (3). The count over all cells needs a measurement rule that is
-%% fixed before counting (Befundstand A.2 no. 32); otherwise mark as exploratory.
+
+As Figure~\ref{fig:dispersion} shows, the more the values of the goods differ, the less often
+Round Robin achieves EFX. In the reference cell (solid line), every one of the $20{,}000$
+instances is EFX at Gini $0.06$ ($\theta=0.1$). The EFX rate falls to $0.959$ at Gini $0.14$
+($\theta=0.25$), with $817$ failures, and then drops steeply to $0.574$ at Gini $0.28$
+($\theta=0.5$). From there it declines more slowly: $0.375$ at Gini $0.40$ ($\theta=0.75$),
+$0.293$ at Gini $0.52$ ($\theta=1$) and $0.230$ at Gini $0.71$ ($\theta=1.5$), with $15{,}407$
+failures at the last level. These results are measured.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig42_dispersion_rate.pdf}
+  \caption{EFX rate of Round Robin against the Gini coefficient of the values, for $n=4$ agents
+  and Spearman $0.48$ ($\rho=0.5$). Solid line: $m=12$ goods (reference cell, $q=0$). Dashed
+  line: $m=13$ goods ($q=1$). Each point rests on $R=20{,}000$ instances.}
+  \label{fig:dispersion}
+\end{figure}
+
+The dashed line adds a cell with a single additional good, $m=13$, in which one agent receives
+four goods and the others three. The two lines differ sharply when the values are similar and
+coincide when they are not. At Gini $0.06$ ($\theta=0.1$), the EFX rate is $1.000$ with $m=12$
+but only $0.499$ with $m=13$. At Gini $0.52$ ($\theta=1$), the two cells reach $0.293$ and
+$0.298$, and at Gini $0.71$ ($\theta=1.5$) the cell with the additional good is even slightly
+ahead, $0.254$ against $0.230$. Without divisibility, the EFX rate also declines with
+dispersion, but from a much lower starting point and much more gently. Whether the number of
+goods is divisible by the number of agents therefore matters only when the values of the goods
+are similar. Section~\ref{sec:divisibility} examines this interaction in detail.
+
+To check whether the decline holds beyond the reference cell, we fixed a rule before counting.
+For each pair $(n,m)$ and each level of agreement, we follow the EFX rate over the six levels of
+dispersion. We exclude in advance the courses that are constant by proof: those with $m=n+1$,
+where the EFX rate does not depend on dispersion at all (Section~\ref{sec:bundlesize}), and those
+with full agreement and $q>0$, where it is always zero (Section~\ref{sec:divisibility-identical}).
+A course counts as falling if the EFX rate decreases strictly at each of the five steps. Of the
+remaining $164$ courses, $144$ fall (measured). Since we knew individual cells before fixing the
+rule, we treat this count as exploratory. Among the $60$ courses with $q=0$, $57$ fall; the three
+exceptions occur under full agreement, where the EFX rate reaches zero before the highest level
+of dispersion and stays there. Among the $104$ courses with $q>0$, $87$ fall. In $15$ of the $17$
+exceptions, the rate does not fall at the first step, from Gini $0.06$ to Gini $0.14$; it stays
+flat or rises by at most $0.0024$, and then falls at every later step. The remaining two
+exceptions have $n=2$ agents and $m=5$ or $m=7$ goods, where the EFX rate hardly moves at all.
+In summary, the EFX rate never rises noticeably with dispersion, and it falls clearly whenever
+the number of goods is divisible.
 
 \subsection{Vanishing Dispersion with Equal Bundle Sizes}\label{sec:dispersion-limit}
-%% FUNCTION: Paragraph (4). Limit theorem: as dispersion vanishes and q = 0, the EFX rate tends
-%% to one, for every level of agreement and for every allocation with equal bundle sizes (proven,
-%% checked in the stored cells). For every positive dispersion the rate stays below one (proven
-%% for n = 2, m = 4; otherwise conjectured). Without divisibility the limit is not one (measured).
+
+The value of $1.000$ at Gini $0.06$ ($\theta=0.1$) in the reference cell is no coincidence. When
+all values approach each other, a comparison of bundles reduces to a comparison of their sizes.
+If all bundles have the same size, removing one good from another agent's bundle always leaves
+fewer goods than one's own bundle contains.
+
+\begin{proposition}\label{prop:theta-limit}
+Let $q=0$, so that every agent receives $r=m/n\geq2$ goods, and consider any allocation in which
+all bundles have the same size $r$ and which does not depend on $\theta$. Then the probability
+that this allocation is EFX tends to $1$ as $\theta\to0$, for every level of agreement $\rho$.
+\end{proposition}
+
+\begin{proof}
+Fix an instance, that is, fixed draws $\Zig$. Since $v_i(g)=\exp(\theta\Zig)\to1$ for every good
+as $\theta\to0$, we have $v_i(A_i)\to r$, $v_i(A_j)\to r$ and
+$\min_{g\in A_j}v_i(g)\to1$ for every pair $i\neq j$. Hence $\aij\to r/(r-1)>1$. Because there
+are finitely many pairs, there is a $\theta_0>0$, which depends on the instance, such that
+$\aij>1$ for all pairs and all $\theta<\theta_0$; the allocation is then EFX. The indicator that
+the allocation is EFX therefore converges to $1$ for every instance, and by dominated convergence
+its expectation, the probability of EFX, converges to $1$ as well.
+\end{proof}
+
+The proposition uses neither the agreement $\rho$ nor any property of Round Robin other than equal
+bundle sizes, so it also covers the balanced random allocation of Chapter~\ref{ch:random}. We
+checked it in the stored cells: at Gini $0.06$ ($\theta=0.1$), all $60$ Round Robin cells with
+$q=0$, across all agents, numbers of goods and levels of agreement, reach an EFX rate of exactly
+$1$, and no cell with $q>0$ does. Two limits apply. First, the threshold $\theta_0$ depends on the
+instance, and there is no common threshold below which every instance is EFX. For the smallest
+case with $n=2$ agents and $m=4$ goods, the example of Section~\ref{sec:rrEF1} can be turned into a
+proof that the EFX rate stays below $1$ for every $\theta>0$ when $\rho<1$; for larger cases we
+conjecture the same but have no proof. Second, with $q>0$ the argument fails: an agent with $r$
+goods compares their bundle with a bundle of $r+1$ goods, and the limit of $\aij$ is
+$r/((r+1)-1)=1$ exactly. Whether EFX holds is then decided by small differences between values,
+and the EFX rate does not approach $1$ (measured; we have no proof of the limit).
+
+Figure~\ref{fig:dispersion-limit} shows what this means across numbers of goods for $n=4$ agents.
+At Gini $0.06$ ($\theta=0.1$), the EFX rate jumps to exactly $1$ at $m=8$, $12$ and $16$ and lies
+between $0.122$ and $0.605$ at all other numbers of goods. At Gini $0.52$ ($\theta=1$), the
+pattern has vanished: the EFX rate rises gently from $0.150$ at $m=5$ to $0.409$ at $m=16$, and
+the divisible cells stand out only slightly.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig42_dispersion_limit.pdf}
+  \caption{EFX rate of Round Robin against the number of goods $m$, for $n=4$ agents and Spearman
+  $0.48$ ($\rho=0.5$), at Gini $0.06$ ($\theta=0.1$) and Gini $0.52$ ($\theta=1$). Hollow
+  markers: $m$ divisible by $n$ ($q=0$). Each point rests on $R=20{,}000$ instances.}
+  \label{fig:dispersion-limit}
+\end{figure}
 
 \subsection{Severity of Failures}\label{sec:dispersion-severity}
-%% FUNCTION: Paragraphs (5) to (7). Survival curves of the reference cell, one line per Gini
-%% level. Relation to literature, recommendation, question of the next section (goods per agent).
+
+Figure~\ref{fig:dispersion-survival} shows the survival curves of the reference cell, one per
+level of dispersion. Because the allocation is the same at every level, the curves compare the
+same allocations under different spreads of values. The curve for Gini $0.06$ ($\theta=0.1$)
+stays at $1$, since no instance fails. At Gini $0.14$ ($\theta=0.25$), failures are rare and
+narrow: $0.993$ of the instances reach $\astar\geq0.9$, and the conditional $5\%$ quantile is
+$0.84$. With growing dispersion, the curves move down and to the left at every level of $\alpha$.
+At $\alpha=0.6$, the share of instances that reach at least this level is $1.000$, $0.975$,
+$0.823$, $0.651$ and $0.455$ for Gini $0.14$ to $0.71$; the conditional $5\%$ quantile falls from
+$0.84$ to $0.59$, $0.37$, $0.23$ and $0.08$, and the median of $\astar$ among the instances that
+are not EFX falls from $0.96$ to $0.85$, $0.73$, $0.60$ and $0.41$. Severe failures appear only at
+high dispersion: the share of instances with $\astar<0.2$ is zero up to Gini $0.28$
+($\theta=0.5$), $0.002$ at Gini $0.40$, $0.024$ at Gini $0.52$ and $0.163$ at Gini $0.71$
+($\theta=1.5$).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig42_dispersion_survival.pdf}
+  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per level of
+  dispersion, for $n=4$ agents, $m=12$ goods and Spearman $0.48$ ($\rho=0.5$). Each curve rests
+  on $R=20{,}000$ instances. The point on each curve marks the $5\%$ quantile of $\astar$ among
+  the instances that are not EFX; the grey curve has no failures.}
+  \label{fig:dispersion-survival}
+\end{figure}
+
+When values are similar, Round Robin therefore fails rarely, and when it fails, it misses EFX
+only narrowly. When values differ greatly, it fails more often and by much more (measured). The
+reason for the second part follows from the definition of $\aij$: with a large spread, a single
+valuable good in another agent's bundle can outweigh one's whole bundle, and removing the least
+valuable good from that bundle hardly reduces it. We state this as a conjecture.
+
+\paragraph{Relation to literature.}
+\textcite[p.~74]{bouveret2011} map ranks to utilities with different scoring functions and
+recommend a quasi-indifferent one, in which every good is worth almost the same, for settings in
+which the number of goods received matters most, and a lexicographic one for settings with huge
+differences in value. Our dispersion axis moves continuously between these two kinds of setting,
+and Proposition~\ref{prop:theta-limit} states for EFX what their quasi-indifferent case suggests:
+when values hardly differ, only bundle sizes matter. The reference cell lies in the region where
+the existence of an EFX allocation is open, and we assume it there
+(Section~\ref{sec:existence}).
+
+\paragraph{Recommendation.}
+If the goods are worth roughly the same and their number is divisible by the number of people,
+Round Robin almost always delivers EFX, and so does any split into bundles of equal size; the
+more the values differ, the less Round Robin can be relied on. Because the limit depends on
+whether every agent receives the same number of goods, the next section asks how the number of
+goods per agent itself affects the EFX rate.

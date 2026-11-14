@@ -1,36 +1,67 @@
 \section{Goods per Agent}\label{sec:goods}
 %% FUNCTION: Shows how the EFX rate of round robin changes with the number of goods per agent r
 %% when the number of goods is divisible by the number of agents (q = 0; m = 8, 12, 16 for n = 4).
-%% Special case: if every agent receives at most two goods and all favourite goods differ, round
-%% robin is guaranteed to be EFX (proven); the guarantee breaks at m = 2n + 1. Since this break
-%% coincides with the first remainder, the section leads to divisibility.
+%% More goods per agent help unless agents agree strongly. Special case: if every agent receives
+%% at most two goods and all favourite goods differ, round robin is guaranteed to be EFX (proven);
+%% the guarantee breaks at m = 2n + 1. Since this break coincides with the first remainder, the
+%% section leads to divisibility.
+
+The number of goods per agent says how many rounds the agents pick. Two flatmates who split four
+pieces of furniture pick twice each; four heirs who split sixteen items pick four times each. In
+our design, it is the number of full rounds $r=\lfloor m/n\rfloor$. To separate it from
+divisibility, we keep the number of goods divisible by the number of agents ($q=0$) and vary $r$
+from $2$ to $4$, which means $m=8$, $12$ and $16$ goods for $n=4$ agents. Agreement and dispersion
+stay at the reference levels, Spearman $0.48$ ($\rho=0.5$) and Gini $0.52$ ($\theta=1$). The case
+$r=1$ occurs in our design only with $q>0$; Section~\ref{sec:bundlesize} covers it.
 
 \subsection{EFX Rate}\label{sec:goods-rate}
-%% FUNCTION: Paragraphs (1) to (3). The count over all cells needs a measurement rule that is
-%% fixed before counting (Befundstand A.2 no. 32); otherwise mark as exploratory.
+
+As Figure~\ref{fig:goods} shows, Round Robin achieves EFX more often when every agent receives
+more goods. With two goods per agent, the EFX rate is $0.212$, with $15{,}755$ failures among
+$R=20{,}000$ instances. It rises to $0.293$ with three goods and to $0.409$ with four goods, where
+$11{,}828$ instances fail (measured).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig43_goods_rate.pdf}
+  \caption{EFX rate of Round Robin against the number of goods per agent $r$, for $n=4$ agents
+  with $m=4r$ goods ($q=0$), Spearman $0.48$ ($\rho=0.5$) and Gini $0.52$ ($\theta=1$). Each
+  point rests on $R=20{,}000$ instances.}
+  \label{fig:goods}
+\end{figure}
+
+This direction does not hold everywhere. We fixed a counting rule before counting: for each
+number of agents, level of agreement and level of dispersion, we follow the EFX rate over
+$r=2,3,4$ with $q=0$, and a course counts as rising if the rate increases strictly at both steps.
+Because we knew individual cells beforehand, we treat the count as exploratory. Of the $120$
+courses, $20$ lie at exactly $1$ throughout; these are all courses at Gini $0.06$ ($\theta=0.1$),
+as Proposition~\ref{prop:theta-limit} predicts. Of the $80$ remaining courses below full
+agreement, $70$ rise. The exceptions concentrate where agreement is strong: up to Spearman $0.48$
+($\rho=0.5$), $59$ of $60$ courses rise, at Spearman $0.73$ ($\rho=0.75$) only $11$ of $20$. In
+these exceptions, the EFX rate dips slightly at $r=3$ and recovers at $r=4$. Under full
+agreement, the direction reverses: none of the $20$ courses rises, and the EFX rate falls with
+every additional round. For $n=4$ and Gini $0.28$ ($\theta=0.5$), for instance, it falls from
+$0.217$ with two goods per agent to $0.047$ and $0.010$. We have no explanation for this
+reversal. In summary, more goods per agent help Round Robin as long as the agents do not agree
+too strongly (measured).
 
 \subsection{At Most Two Goods and Distinct Favourite Goods}\label{sec:bundlesize}
-%% FUNCTION: Paragraph (4). Lemma and corollary with proof, checked in the stored cells; how often
-%% the condition holds; the break at m = 2n + 1 (block1_fig_break.pdf, possibly only panel n = 4).
 
-\subsection{Severity of Failures}\label{sec:goods-severity}
-%% FUNCTION: Paragraphs (5) to (7). Survival curves, one line per r. Relation to literature,
-%% recommendation, question of the next section (divisibility).
-
-%% ---------------------------------------------------------------------------------------------
-%% EXISTING TEXT in the old structure (block "Bundle Size", written before 10.11.). It is switched
-%% off until it is redistributed over the three subsections above. Nothing is deleted. The
-%% explanation via lead and gap moves to Appendix C.
-\iffalse
-\paragraph{Main result.}
-We call an instance \textit{collision-free} if all agents have different favourite goods. More generally, we define the \textit{collision rate} of an instance as $1-\#\{\text{distinct favourite goods}\}/n$, so an instance is collision-free exactly when its collision rate is $0$. The collision rate only describes an instance; we do not interpret it as a cause. For $\rho=1$, all agents have the same favourite good, so the collision rate always equals $1-1/n$ and collision-freeness never occurs.
+With few goods per agent, there is a case in which Round Robin is guaranteed to achieve EFX. It
+depends on whether the agents have different favourite goods. We call an instance
+\textit{collision-free} if all agents have different favourite goods. For $\rho=1$, all agents
+have the same favourite good, so collision-freeness never occurs.
 
 \begin{lemma}\label{lem:bundlesize}
-If an instance is collision-free, then under Round Robin an agent $i$ can violate EFX towards an agent $j$ only if $|A_j|\geq3$.
+If an instance is collision-free, then under Round Robin an agent $i$ can violate EFX towards an
+agent $j$ only if $|A_j|\geq3$.
 \end{lemma}
 
 \begin{proof}
-Without a collision, every agent receives their favourite good in the first round, so $v_i(A_i)\geq v_i(g)$ for every good $g$. If $|A_j|=1$, the pair is empty. If $|A_j|=2$, removing either good from $A_j$ leaves a single good $g$, and $v_i(A_j\setminus\{g'\})=v_i(g)\leq v_i(A_i)$.
+Without a collision, every agent receives their favourite good in the first round, so
+$v_i(A_i)\geq v_i(g)$ for every good $g$. If $|A_j|=1$, EFX holds trivially for this pair. If
+$|A_j|=2$, removing either good from $A_j$ leaves a single good $g$, and
+$v_i(g)\leq v_i(A_i)$.
 \end{proof}
 
 \begin{corollary}\label{cor:bundlesize}
@@ -38,47 +69,113 @@ If an instance is collision-free and $m\leq2n$, the Round Robin allocation is EF
 \end{corollary}
 
 \begin{proof}
-For $m\leq2n$, Round Robin gives every agent at most two goods, so Lemma~\ref{lem:bundlesize} applies to every pair.
+For $m\leq2n$, Round Robin gives every agent at most two goods, so Lemma~\ref{lem:bundlesize}
+applies to every pair.
 \end{proof}
 
-We checked the corollary in every stored cell: in all $336$ cells with $m\leq2n$ and $\rho<1$, over all six levels of $\theta$, each of the $1{,}388{,}388$ collision-free instances is EFX, without exception. The proof uses only the favourite goods and the bundle sizes, so the guarantee does not depend on our distribution of values. To our knowledge, this observation has not been stated explicitly before.
+We checked the corollary in every stored cell: in all $336$ cells with $m\leq2n$ and $\rho<1$,
+over all six levels of dispersion, each of the $1{,}388{,}388$ collision-free instances is EFX.
+The proof uses only the favourite goods and the bundle sizes, so the guarantee does not depend on
+our distribution of values. To our knowledge, it has not been stated explicitly before.
 
-The condition, however, quickly becomes rare. Table~\ref{tab:collisionfree} shows the share of collision-free instances at $m=2n$, which does not depend on $\theta$. It falls from $0.749$ for $n=2$ and $\rho=0$ to $0.010$ for $n=5$ and $\rho=0.75$, which are only $193$ of $20{,}000$ instances.
+A related observation explains why the EFX rate at $m=n+1$ does not depend on dispersion
+(Section~\ref{sec:dispersion-rate}). With one good more than agents, only one agent receives two
+goods. For every other pair, EFX holds trivially or requires $v_i(A_i)\geq\max_{g\in A_j}v_i(g)$,
+a comparison of single goods that depends only on the rankings. Since dispersion does not change
+rankings, the EFX rate at $m=n+1$ is the same for every level of dispersion (proven; in the
+stored cells it is identical instance by instance).
+
+The condition of the corollary quickly becomes rare. Table~\ref{tab:collisionfree} shows the
+share of collision-free instances at $m=2n$, which does not depend on dispersion. It falls from
+$0.749$ for $n=2$ and Spearman $0$ to $0.010$ for $n=5$ and Spearman $0.73$, which are only $193$
+of $20{,}000$ instances.
 
 \begin{table}[ht]
   \centering
-  \caption{Share of collision-free instances at $m=2n$ (Round Robin, $R=20{,}000$ per cell).}\label{tab:collisionfree}
+  \caption{Share of collision-free instances at $m=2n$ under Round Robin, $R=20{,}000$ per cell.}
+  \label{tab:collisionfree}
   \begin{tabular}{lcccc}
-    \hline
+    \toprule
     & \multicolumn{4}{c}{Spearman ($\rho$)} \\
     $n$ & $0$ ($0$) & $0.24$ ($0.25$) & $0.48$ ($0.5$) & $0.73$ ($0.75$) \\
-    \hline
+    \midrule
     2 & 0.749 & 0.650 & 0.535 & 0.379 \\
     3 & 0.553 & 0.398 & 0.256 & 0.126 \\
     4 & 0.405 & 0.231 & 0.115 & 0.038 \\
     5 & 0.299 & 0.140 & 0.051 & 0.010 \\
-    \hline
+    \bottomrule
   \end{tabular}
 \end{table}
 
-\paragraph{Main figure.}
+Figure~\ref{fig:goods-break} shows what happens beyond $m=2n$ for $n=4$ agents, restricted to
+collision-free instances. Up to $m=8$, the EFX rate is exactly $1$, as the corollary states. As
+soon as one agent receives three goods, it drops: at $m=9$, to $0.830$ for Gini $0.52$
+($\theta=1$), with $467$ failures among $2{,}742$ collision-free instances, and to $0.682$ for
+Gini $0.06$ ($\theta=0.1$), with $871$ failures. By Lemma~\ref{lem:bundlesize}, the only pairs at
+risk are those in which an agent with two goods compares their bundle with a bundle of three
+goods. To the right of the break, the EFX rate recovers unevenly, to $0.941$ at $m=16$ for Gini
+$0.52$, and at Gini $0.06$ every divisible number of goods returns to exactly $1$, as in
+Section~\ref{sec:dispersion-limit}. The break also deepens with agreement: among collision-free
+instances at $m=9$ and Gini $0.52$, the EFX rate is $0.948$, $0.912$, $0.830$ and $0.696$ for
+Spearman $0$, $0.24$, $0.48$ and $0.73$ (measured). Over all instances, the break is hardly
+visible, because most instances contain a collision: the EFX rate only falls from $0.212$ at
+$m=8$ to $0.179$ at $m=9$.
+
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\linewidth]{block1_fig_break.pdf}
-  \caption{EFX rate of Round Robin among collision-free instances, by number of goods $m$ (Spearman $0.48$). Left of the dashed line, no agent receives more than two goods; hollow markers indicate $q=0$.}\label{fig:bundlesize}
+  \includegraphics{fig43_goods_break.pdf}
+  \caption{EFX rate of Round Robin among collision-free instances against the number of goods
+  $m$, for $n=4$ agents and Spearman $0.48$ ($\rho=0.5$), at Gini $0.52$ ($\theta=1$) and Gini
+  $0.06$ ($\theta=0.1$). Left of the dashed line, no agent receives more than two goods. The
+  number of collision-free instances per point ranges from $861$ at $m=5$ to $4{,}928$ at $m=16$
+  out of $R=20{,}000$.}
+  \label{fig:goods-break}
 \end{figure}
 
-Figure~\ref{fig:bundlesize} shows what happens beyond $m=2n$. Up to $m=2n$, the EFX rate among collision-free instances is exactly $1$, as the corollary states. As soon as one agent receives three goods, the rate drops. For $n=4$, it falls from $1$ at $m=8$ (based on $2296$ collision-free instances) to $0.830$ at $m=9$ for Gini $0.52$ ($\theta=1$), with $467$ failures among $2742$ collision-free instances, and to $0.682$ for Gini $0.06$ ($\theta=0.1$), with $871$ failures. To the right of the break, the rate recovers, although not monotonically: for Gini $0.52$ it rises from $0.830$ at $m=9$ to $0.941$ at $m=16$. In addition, the cells with $q=0$ stand out, especially for Gini $0.06$, where every such cell reaches exactly $1$. We return to this pattern in Section~\ref{sec:divisibility}. We do not report the conditional quantile here, because the figure is restricted to a subgroup. Over all instances, the break is hardly visible: for $n=4$ and Gini $0.52$, the EFX rate only falls from $0.212$ at $m=8$ to $0.179$ at $m=9$, because most instances contain a collision.
+At $m=2n+1$, two things change at once: the first bundle with three goods appears, and the
+remainder changes from $q=0$ to $q=1$. Among collision-free instances, the break is a pure effect
+of bundle size, because for $m\leq2n$ many numbers of goods with $q>0$ occur and all of them
+reach exactly $1$. Over all instances, both effects mix; Section~\ref{sec:divisibility} isolates
+divisibility.
 
-\paragraph{Explanation.}
-The lead and the gap from Section~\ref{sec:leadgap} explain the break. If $A_j$ contains at most two goods, the condition that the lead covers the gap reduces to $i$'s bundle being worth at least $j$'s best good, and $i$'s own favourite good secures this. With three goods, $i$'s bundle has to be worth at least $j$'s two best goods, and $i$'s favourite good covers only one of them. Hence, the only pairs at risk are those in which an agent with two goods compares their bundle with an agent with three goods. For $r=2$, there are $(n-q)\cdot q$ such pairs, and instances with the same number of pairs at risk reach almost the same EFX rate: for $n=5$, $\rho=0.5$ and Gini $0.52$, $0.781$ at $q=2$ and $0.777$ at $q=3$, both with six pairs at risk. The break is deeper for small dispersion, because for these pairs the structural part of the lead is zero. As $\theta\to0$, the ratio $\aij$ of such a pair tends to exactly $1$, so small random deviations decide whether EFX holds. For larger dispersion, $i$'s favourite good alone often carries the lead, so here more unequal values actually help EFX. We conjecture that the recovery to the right of the break comes from the lead growing with every additional round.
+\subsection{Severity of Failures}\label{sec:goods-severity}
 
-\paragraph{Limits.}
-Three limits restrict these results. First, the depth of the break grows strongly with $\rho$: for $n=5$, the EFX rate among collision-free instances at $m=2n+1$ falls from $0.942$ for $\rho=0$ to $0.602$ for $\rho=0.75$ (Gini $0.52$). Figure~\ref{fig:bundlesize} shows the intermediate case $\rho=0.5$; Appendix~\ref{app:tables} reports all levels. Why the depth grows with $\rho$ remains open. Second, the rates are conditional on a subgroup that becomes rare and atypical when agents agree more. They describe this subgroup, not the effect of a collision. Third, at $m=2n+1$ two things change at once: the first bundle with three goods appears, and the remainder changes from $q=0$ to $q=1$. Among collision-free instances, the break is a pure bundle size effect, because for $m\leq2n$ many cells with $q>0$ occur and all of them reach exactly $1$. Over all instances, divisibility also plays a role, and both effects mix. Finally, the guarantee itself holds for every distribution of values, whereas the depth of the break is measured in our model only.
+Figure~\ref{fig:goods-survival} shows the survival curves for two, three and four goods per
+agent. A curve for more goods per agent never lies below a curve for fewer goods, so more rounds
+reduce both the number and the depth of failures. At $\alpha=0.6$, the share of instances that
+reach at least this level is $0.468$, $0.651$ and $0.787$. The conditional $5\%$ quantile rises
+from $0.14$ to $0.23$ and $0.30$, and the median of $\astar$ among the instances that are not EFX
+rises from $0.47$ to $0.60$ and $0.69$. Severe failures become rare: the share of instances with
+$\astar<0.2$ falls from $0.090$ with two goods per agent to $0.024$ and $0.008$ (measured).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig43_goods_survival.pdf}
+  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per number of
+  goods per agent, for $n=4$ agents with $m=4r$ goods ($q=0$), Spearman $0.48$ ($\rho=0.5$) and
+  Gini $0.52$ ($\theta=1$). Each curve rests on $R=20{,}000$ instances. The point on each curve
+  marks the $5\%$ quantile of $\astar$ among the instances that are not EFX.}
+  \label{fig:goods-survival}
+\end{figure}
 
 \paragraph{Relation to literature.}
-Our results align with \textcite[p.~17]{manurangsi2021}, who argue asymptotically that standard Round Robin with $r=1$ and $q=\Omega(n)$ fails EFX with constant probability, because agent $n$ loses their favourite good to one of the first $q$ agents. This is our collision mechanism in asymptotic form. EFX existence is proven in most cells with $m\leq2n$: for $n\leq3$ \parencite{plaut2020,chaudhury2024}, for $m\leq n+2$ \parencite{amanatidis2020multiple} and for $m\leq n+3$ \parencite{mahara2024general}. Within $m\leq2n$, it remains open only for $n=4$, $m=8$ and for $n=5$, $m=9,10$ with $\rho<1$ (Section~\ref{sec:existence}).
+Our results fit the asymptotic picture for independent values. \textcite[Thm.~3.1]{manurangsi2021}
+show that Round Robin even achieves envy-freeness with high probability once the number of goods
+is of order $n\log n/\log\log n$, for independent values whose density on $[0,1]$ is bounded.
+Their result does not formally apply to our lognormal values, and it concerns many agents, but it
+points in the same direction as our measurements at low agreement: more goods per agent help.
+\textcite[p.~17]{manurangsi2021} also argue that standard Round Robin with one round and a large
+remainder fails EFX with constant probability, because the last agent may lose their favourite
+good to one of the agents who pick an extra good. This is the collision mechanism behind
+Lemma~\ref{lem:bundlesize}, in asymptotic form. The existence of an EFX allocation is proven in
+most cells with $m\leq2n$: for $n\leq3$ \parencite{plaut2020,chaudhury2024}, for $m\leq n+2$
+\parencite{amanatidis2020multiple} and for $m\leq n+3$ \parencite{mahara2024general}. For $n=4$,
+it is open from $m=8$ on, so all three cells of Figure~\ref{fig:goods} lie in the region where we
+assume existence (Section~\ref{sec:existence}).
 
 \paragraph{Recommendation.}
-If every agent receives at most two goods and all favourite goods differ, Round Robin is the method of choice: EFX is guaranteed, and both conditions can be checked in advance. With more agents and more agreement, however, this situation quickly becomes rare, and beyond two goods per agent the guarantee breaks. Since the break at $m=2n+1$ coincides with the first remainder $q=1$, the next section asks which role divisibility plays.
-\fi
+If every person receives at most two goods and all favourite goods differ, Round Robin delivers
+EFX for certain, and both conditions can be checked before picking starts; beyond that, more goods
+per person make EFX more likely, unless everyone agrees on what is valuable. Because the
+guarantee breaks exactly where the first agent receives one good more than the others, the next
+section asks what divisibility does.

@@ -1,12 +1,91 @@
 \section{Number of Agents}\label{sec:agents}
 %% FUNCTION: Shows that with three goods per agent and remainder zero (m = 6, 9, 12, 15), EFX
-%% becomes rarer as more agents take part. There is no special case with a proof, so the section
-%% has only two subsections.
+%% becomes rarer as more agents take part, and that failures become deeper with agreement but not
+%% without it. There is no special case with a proof. Bridge to Chapter 5.
+
+The number of agents is the number of people who share. Two siblings who divide six items and
+five siblings who divide fifteen items both pick three times each, but the five have many more
+pairs among them who might envy each other. Because $n$, $m$, $r$ and $q$ are linked
+(Section~\ref{sec:design}), we compare different numbers of agents only at the same number of
+goods per agent: we keep $r=3$ and $q=0$ and vary $n$ from $2$ to $5$, which means $m=6$, $9$, $12$
+and $15$ goods. Agreement and dispersion stay at the reference levels, Spearman $0.48$
+($\rho=0.5$) and Gini $0.52$ ($\theta=1$).
 
 \subsection{EFX Rate}\label{sec:agents-rate}
-%% FUNCTION: Paragraphs (1) to (3).
+
+As Figure~\ref{fig:agents} shows, Round Robin achieves EFX less often when more agents share,
+even though every agent receives the same number of goods. With two agents, the EFX rate is
+$0.687$, with $6{,}256$ failures among $R=20{,}000$ instances. It falls to $0.459$ with three
+agents, $0.293$ with four and $0.188$ with five, where $16{,}231$ instances fail (measured). Each
+additional agent costs about a third of the remaining EFX rate.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig45_agents_rate.pdf}
+  \caption{EFX rate of Round Robin against the number of agents $n$, with $m=3n$ goods ($r=3$,
+  $q=0$), Spearman $0.48$ ($\rho=0.5$) and Gini $0.52$ ($\theta=1$). Each point rests on
+  $R=20{,}000$ instances.}
+  \label{fig:agents}
+\end{figure}
+
+Before evaluating the stored cells, we had formulated the hypothesis that more agents reduce the
+EFX rate. We test it on all $360$ courses over $n=2,\dots,5$ at fixed $r$, $q$, agreement and
+dispersion. In $284$ courses, the EFX rate falls strictly at every step. In $69$ courses, it is
+constant because it stays at a bound: at zero under full agreement with $q>0$
+(Proposition~\ref{prop:identical}), or at one for $q=0$ and Gini $0.06$ ($\theta=0.1$)
+(Proposition~\ref{prop:theta-limit}). Five of the remaining seven courses are boundary cases that
+drop to zero after $n=2$ or stay flat just below one. The other two show practically no effect
+of the number of agents: for $r=3$, $q=1$, independent rankings and the two smallest levels of
+dispersion, the EFX rate stays around $0.89$ to $0.91$ for every $n$. The decline also steepens
+with agreement. With $q=0$, $r=3$ and Gini $0.52$, the EFX rate falls from $0.885$ to $0.690$
+between two and five agents under independent rankings, but from $0.506$ to $0.047$ at Spearman
+$0.73$ ($\rho=0.75$) (measured).
+
+A natural reading is that the number of pairs who might envy each other grows quickly, from one
+pair with two agents to ten pairs with five, while each pair alone does not become riskier. We
+state this as a conjecture.
 
 \subsection{Severity of Failures}\label{sec:agents-severity}
-%% FUNCTION: Paragraphs (5) to (7). Whether failures also become more severe with more agents is
-%% unchecked (Befundstand A.2 no. 30): measure first on the survival curves, then write.
-%% Relation to literature, recommendation, bridge to Chapter 5.
+
+Figure~\ref{fig:agents-survival} shows the survival curves for two to five agents. A curve for
+more agents never lies noticeably above a curve for fewer agents (by at most $0.0003$). At
+$\alpha=0.2$ the curves are still close together, between $0.989$ and $0.972$, and from there on
+they fan out. At $\alpha=0.6$, the share of instances that reach at least this level is
+$0.870$, $0.756$, $0.651$ and $0.570$ for $n=2$ to $5$. Severe failures become somewhat more
+frequent: the share of instances with $\astar<0.2$ rises from $0.011$ to $0.028$.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig45_agents_survival.pdf}
+  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per number of
+  agents, with $m=3n$ goods ($r=3$, $q=0$), Spearman $0.48$ ($\rho=0.5$) and Gini $0.52$
+  ($\theta=1$). Each curve rests on $R=20{,}000$ instances. The point on each curve marks the
+  $5\%$ quantile of $\astar$ among the instances that are not EFX.}
+  \label{fig:agents-survival}
+\end{figure}
+
+Among the instances that fail, the picture is split. The conditional $5\%$ quantile hardly moves:
+it is $0.23$ for every number of agents. The middle of the failures, however, moves down: the
+median of $\astar$ among the instances that are not EFX falls from $0.66$ with two agents to
+$0.64$, $0.60$ and $0.58$. Whether this happens depends on agreement. Under independent rankings
+at the same dispersion, the median of the failures does not fall but stays between $0.72$ and
+$0.74$, and the conditional $5\%$ quantile even rises slightly, from $0.28$ to $0.33$. At Spearman
+$0.73$ ($\rho=0.75$), the median falls from $0.64$ to $0.50$. More agents therefore make failures
+more frequent everywhere, and in a world with agreement they also make them deeper (measured).
+The conditional $5\%$ quantile alone would have hidden the second part.
+
+\paragraph{Relation to literature.}
+We found no study of Round Robin with a growing number of agents at a fixed number of goods per
+agent. The asymptotic results of \textcite{manurangsi2021} let the number of agents grow, but they
+also let the number of goods per agent grow and assume independent values, so they do not speak
+to our comparison. The existence of an EFX allocation is proven for two agents
+\parencite{plaut2020} and three agents with additive valuations \parencite{chaudhury2024}; for
+these cells, every failure is a failure of Round Robin. For four and five agents with $m=12$ and
+$15$ goods, existence is an open problem \parencite[Open Problem~2]{amanatidis2023survey}, and we
+assume it (Section~\ref{sec:existence}).
+
+\paragraph{Recommendation.}
+The more people take part, the less Round Robin can be relied on for EFX, even when everyone picks
+equally often, and in a world where people agree, failures also become deeper. So far we have
+judged Round Robin on its own; the next chapter compares it with what people would do without any
+procedure.

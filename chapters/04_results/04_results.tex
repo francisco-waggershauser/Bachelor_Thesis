@@ -18,7 +18,21 @@
 %% (7) recommendation in one sentence, then one sentence on the question of the next section
 %% Each section is one file; drop a section by removing its input line.
 
-In the following we show the EFX-quotes of the cell n=4, m = 12, theta = 1 and rho = 0.5. We demonstrate the key insight through this example. We analyse one variable at a time while the rest is ceteris paribus. 
+This chapter answers the research question one condition at a time. All results refer to a
+common reference cell: $n=4$ agents share $m=12$ goods, so that every agent receives $r=3$ goods
+and nothing is left over ($q=0$); the values are drawn from a world with Spearman $0.48$
+($\rho=0.5$) and Gini $0.52$ ($\theta=1$). In this cell, Round Robin achieves EFX in $0.293$ of
+the $20{,}000$ instances. Each section changes exactly one of these quantities and keeps all
+others at the reference cell: agreement (Section~\ref{sec:agreement}), dispersion
+(Section~\ref{sec:dispersion}), goods per agent (Section~\ref{sec:goods}), divisibility
+(Section~\ref{sec:divisibility}) and the number of agents (Section~\ref{sec:agents}). Where the
+interaction with a second quantity is the result itself, a figure shows more than one line.
+
+Every section follows the same order. It first describes the EFX rate in the reference cell and
+then checks with one count over all cells whether the pattern holds in general. Where a special
+case can be proven, the proof follows. The section then reads the survival curves to see how far
+the failing instances miss EFX, relates the findings to the literature, states whether the
+existence of an EFX allocation is proven in the cells concerned, and ends with a recommendation.
 
 \input{chapters/04_results/sec1_agreement}
 \input{chapters/04_results/sec2_dispersion}

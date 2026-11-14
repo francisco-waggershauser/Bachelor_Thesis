@@ -1,16 +1,120 @@
 \section{Divisibility}\label{sec:divisibility}
-%% FUNCTION: Shows how the EFX rate of round robin changes with the remainder q at three goods
-%% per agent (m = 12 to 15 for n = 4). Main figure with the reference line and additionally Gini
-%% 0.06 and 0.28, because the interaction with dispersion is the message: divisibility decides
-%% when values are similar and fades when values are very unequal.
+%% FUNCTION: Shows how the EFX rate of round robin changes with the remainder q at three goods per
+%% agent (m = 12 to 15 for n = 4). Divisibility decides when values are similar and fades when
+%% values are very unequal, which is why the main figure shows three levels of dispersion. With
+%% identical valuations and q > 0, round robin is never EFX (proven).
+
+Divisibility asks whether the goods can be shared out evenly. With twelve goods and four people,
+everyone picks three times; with thirteen, one person picks a fourth time. We measure this by the
+remainder $q=m-nr$, the number of agents who receive one good more than the others. Note that we
+use $q$ for the remainder and not, as is also common, for the quotient; we follow
+\textcite[p.~16]{manurangsi2021}, who write $r=\lfloor m/n\rfloor$ and $q=m-nr$. We keep $r=3$
+goods per agent fixed and vary $q$ from $0$ to $3$, which means $m=12$ to $15$ goods for $n=4$
+agents, at Spearman $0.48$ ($\rho=0.5$). Because the effect of divisibility depends on dispersion
+(Section~\ref{sec:dispersion-rate}), Figure~\ref{fig:divisibility} shows three levels of
+dispersion instead of the reference level alone.
 
 \subsection{EFX Rate}\label{sec:divisibility-rate}
-%% FUNCTION: Paragraphs (1) to (3).
+
+As Figure~\ref{fig:divisibility} shows, divisibility decides the outcome when the values of the
+goods are similar, and hardly matters when they are not. At Gini $0.06$ ($\theta=0.1$), every one
+of the $20{,}000$ instances with $m=12$ is EFX. With a single additional good, the EFX rate drops
+to $0.499$, with $10{,}023$ failures; it is $0.466$ at $q=2$ and $0.605$ at $q=3$. At Gini $0.28$
+($\theta=0.5$), the same pattern is weaker: $0.574$ at $q=0$ against $0.412$, $0.395$ and $0.475$.
+At the reference level Gini $0.52$ ($\theta=1$), the advantage of divisibility has disappeared:
+the EFX rate is $0.293$ at $q=0$ and $0.298$, $0.307$ and $0.342$ at $q=1$, $2$ and $3$. All of
+these results are measured.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig44_divisibility_rate.pdf}
+  \caption{EFX rate of Round Robin against the remainder $q$, for $n=4$ agents with $r=3$ goods
+  per agent ($m=12$ to $15$) and Spearman $0.48$ ($\rho=0.5$), at three levels of dispersion.
+  Each point rests on $R=20{,}000$ instances.}
+  \label{fig:divisibility}
+\end{figure}
+
+Two further features are visible. Among the cells with $q>0$, the EFX rate is lowest in the
+middle, at $q=2$, and highest at $q=3$. A plausible reason is the number of pairs in which an
+agent with $r$ goods compares their bundle with a bundle of $r+1$ goods, which is $(n-q)\,q$ and
+largest in the middle; this explains the shape only roughly and not its height, so we state it as
+a conjecture. Moreover, at Gini $0.52$ the EFX rate rises slightly with $q$. Since the number of
+goods rises with $q$, this may be the effect of more goods per agent from
+Section~\ref{sec:goods}, which our design cannot separate from divisibility.
+
+The pattern holds across the design. We compare the EFX rate at $q=0$ with the rate at $q=1$ for
+the same $r$, for $r=2$ and $r=3$ and every number of agents, which gives $40$ comparisons for
+each level of dispersion. Up to Gini $0.40$ ($\theta=0.75$), the divisible cell is ahead in all
+$160$ comparisons, at every level of agreement. Below full agreement, its median lead is $0.44$
+at Gini $0.06$ ($\theta=0.1$), $0.42$ at Gini $0.14$, $0.18$ at Gini $0.28$ and $0.06$ at Gini
+$0.40$. At Gini $0.52$ ($\theta=1$), the divisible cell is ahead in $30$ of $40$ comparisons, with
+a median lead of only $0.016$ below full agreement, and at Gini $0.71$ ($\theta=1.5$) in $13$ of
+$40$, with a median of $-0.013$ (measured). The comparisons share their random seeds, so they
+describe one pattern rather than independent confirmations.
 
 \subsection{Identical Valuations without Divisibility}\label{sec:divisibility-identical}
-%% FUNCTION: Paragraph (4). With identical valuations and q > 0, round robin is almost surely
-%% not EFX (proven, checked in the stored cells).
+
+Under full agreement, divisibility turns from an advantage into a strict condition.
+
+\begin{proposition}\label{prop:identical}
+Let all agents have identical valuations without ties, and let $q\geq1$. Then the Round Robin
+allocation is not EFX, for every $n\geq2$.
+\end{proposition}
+
+\begin{proof}
+Number the goods by their common value, so that rank $1$ is the most valuable. Since $q\geq1$,
+agent $1$ receives the ranks $1,n+1,\dots,rn+1$, which are $r+1$ goods, and agent $n$ receives the
+ranks $n,2n,\dots,rn$, which are $r$ goods. Agent $n$ removes from $A_1$ the least valuable good,
+rank $rn+1$. The remaining goods have ranks $1,n+1,\dots,(r-1)n+1$, and each of them is more
+valuable than the corresponding good $n,2n,\dots,rn$ of agent $n$, because $(k-1)n+1<kn$ for
+$n\geq2$. Hence $v_n(A_1\setminus\{g\})>v_n(A_n)$ for this good $g$, and EFX fails.
+\end{proof}
+
+In our model, full agreement yields identical valuations without ties with probability one, so
+Round Robin is then almost surely not EFX whenever $q\geq1$, at every level of dispersion. We
+checked this in the stored cells: in all $180$ cells with $\rho=1$ and $q>0$, not a single
+instance is EFX. The proof does not depend on our distribution of values. To our knowledge, the
+statement has not been made explicitly before. It describes a weakness of Round Robin and not of
+the problem: with identical valuations, an EFX allocation always exists
+\parencite{plaut2020,branzei2025}. Chapter~\ref{ch:random} returns to this case and shows a simple
+remedy.
 
 \subsection{Severity of Failures}\label{sec:divisibility-severity}
-%% FUNCTION: Paragraphs (5) to (7). Survival curves, one line per q. Relation to literature,
-%% recommendation, question of the next section (number of agents).
+
+Figure~\ref{fig:divisibility-survival} shows the survival curves of the four cells at the
+reference level of dispersion. They lie close together, in line with the small differences in
+the EFX rate, and their order follows $q$: a larger remainder gives a slightly higher curve. At
+$\alpha=0.6$, the share of instances that reach at least this level is $0.651$, $0.680$, $0.704$
+and $0.740$ for $q=0$ to $3$; the conditional $5\%$ quantile is $0.23$, $0.25$, $0.26$ and $0.28$,
+and the median of $\astar$ among the instances that are not EFX is $0.60$, $0.63$, $0.65$ and
+$0.67$. At the reference dispersion, a missing good to divide evenly therefore does not make
+failures more severe. At low dispersion, the failures without divisibility are numerous but
+narrow: at Gini $0.06$ ($\theta=0.1$), the conditional $5\%$ quantile lies between $0.92$ and
+$0.93$ for $q=1$ to $3$, so even the worst failures miss EFX by less than ten percent (measured).
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{fig44_divisibility_survival.pdf}
+  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per remainder
+  $q$, for $n=4$ agents with $r=3$ goods per agent ($m=12$ to $15$), Spearman $0.48$
+  ($\rho=0.5$) and Gini $0.52$ ($\theta=1$). Each curve rests on $R=20{,}000$ instances. The point
+  on each curve marks the $5\%$ quantile of $\astar$ among the instances that are not EFX.}
+  \label{fig:divisibility-survival}
+\end{figure}
+
+\paragraph{Relation to literature.}
+Divisibility plays a similar role for the existence of envy-free allocations.
+\textcite{manurangsi2019} show that with independent values, envy-free allocations exist with
+high probability when the number of goods is a multiple $rn$ with $r\geq2$, whereas without such
+divisibility they are unlikely to exist even for considerably more goods. Our results show the
+same dividing line for EFX under Round Robin, as long as values are not too dispersed, and
+Proposition~\ref{prop:identical} makes it strict under full agreement. With identical valuations,
+EFX existence is proven \parencite{plaut2020}, so every failure in these cells is a failure of
+Round Robin. For $n=4$ and $m=12$ to $15$ below full agreement, existence is open and we assume it
+(Section~\ref{sec:existence}).
+
+\paragraph{Recommendation.}
+When the goods are worth roughly the same, Round Robin should be used with a number of goods that
+can be divided evenly among the people, and under full agreement it should never be used without
+this divisibility; when values differ greatly, divisibility no longer matters. Having examined
+what each person receives, the next section asks what changes when more people take part.
