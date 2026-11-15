@@ -4,25 +4,25 @@
 %% round robin allocation and its evaluation, and finally the design grid with the reference cell.
 %% Random allocation and other picking sequences are introduced in Chapter 5, not here.
 
-Our simulation proceeds in four steps, and this chapter follows them. A scenario fixes how many
-agents share how many goods (Section~\ref{sec:scenario}). For every agent and good, we draw a
-value (Section~\ref{sec:instances}). Round Robin allocates the goods, and we measure how close the
-allocation comes to EFX (Section~\ref{sec:evaluation}). Repeating these steps many times for every
-combination of parameters gives the design (Section~\ref{sec:design}).
+Our simulation proceeds in four steps, and this chapter follows them. A \textit{scenario} fixes
+the number of agents, the number of goods, the agreement among the agents and the dispersion of
+the values. Since the scenarios form the grid of our design, we also call a scenario a
+\textit{cell}; both words mean the same. Section~\ref{sec:scenario} covers agents and goods,
+Section~\ref{sec:instances} the values with their agreement and dispersion. Round Robin then
+allocates the goods, and we measure how close the allocation comes to EFX
+(Section~\ref{sec:evaluation}). Repeating these steps many times for every scenario gives the
+design (Section~\ref{sec:design}).
 
 \section{Scenario}\label{sec:scenario}
 
-A scenario consists of $n$ agents and $m$ goods with $m>n$; for $m\leq n$, every allocation by
-Round Robin is trivially EFX (Section~\ref{sec:notions}). Following
-\textcite[p.~16]{manurangsi2021}, we write $m=rn+q$ with $r=\lfloor m/n\rfloor$ full rounds and a
-remainder $0\leq q<n$. Under Round Robin, agents $1,\dots,q$ receive $r+1$ goods and the others
-$r$ goods. For $q=0$, the number of goods is divisible by the number of agents, and every agent
-receives the same number of goods.
+Every scenario has $n$ agents and $m$ goods with $m>n$; for $m\leq n$, every allocation by Round
+Robin is trivially EFX (Section~\ref{sec:notions}). We describe the number of goods by the number
+of full rounds $r$ and the remainder $q$ from Section~\ref{sec:setting}, so that $m=rn+q$.
 
-The four quantities are linked by $m=rn+q$, so only some comparisons separate one effect from
-another. Comparing different numbers of goods at a fixed number of agents changes $r$ or $q$ or
-both, and comparing different numbers of agents at a fixed number of goods changes all of them.
-We therefore never speak of an effect of $m$ alone. Instead, we compare
+Because of this link, only some comparisons separate one effect from another. Comparing
+different numbers of goods at a fixed number of agents changes $r$ or $q$ or both, and comparing
+different numbers of agents at a fixed number of goods changes all of them. We therefore never
+speak of an effect of $m$ alone. Instead, we compare
 \begin{itemize}
   \item different $r$ at fixed $q$ (Section~\ref{sec:goods}),
   \item different $q$ at fixed $r$ (Section~\ref{sec:divisibility}), and
@@ -101,14 +101,14 @@ Round Robin receives only the values and returns an allocation (Section~\ref{sec
 does not know $\rho$, $\theta$ or the cell of the design from which an instance comes. Since it
 only compares values, it depends on the instance only through the rankings. Because
 $x\mapsto\exp(\theta x)$ is strictly increasing, $\theta$ does not change any ranking. Hence the
-Round Robin allocation of an instance is the same for every level of dispersion (proven):
+Round Robin allocation of an instance is the same for every level of dispersion:
 dispersion changes how a fixed allocation is evaluated, never the allocation itself. Ties occur
 with probability zero, so the tie-breaking rule plays no role, and since the agents are
 exchangeable in our model, letting agent $1$ pick first is no restriction.
 
 For every allocation, we compute the ratio $\aij$ for every pair of agents and the target
 quantity $\astar$ from Section~\ref{sec:notions}. By construction, $\astar=1$ exactly when the
-allocation is EFX, and $\astar<1$ measures how far it misses EFX. A cell
+allocation is EFX, and $\astar<1$ measures how far it misses EFX. A scenario
 $X=(n,m,\rho,\theta)$ is the unit of our simulation. For each cell, we generate $R$ instances
 $k=1,\dots,R$ with values $\astar_k$ and describe them by the survival function
 \[
@@ -144,8 +144,10 @@ All results refer to a common \textit{reference cell}: $n=4$ agents and $m=12$ g
 and $q=0$, with Spearman $0.48$ ($\rho=0.5$) and Gini $0.52$ ($\theta=1$). Each section of
 Chapter~\ref{ch:results} varies one of these quantities and keeps the others fixed. The reference
 cell lies in the region where the existence of an EFX allocation is open: four agents, at least
-four goods more than agents, and less than full agreement (Section~\ref{sec:existence}). There,
-and only there, our interpretation rests on the assumption that an EFX allocation exists.
+four goods more than agents, and less than full agreement (Section~\ref{sec:existence}). As for every
+cell in this region, reading a failure of Round Robin as a failure of the mechanism rests on the
+assumption that an EFX allocation exists; in all instances that we checked, one did
+(Section~\ref{sec:existence}).
 
 The seed of an instance depends only on a master seed and on $k$. Instance $k$ therefore uses the
 same random numbers $\Wg$ and $\etaig$ for every level of agreement and dispersion and for every
@@ -156,8 +158,11 @@ allocation stays the same, and only its evaluation changes.
 
 We ran the simulation twice. A first, exploratory run with $R=2{,}000$ and seed $12345$ served
 only to develop hypotheses. All numbers reported in this thesis come from a separate confirmatory
-run with $R=20{,}000$ and seed $20260927$, which we fixed before the run. Where we fixed a counting
-rule only after having seen individual cells, we mark the result as exploratory. The simulation
+run with $R=20{,}000$ and seed $20260927$, which we fixed before the run. Three comparisons were defined
+only after we had already seen parts of the results: the counts over all cells in
+Sections~\ref{sec:dispersion-rate} and~\ref{sec:goods-rate} and the comparison with the reversed
+last round in Section~\ref{sec:reversed}. They describe our data, but they are not tests of
+hypotheses stated in advance, and we call them exploratory. The simulation
 stores one file per cell with the raw matrix of $\aij$ values, so every number in this thesis can
 be recomputed from the stored cells.
 % TODO: public repository, Python and NumPy versions (NumPy does not guarantee identical random numbers across versions)

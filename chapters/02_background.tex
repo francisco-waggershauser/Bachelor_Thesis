@@ -116,7 +116,7 @@ leaves a value of $1$. Thus $\alpha_{21}=4\delta$. Agent $1$ does not envy agent
 \end{example}
 
 The allocation in the example is EF1, as Proposition~\ref{prop:rrEF1} guarantees, but for every
-$\alpha\in(0,1]$ there is an instance in which it is not $\alpha$-EFX (proven). This is the Round
+$\alpha\in(0,1]$ there is an instance in which it is not $\alpha$-EFX. This is the Round
 Robin counterpart of the general observation that an EF1 allocation need not be $\alpha$-EFX for
 any $\alpha>0$ \parencite[Prop.~3.1]{amanatidis2018comparing}. In every single instance,
 $\astar>0$, but no positive lower bound holds for all instances. A worst case analysis therefore
@@ -161,8 +161,13 @@ on, each with $\rho<1$. This region contains the reference cell. In this region,
 existence is widely conjectured \parencite[p.~2]{branzei2025}, and the local search of
 \textcite{branzei2025} found an EFX allocation in every instance tested, including instances with
 independent and with correlated values. None of these instances lies in our open region, the
-closest being four agents with forty goods and independent values, so the assumption rests on the
-direction of this evidence, not on a test of our cells. Under the assumption, every failure of
+closest being four agents with forty goods and independent values. We therefore checked our own
+instances. In the open region, at least one of the five allocation rules that we simulated returns
+an EFX allocation in $71\%$ of the $10{,}080{,}000$ instances. From the remaining instances, we
+took a sample of $2{,}485$ instances, up to six per cell from $419$ cells, and searched for an EFX
+allocation with an integer program. It found one in every instance. We thus never encountered an
+instance without an EFX allocation. This does not prove existence in general, but it supports the
+assumption for the kind of instances we study. Under the assumption, every failure of
 Round Robin is a failure of the mechanism. Outside the open region, this holds without any
 assumption, and our results state in every section which case applies.
 

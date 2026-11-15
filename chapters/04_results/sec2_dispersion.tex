@@ -22,15 +22,15 @@ allocations, so the comparison across levels is perfectly paired.
 
 \subsection{EFX Rate}\label{sec:dispersion-rate}
 
-As Figure~\ref{fig:dispersion} shows, the more the values of the goods differ, the less often
+As Figure~\ref{fig:dispersion} shows, we measure a clear pattern: the more the values of the goods differ, the less often
 Round Robin achieves EFX. In the reference cell (solid line), every one of the $20{,}000$
 instances is EFX at Gini $0.06$ ($\theta=0.1$). The EFX rate falls to $0.959$ at Gini $0.14$
 ($\theta=0.25$), with $817$ failures, and then drops steeply to $0.574$ at Gini $0.28$
 ($\theta=0.5$). From there it declines more slowly: $0.375$ at Gini $0.40$ ($\theta=0.75$),
 $0.293$ at Gini $0.52$ ($\theta=1$) and $0.230$ at Gini $0.71$ ($\theta=1.5$), with $15{,}407$
-failures at the last level. These results are measured.
+failures at the last level.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics{fig42_dispersion_rate.pdf}
   \caption{EFX rate of Round Robin against the Gini coefficient of the values, for $n=4$ agents
@@ -49,21 +49,21 @@ dispersion, but from a much lower starting point and much more gently. Whether t
 goods is divisible by the number of agents therefore matters only when the values of the goods
 are similar. Section~\ref{sec:divisibility} examines this interaction in detail.
 
-To check whether the decline holds beyond the reference cell, we fixed a rule before counting.
-For each pair $(n,m)$ and each level of agreement, we follow the EFX rate over the six levels of
-dispersion. We exclude in advance the courses that are constant by proof: those with $m=n+1$,
-where the EFX rate does not depend on dispersion at all (Section~\ref{sec:bundlesize}), and those
-with full agreement and $q>0$, where it is always zero (Section~\ref{sec:divisibility-identical}).
-A course counts as falling if the EFX rate decreases strictly at each of the five steps. Of the
-remaining $164$ courses, $144$ fall (measured). Since we knew individual cells before fixing the
-rule, we treat this count as exploratory. Among the $60$ courses with $q=0$, $57$ fall; the three
-exceptions occur under full agreement, where the EFX rate reaches zero before the highest level
-of dispersion and stays there. Among the $104$ courses with $q>0$, $87$ fall. In $15$ of the $17$
-exceptions, the rate does not fall at the first step, from Gini $0.06$ to Gini $0.14$; it stays
-flat or rises by at most $0.0024$, and then falls at every later step. The remaining two
-exceptions have $n=2$ agents and $m=5$ or $m=7$ goods, where the EFX rate hardly moves at all.
-In summary, the EFX rate never rises noticeably with dispersion, and it falls clearly whenever
-the number of goods is divisible.
+Does the decline hold beyond the reference cell? For every combination of agents, goods and
+agreement, we look at how the EFX rate changes over the six levels of dispersion. We leave out the
+combinations in which the EFX rate cannot change: those with $m=n+1$, where it does not depend on
+dispersion at all (Section~\ref{sec:bundlesize}), and those with full agreement and $q>0$, where
+it is always zero (Section~\ref{sec:divisibility-identical}). This leaves $164$ combinations. In
+$144$ of them, the EFX rate falls at every one of the five steps, and the $20$ exceptions are
+minor. With $q=0$, the rate falls in $57$ of $60$ combinations; in the other three, all under full
+agreement, it reaches zero before the highest level of dispersion and stays there. With $q>0$, it
+falls in $87$ of $104$ combinations. In $15$ of the $17$ exceptions, the rate only fails to fall
+at the first step, from Gini $0.06$ to Gini $0.14$, where it stays flat or rises by at most
+$0.0024$; the remaining two have $n=2$ agents and $m=5$ or $m=7$ goods, where the EFX rate hardly
+moves at all. Figure~\ref{fig:dispersion-limit} in the next subsection illustrates the pattern for
+$n=4$: at every number of goods, the EFX rate at Gini $0.52$ lies at or below the rate at Gini
+$0.06$. In our data, the EFX rate thus never rises noticeably with dispersion, and it falls
+clearly whenever the number of goods is divisible.
 
 \subsection{Vanishing Dispersion with Equal Bundle Sizes}\label{sec:dispersion-limit}
 
@@ -99,7 +99,7 @@ proof that the EFX rate stays below $1$ for every $\theta>0$ when $\rho<1$; for 
 conjecture the same but have no proof. Second, with $q>0$ the argument fails: an agent with $r$
 goods compares their bundle with a bundle of $r+1$ goods, and the limit of $\aij$ is
 $r/((r+1)-1)=1$ exactly. Whether EFX holds is then decided by small differences between values,
-and the EFX rate does not approach $1$ (measured; we have no proof of the limit).
+and in our data the EFX rate does not approach $1$; we have no proof of its limit.
 
 Figure~\ref{fig:dispersion-limit} shows what this means across numbers of goods for $n=4$ agents.
 At Gini $0.06$ ($\theta=0.1$), the EFX rate jumps to exactly $1$ at $m=8$, $12$ and $16$ and lies
@@ -107,7 +107,7 @@ between $0.122$ and $0.605$ at all other numbers of goods. At Gini $0.52$ ($\the
 pattern has vanished: the EFX rate rises gently from $0.150$ at $m=5$ to $0.409$ at $m=16$, and
 the divisible cells stand out only slightly.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics{fig42_dispersion_limit.pdf}
   \caption{EFX rate of Round Robin against the number of goods $m$, for $n=4$ agents and Spearman
@@ -132,7 +132,7 @@ high dispersion: the share of instances with $\astar<0.2$ is zero up to Gini $0.
 ($\theta=0.5$), $0.002$ at Gini $0.40$, $0.024$ at Gini $0.52$ and $0.163$ at Gini $0.71$
 ($\theta=1.5$).
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics{fig42_dispersion_survival.pdf}
   \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per level of
@@ -143,7 +143,7 @@ high dispersion: the share of instances with $\astar<0.2$ is zero up to Gini $0.
 \end{figure}
 
 When values are similar, Round Robin therefore fails rarely, and when it fails, it misses EFX
-only narrowly. When values differ greatly, it fails more often and by much more (measured). The
+only narrowly. When values differ greatly, it fails more often and by much more. The
 reason for the second part follows from the definition of $\aij$: with a large spread, a single
 valuable good in another agent's bundle can outweigh one's whole bundle, and removing the least
 valuable good from that bundle hardly reduces it. We state this as a conjecture.

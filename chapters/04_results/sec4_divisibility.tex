@@ -14,16 +14,15 @@ dispersion instead of the reference level alone.
 
 \subsection{EFX Rate}\label{sec:divisibility-rate}
 
-As Figure~\ref{fig:divisibility} shows, divisibility decides the outcome when the values of the
+As Figure~\ref{fig:divisibility} shows, we measure that divisibility decides the outcome when the values of the
 goods are similar, and hardly matters when they are not. At Gini $0.06$ ($\theta=0.1$), every one
 of the $20{,}000$ instances with $m=12$ is EFX. With a single additional good, the EFX rate drops
 to $0.499$, with $10{,}023$ failures; it is $0.466$ at $q=2$ and $0.605$ at $q=3$. At Gini $0.28$
 ($\theta=0.5$), the same pattern is weaker: $0.574$ at $q=0$ against $0.412$, $0.395$ and $0.475$.
 At the reference level Gini $0.52$ ($\theta=1$), the advantage of divisibility has disappeared:
-the EFX rate is $0.293$ at $q=0$ and $0.298$, $0.307$ and $0.342$ at $q=1$, $2$ and $3$. All of
-these results are measured.
+the EFX rate is $0.293$ at $q=0$ and $0.298$, $0.307$ and $0.342$ at $q=1$, $2$ and $3$.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics{fig44_divisibility_rate.pdf}
   \caption{EFX rate of Round Robin against the remainder $q$, for $n=4$ agents with $r=3$ goods
@@ -47,7 +46,7 @@ $160$ comparisons, at every level of agreement. Below full agreement, its median
 at Gini $0.06$ ($\theta=0.1$), $0.42$ at Gini $0.14$, $0.18$ at Gini $0.28$ and $0.06$ at Gini
 $0.40$. At Gini $0.52$ ($\theta=1$), the divisible cell is ahead in $30$ of $40$ comparisons, with
 a median advantage of only $0.016$ below full agreement, and at Gini $0.71$ ($\theta=1.5$) in $13$ of
-$40$, with a median of $-0.013$ (measured). The comparisons share their random seeds, so they
+$40$, with a median of $-0.013$. The comparisons share their random seeds, so they
 describe one pattern rather than independent confirmations.
 
 \subsection{Identical Valuations without Divisibility}\label{sec:divisibility-identical}
@@ -55,7 +54,8 @@ describe one pattern rather than independent confirmations.
 Under full agreement, divisibility turns from an advantage into a strict condition.
 
 \begin{proposition}\label{prop:identical}
-Let all agents have identical valuations without ties, and let $q\geq1$. Then the Round Robin
+Let all agents have identical valuations without ties, as is the case under full agreement
+($\rho=1$), and let $q\geq1$. Then the Round Robin
 allocation is not EFX, for every $n\geq2$.
 \end{proposition}
 
@@ -88,9 +88,9 @@ and the median of $\astar$ among the instances that are not EFX is $0.60$, $0.63
 $0.67$. At the reference dispersion, a missing good to divide evenly therefore does not make
 failures more severe. At low dispersion, the failures without divisibility are numerous but
 narrow: at Gini $0.06$ ($\theta=0.1$), the conditional $5\%$ quantile lies between $0.92$ and
-$0.93$ for $q=1$ to $3$, so even the worst failures miss EFX by less than ten percent (measured).
+$0.93$ for $q=1$ to $3$, so even the worst failures miss EFX by less than ten percent.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics{fig44_divisibility_survival.pdf}
   \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per remainder

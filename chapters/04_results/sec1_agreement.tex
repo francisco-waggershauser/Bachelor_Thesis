@@ -20,13 +20,13 @@ Spearman $0.24$, to $0.293$ at Spearman $0.48$ and to $0.109$ at Spearman $0.73$
 agreement it is $0.0003$, which are $6$ of $20{,}000$ instances. In absolute numbers, Round Robin
 fails EFX in $5{,}178$, $9{,}706$, $14{,}135$, $17{,}829$ and $19{,}994$ of the $R=20{,}000$
 instances per level. The decline is steep from the start: each of the first two steps costs about
-$0.22$, and at Spearman $0.48$ the EFX rate is already less than half of its value without agreement. This result is
-measured, not proven. Its direction is plausible, because under agreement the good that one agent
+$0.22$, and at Spearman $0.48$ the EFX rate is already less than half of its value without agreement. The direction of this
+decline is plausible, because under agreement the good that one agent
 picks tends to be the good that the next agent wanted as well. Later agents then lose goods they
 value highly to earlier agents, and exactly these goods make the earlier bundles attractive to
 them. We state this explanation as a conjecture.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics{fig41_agreement_rate.pdf}
   \caption{EFX rate of Round Robin against the Spearman rank correlation of the world from which
@@ -37,10 +37,10 @@ them. We state this explanation as a conjecture.
 
 The decline is not a property of the reference cell alone. For each of the $42$ pairs $(n,m)$
 and each of the six levels of dispersion, we follow the EFX rate over the five levels of
-agreement. In $240$ of these $252$ courses, the EFX rate falls strictly at each of the four
-steps (measured). The $12$ exceptions are exactly the courses with $q=0$ and Gini $0.06$
+agreement. In $240$ of these $252$ combinations, we measure an EFX rate that falls strictly at
+each of the four steps. The $12$ exceptions are exactly the combinations with $q=0$ and Gini $0.06$
 ($\theta=0.1$). There the EFX rate equals $1$ at every level of agreement, so it cannot fall;
-Section~\ref{sec:dispersion-limit} explains this ceiling. The $252$ courses are not independent
+Section~\ref{sec:dispersion-limit} explains this ceiling. The $252$ combinations are not independent
 confirmations, since all cells share the same random seeds (Section~\ref{sec:design}).
 
 Only one case of this pattern is proven. Under full agreement, Round Robin is almost surely not
@@ -57,7 +57,7 @@ therefore shows, for every level of agreement, the share of instances with $\ast
 Each curve ends at $\alpha=1$ in the EFX rate of Figure~\ref{fig:agreement}. The earlier a curve
 drops below $1$ and the lower it runs, the more severe are the failures.
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics{fig41_agreement_survival.pdf}
   \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per level of
@@ -83,8 +83,8 @@ from $0.003$ without agreement to $0.072$ under full agreement. This is why the 
 $5\%$ quantile, the point on each curve, moves little: it is $0.32$, $0.27$, $0.23$, $0.21$ and
 $0.18$ for the five levels. Read alone, it would suggest that failures hardly become more severe.
 The curves show otherwise. The median of $\astar$ among the instances that are not EFX falls
-from $0.74$ to $0.68$, $0.60$, $0.54$ and $0.44$. In summary, in a world with more agreement, Round
-Robin fails more often, and it also fails by more (measured).
+from $0.74$ to $0.68$, $0.60$, $0.54$ and $0.44$. In summary, our data show that in a world with more
+agreement, Round Robin fails more often, and it also fails by more.
 
 Two restrictions apply. The curves share the same random seeds, so their distances are estimated
 precisely, but the curves are not independent samples. Moreover, we read the curves of one cell.
