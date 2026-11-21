@@ -5,25 +5,82 @@
 
 
 
-\section{Setting and Notation}\label{sec:setting}
-%% FUNCTION: Introduces agents, goods, additive valuations, allocations, picking sequences and
-%% Round Robin, together with the number of full rounds and the remainder of goods. All later
-%% chapters use this notation.
+\section{Allocations and Round Robin}\label{sec:setting}
+%% FUNCTION: Makes the first question of the introduction precise (how goods are divided and which
+%% allocation results): agents, goods, additive valuations, allocations, picking sequences, Round
+%% Robin, full rounds r and remainder q, illustrated with the record collection. Ends with the
+%% terminology that links the everyday words of the introduction to the formal terms.
 
-We consider a set of agents $N = \{1,\dots,n\}$ as well as a set of indivisible goods $M = \{g_1,\dots,g_m\}$. Each agent has an additive \textit{valuation function} $v_i(S)$, where $S \subseteq M$ and $v_i(S)=\sum_{g\in S} v_i(g)$, with $v_i(g) \geq 0$. The model (see Chapter~\ref{ch:model}) generates strictly positive, continuous values. 
+This section makes the first question of the introduction precise: how the goods are divided, and
+which allocation results. We consider a set of agents $N=\{1,\dots,n\}$ and a set of indivisible
+goods $M=\{g_1,\dots,g_m\}$. Each agent $i$ assigns a value $v_i(g)\geq0$ to every good $g$ and
+values a set of goods $S\subseteq M$ additively, $v_i(S)=\sum_{g\in S}v_i(g)$. In our simulations,
+all values are strictly positive and drawn from a continuous distribution
+(Chapter~\ref{ch:model}). An \textit{instance} consists of the agents, the goods and their
+valuations.
 
-An \textit{allocation} $A = (A_1,\dots,A_n)$ is a tuple of subsets of $M$ ($A_i \subseteq M$), so that every agent $i \in N$ gets a \textit{bundle} assigned. The bundles are pairwise disjoint ($A_i \cap A_j = \emptyset$ for $i \neq j$), and complete ($\bigcup_{i \in N} A_i = M$).
+\begin{definition}[Allocation]
+An \textit{allocation} is a tuple $A=(A_1,\dots,A_n)$ of pairwise disjoint sets $A_i\subseteq M$
+that together contain every good, $\bigcup_{i\in N}A_i=M$. The set $A_i$ is the \textit{bundle} of
+agent $i$.
+\end{definition}
 
-We define a \textit{picking sequence} following \textcite{bouveret2011} as a sequence $(\sigma_1,\dots,\sigma_m) \in N^m$. In turn $k$ agent $\sigma_k$ chooses the good with the highest $v_{\sigma_k}(g)$ from the remaining goods. Ties are broken by a fixed rule; under continuous valuations they occur with probability zero (Chapter~\ref{ch:model}).
+We assume $m>n$ throughout. With at most as many goods as agents, Round Robin gives every agent at
+most one good, and EF1 and EFX, the fairness notions of Section~\ref{sec:notions}, then hold
+trivially.
 
-The central picking sequence of this work is Round Robin. It repeats the order
-$1,2,\dots,n$ until $m$ turns are reached. Round $t$ consists of the turns $(t-1)n+1$ to $tn$. The last round can be incomplete. The good that agent $i$ takes in round $t$ is $i_t$. The bundle of agent $i$ is $A_i=\{i_1,\dots,i_{|A_i|}\}$.
+A \textit{mechanism} is a rule that determines an allocation for every instance. The mechanisms we
+study let the agents choose goods one after another.
 
-Following \textcite{manurangsi2021}, we define two variables $r$ and $q$. Here, $r$ is the number of \textit{full rounds} defined as $r = \lfloor \frac{m}{n} \rfloor$ and $q = m - nr$ which is the remainder of goods in the last round. If $q=0$, then $m$ is divisible by $n$ and there is no incomplete round. Applied to the Round Robin algorithm, that means that the agents $1,\dots,q$ get $r+1$ goods and the other remaining agents $r$ goods.
+\begin{definition}[{Picking sequence \parencite[p.~73]{bouveret2011}}]
+A \textit{picking sequence} is a sequence $(\sigma_1,\dots,\sigma_m)\in N^m$. In turn $k$, agent
+$\sigma_k$ takes the good $g$ with the highest value $v_{\sigma_k}(g)$ among the goods that are
+still available.
+\end{definition}
 
-\begin{example}
-Let $n=3$, $m=7$, thus $r = \lfloor \frac{7}{3}\rfloor =2$ and $q = 1$: the sequence of Round Robin is 1231231. The bundle sizes for the agents are 3, 2, 2.
+Ties between two goods of equal value occur with probability zero under continuous values
+(Chapter~\ref{ch:model}). We break them by a fixed rule.
+
+\begin{definition}[Round Robin]
+\textit{Round Robin} is the picking sequence that repeats the order $1,2,\dots,n$ until all $m$
+goods are taken. Round $t$ consists of the turns $(t-1)n+1$ to $tn$, and the last round can be
+incomplete. We write $i_t$ for the good that agent $i$ takes in round $t$, so that
+$A_i=\{i_1,\dots,i_{|A_i|}\}$.
+\end{definition}
+
+Two quantities describe how the goods are spread over the rounds, and the results in
+Chapter~\ref{ch:results} keep them apart. Following
+\textcite[p.~16]{manurangsi2021}, we write $r=\lfloor m/n\rfloor$ for the number of \textit{full
+rounds} and $q=m-nr$ for the \textit{remainder}, the number of goods in the last, incomplete round.
+If $q=0$, the number of goods is a multiple of the number of agents, and every agent receives $r$
+goods. Otherwise, Round Robin gives $r+1$ goods to the agents $1,\dots,q$ and $r$ goods to the
+agents $q+1,\dots,n$.
+
+\begin{example}\label{ex:records}
+In the example of the introduction, the four children are the agents and the records are the
+goods. Suppose the collection contains fourteen records. Then $n=4$, $m=14$, $r=3$ and $q=2$. The
+children choose in the order $1,2,3,4,\ 1,2,3,4,\ 1,2,3,4,\ 1,2$, so the first two children
+receive four records each and the other two receive three records each.
 \end{example}
+
+\paragraph{Terminology.}
+The introduction uses everyday words, the following chapters use the terms of fair division. We
+relate them as follows.
+\begin{itemize}
+  \item \textbf{Agents and people.} Both denote those among whom the goods are divided. We write
+  \textit{agents} in formal statements and \textit{people} when we discuss practice.
+  \item \textbf{Goods.} The indivisible items, the records in our example.
+  \item \textbf{Allocations and bundles.} Formally, an allocation is the whole tuple $A$, and
+  $A_i$ is the bundle of agent $i$. As in the introduction, the running text also calls $A_i$ the
+  allocation of agent $i$. Without reference to an agent, an allocation always means the whole
+  tuple.
+  \item \textbf{Mechanisms and picking sequences.} A mechanism is any rule that determines an
+  allocation. Round Robin and the variant that reverses the last round are picking sequences.
+  The only mechanism in this thesis that is not a picking sequence is the random allocation of
+  Chapter~\ref{ch:random}.
+  \item \textbf{Instances and situations.} An instance consists of the agents, the goods and their
+  valuations. The introduction calls it a situation.
+\end{itemize}
 
 
 \section{Fairness Notions}\label{sec:notions}
@@ -51,7 +108,7 @@ In this case, agent $i$ may still envy agent $j$, but the envy disappears after 
 \paragraph{Hierarchy.}
 EFX is one of the central notions of current research in fair division \parencite{amanatidis2023survey}. All of these fairness notions are logically connected: $\mathrm{EF}\Rightarrow\mathrm{EFX}\Rightarrow\mathrm{EF1}$, but not the other way around \parencite[p.~8]{amanatidis2023survey}. Whether an EFX allocation always exists is open for four or more agents (Section~\ref{sec:existence}).
 
-If every bundle contains at most one good, every allocation is EFX, because removing that good leaves an empty bundle of value zero. For $m\leq n$, Round Robin gives every agent at most one good, so EFX holds trivially. We therefore assume $m>n$ from now on.
+If every bundle contains at most one good, every allocation is EFX, because removing that good leaves an empty bundle of value zero. For $m\leq n$, Round Robin gives every agent at most one good, so EFX holds trivially. This is why we assume $m>n$ (Section~\ref{sec:setting}).
 
 \paragraph{$\alpha$-EFX and our target quantity.}
 Since the existence of exact EFX allocations is open in general, a second line of research relaxes EFX by a multiplicative factor: an agent only has to receive a fixed share $\alpha$ of the value that EFX would guarantee. Following \textcite[Def.~8]{amanatidis2023survey}, an allocation $A$ is \textit{$\alpha$-EFX} for $\alpha\in(0,1]$ if
