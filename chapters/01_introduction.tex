@@ -1,7 +1,7 @@
 \chapter{Introduction}\label{ch:intro}
 %% FUNCTION: Motivates the research question with one running example (a record collection
 %% divided among four children): two questions of every division (how to divide, is it fair),
-%% Round Robin as the answer to the first, EF1 and EFX as standards for the second, why better
+%% Round Robin as the answer to the first, EF1 and EFX as notions for the second, why better
 %% procedures do not help at the kitchen table, why theory says nothing about the typical case,
 %% the gap in the literature, the research question and a roadmap. No mathematics, no preview of
 %% results (decision 21.11.).
@@ -9,8 +9,8 @@
 The fair allocation of goods is one of the fundamental problems of social life and a long-standing
 subject of economic theory \parencite{amanatidis2023survey}. Every allocation of this kind raises
 two questions. The first is how to divide: which procedure do we follow, and which allocation does
-it produce? The second is whether the result is fair: by which standard do we judge it, and does it
-meet that standard? Both questions are especially demanding when the goods are indivisible. An
+it produce? The second is whether the result is fair: by which notion of fairness do we judge it, and
+does it satisfy that notion? Both questions are especially demanding when the goods are indivisible. An
 inheritance often includes valuable items, such as a house or a car, that cannot simply be split among
 the heirs. Universities face a similar problem when they allocate places in their courses: some
 courses are in far greater demand than others, yet each offers only a limited number of places, and
@@ -27,21 +27,21 @@ which students choose one course at a time and the order of choosing reverses in
 
 The second question has no single answer, because fairness can be understood in several ways, for
 instance through the maximin share \parencite[p.~1064]{budish2011} or the Nash welfare
-\parencite{caragiannis2019}. This thesis takes a view that compares the shares directly: does any
-child prefer a sibling's records to their own? The most demanding standard of this kind is envy-freeness, which requires that no child does. With indivisible goods, this standard often cannot be
-met. If the collection consisted of a single rare record, three of the four children would envy the
-one who receives it. The literature therefore uses weaker standards. Round Robin always meets one of
+\parencite{caragiannis2019}. Another family of fairness notions is based on envy, and it is the
+one at the centre of this thesis: does any child prefer a sibling's allocation to their own? The most demanding notion of this kind is envy-freeness, which requires that no child does. With indivisible goods, this notion often cannot be
+satisfied. If the collection consisted of a single rare record, three of the four children would envy the
+one who receives it. The literature therefore uses weaker notions. Round Robin always satisfies one of
 them, envy-freeness up to one good (EF1): if a child envies a sibling, the envy disappears once the
-record that this child likes best is removed from the sibling's share
-\parencite{caragiannis2019,amanatidis2023survey}. A stronger standard requires that the envy
+record that this child likes best is removed from the sibling's allocation
+\parencite{caragiannis2019,amanatidis2023survey}. A stronger notion requires that the envy
 disappears whichever single record is removed, even the one the envious child cares least about.
-This standard is called envy-freeness up to any good (EFX). Whether an EFX allocation always exists
+This notion is called envy-freeness up to any good (EFX). Whether an EFX allocation always exists
 is one of the main open questions of the field as soon as four or more people are involved
 \parencite[Open Problem~2]{amanatidis2023survey}. Four children are thus already enough for this
 question to be open.
 
 Computer procedures find EFX allocations reliably in experiments, but they cannot be carried out by
-hand. \textcite{branzei2025} proposes a search that repeatedly moves a single good from one share to
+hand. \textcite{branzei2025} proposes a search that repeatedly moves a single good from one person to
 another. It found an EFX allocation in every case tested, among them thousands of randomly
 generated ones. At the kitchen table, nobody can carry out such a search, and its result is hard to
 explain. For a family that divides a record collection, the realistic alternative to Round Robin is
@@ -50,7 +50,7 @@ whether taking turns is good enough to reach EFX.
 
 Theory does not answer this question. Round Robin guarantees EF1, but not EFX, and not even an
 approximation of it: in some situations, the envy that remains after removing the least valued good
-is arbitrarily large compared with the value of the envious child's own share
+is arbitrarily large compared with the value of the envious child's own allocation
 (Example~\ref{ex:witness}). Since the worst case can be arbitrarily bad, it says nothing about how
 Round Robin performs in a typical situation. Only an analysis of the typical case can tell whether
 taking turns is good enough.
