@@ -1,72 +1,88 @@
 \chapter{Introduction}\label{ch:intro}
-%% FUNCTION: Motivates the question and states what the thesis contributes: practice first
-%% (round robin works by hand), then theory (EF1 guaranteed, EFX existence open from four agents
-%% on, no approximation guarantee for EFX), then the gap, the research question, the
-%% contributions and a roadmap. No mathematics in this chapter (chair writing guide).
+%% FUNCTION: Motivates the research question with one running example (a record collection
+%% divided among four children): two questions of every division (how to divide, is it fair),
+%% Round Robin as the answer to the first, EF1 and EFX as standards for the second, why better
+%% procedures do not help at the kitchen table, why theory says nothing about the typical case,
+%% the gap in the literature, the research question and a roadmap. No mathematics, no preview of
+%% results (decision 21.11.).
 
-When heirs divide an estate, flatmates split the furniture of a shared flat or children share a
-box of toys, a common procedure is to take turns: everyone picks the item they like best among
-those that remain, in a fixed order, round after round. This procedure is called Round Robin. It
-needs no computer, no money and no announcement of how much anyone values each item; everyone
-only has to make a choice when it is their turn. Variants of it are used in practice, for instance
-in a draft at Harvard Business School that allocated courses to students and reversed the order
-of choosing in every round \parencite[p.~1065]{budish2011}.
+The fair allocation of goods is one of the fundamental problems of social life and a long-standing
+subject of economic theory \parencite{amanatidis2023survey}. Every allocation of this kind raises
+two questions. The first is how to divide: which procedure do we follow, and which allocation does
+it produce? The second is whether the result is fair: by which standard do we judge it, and does it
+meet that standard? Both questions are especially demanding when the goods are indivisible. An
+inheritance often includes valuable items, such as a house or a car, that cannot simply be split among
+the heirs. Universities face a similar problem when they allocate places in their courses: some
+courses are in far greater demand than others, yet each offers only a limited number of places, and
+every place goes to exactly one student \parencite[p.~1062]{budish2011}. Throughout this thesis, we follow one such division. A father leaves his record collection to his
+four children, and every record can go to only one of them.
 
-Procedures that do better are available, but they cannot be carried out by hand. A local search
-procedure, for instance, finds a fair allocation in the sense studied here in every instance that
-has been tested, but it does so by moving goods between bundles thousands of times
-\parencite{branzei2025}. For a family at a kitchen table, the realistic alternative to Round Robin
-is therefore not the best possible allocation, but dividing the goods somehow. The question is
-whether taking turns is good enough.
+A common answer to the first question is to take turns. The children pick their favourite
+remaining record one after another, in a fixed order, round after round, until no record is left.
+This procedure is called Round Robin. It needs no computer and no money, and nobody has to state how
+much a record is worth to them. Each child only has to choose when it is their turn. Variants of it
+are used in practice. Harvard Business School, for instance, allocated courses with a draft in
+which students choose one course at a time and the order of choosing reverses in every round
+\parencite[p.~1065]{budish2011}.
 
-What counts as fair is a question of theory. The most demanding standard, that nobody prefers
-another person's share to their own, often cannot be met when goods are indivisible: with one
-painting and two heirs, one of them is left without it. The literature therefore uses weaker
-standards. Round Robin always meets a weak one: if someone prefers another person's share, this
-preference disappears once a single good, the one they like best, is removed from the other
-share \parencite{caragiannis2019,amanatidis2023survey}. This standard is called envy-freeness up
-to one good (EF1). A stronger standard requires that the
-preference disappears after removing \emph{any} single good from the other share, even the one
-they like least; it is called envy-freeness up to any good (EFX). Whether an allocation meeting this stronger standard always exists is one of the
-main open questions of the field for four or more people
-\parencite[Open Problem~2]{amanatidis2023survey}. Round Robin offers no guarantee for it, not even
-an approximate one: in some situations, its allocation misses the stronger standard by an
-arbitrarily large factor (Chapter~\ref{ch:background}). A guarantee for the worst case therefore
-says nothing useful, and only the typical case can tell whether Round Robin is a good way to reach
-the stronger standard.
+The second question has no single answer, because fairness can be understood in several ways, for
+instance through the maximin share \parencite[p.~1064]{budish2011} or the Nash welfare
+\parencite{caragiannis2019}. This thesis takes a view that compares the shares directly: does any
+child prefer a sibling's records to their own? The most demanding standard of this kind is envy-freeness, which requires that no child does. With indivisible goods, this standard often cannot be
+met. If the collection consisted of a single rare record, three of the four children would envy the
+one who receives it. The literature therefore uses weaker standards. Round Robin always meets one of
+them, envy-freeness up to one good (EF1): if a child envies a sibling, the envy disappears once the
+record that this child likes best is removed from the sibling's share
+\parencite{caragiannis2019,amanatidis2023survey}. A stronger standard requires that the envy
+disappears whichever single record is removed, even the one the envious child cares least about.
+This standard is called envy-freeness up to any good (EFX). Whether an EFX allocation always exists
+is one of the main open questions of the field as soon as four or more people are involved
+\parencite[Open Problem~2]{amanatidis2023survey}. Four children are thus already enough for this
+question to be open.
 
-Existing studies of the typical case of such turn-taking procedures concern other goals. Some
-ask which order of turns maximises the expected total or minimum satisfaction
-\parencite{bouveret2011,kalinowski2013}. Others prove that, as the number of people grows and their
-valuations are independent, Round Robin even reaches the most demanding standard once there are
-enough goods, and that a variant which reverses the order of the last round reaches the stronger
-standard with high probability \parencite{manurangsi2021}. These results are asymptotic and assume
-that people value goods independently of each other. For a few people, for people who largely
-agree on what is valuable, and for the question of how far Round Robin misses the stronger standard
-when it fails, we found no analysis. \textcite[p.~11]{branzei2025} remarks that Round Robin often
-fails it, especially when valuations are correlated, but does not quantify this.
+Computer procedures find EFX allocations reliably in experiments, but they cannot be carried out by
+hand. \textcite{branzei2025} proposes a search that repeatedly moves a single good from one share to
+another. It found an EFX allocation in every case tested, among them thousands of randomly
+generated ones. At the kitchen table, nobody can carry out such a search, and its result is hard to
+explain. For a family that divides a record collection, the realistic alternative to Round Robin is
+therefore not the best possible allocation, but dividing the records somehow. The question is
+whether taking turns is good enough to reach EFX.
 
-This thesis asks: \emph{how often does Round Robin achieve EFX, and under which conditions is it
-therefore a good heuristic for EFX?} We answer the question by simulation. We
-vary five conditions one at a time around a common reference case: how much the people agree,
-how far apart the values of the goods lie, how many goods each person receives, whether the goods
-can be divided evenly, and how many people take part. For each combination, we draw
-20{,}000 situations and measure both how often Round Robin succeeds and how far it misses when
-it fails.
+Theory does not answer this question. Round Robin guarantees EF1, but not EFX, and not even an
+approximation of it: in some situations, the envy that remains after removing the least valued good
+is arbitrarily large compared with the value of the envious child's own share
+(Example~\ref{ex:witness}). Since the worst case can be arbitrarily bad, it says nothing about how
+Round Robin performs in a typical situation. Only an analysis of the typical case can tell whether
+taking turns is good enough.
 
-The thesis makes three contributions. First, it measures how often Round Robin reaches the
-stronger standard and how far it misses it, for two to five people and for valuations that range
-from independent to identical. Second, it proves three simple statements that delimit these
-measurements: Round Robin always succeeds when everyone receives at most two goods and nobody
-shares a favourite good; it always fails when everyone ranks the goods identically and the goods
-cannot be divided evenly; and when all goods are worth almost the same and can be divided evenly,
-it almost always succeeds. Third, it compares Round Robin with dividing the goods at random and
-with reversing the last round, and it collects the results in a table that tells people who divide
-goods by hand when to rely on Round Robin.
+Studies of the typical case exist, but they ask other questions. \textcite{bouveret2011} and
+\textcite{kalinowski2013} ask which order of turns maximises the expected welfare of the people
+involved. \textcite{manurangsi2021} study what happens as the number of people grows and everyone
+values every good independently of everyone else. They show that Round Robin then becomes envy-free
+with high probability once there are enough goods, and that a variant which reverses the order of
+the last round reaches EFX with high probability when many goods remain for that last round.
+Families, however, are small, and the tastes of their members need not be independent. If the four
+children grew up with the same records, they all want the same ones first. For a few people, for
+people who agree on what is valuable, and for the question of how far Round Robin misses EFX when it
+fails, we found no analysis. \textcite[p.~11]{branzei2025} remarks that Round Robin fails to reach
+EFX in many cases, especially when people value goods similarly, but does not quantify this, and
+\textcite{celine2026} name the typical case of turn-taking procedures as a direction for future
+research.
 
-Chapter~\ref{ch:background} defines the fairness standards and explains why Round Robin meets the
-weaker but not the stronger one. Chapter~\ref{ch:model} describes the simulation.
+This thesis therefore asks: \emph{how often does Round Robin achieve EFX, and under which conditions
+can people who divide goods by hand rely on it?} We answer the question by simulation. Starting from
+a common reference situation, we change one condition at a time: how many goods each person
+receives, whether every person can receive the same number of goods, how far apart the values of
+the goods lie, how much the people agree on what is valuable, and how many people take part. In each
+situation, we measure how often Round Robin achieves EFX and, when it does not, how far it misses.
+Finally, we compare Round Robin with dividing the goods at random and with reversing the order of
+the last round.
+
+Chapter~\ref{ch:background} defines EF1 and EFX, explains why Round Robin achieves the first but
+not the second, and summarises where EFX allocations are known to exist. Chapter~\ref{ch:model}
+describes how we generate the situations and how we measure the distance to EFX.
 Chapter~\ref{ch:results} presents the results one condition at a time, and
 Chapter~\ref{ch:random} compares Round Robin with random allocation and with reversing the last
-round. Chapter~\ref{ch:discussion} discusses limitations and open questions, and
-Chapter~\ref{ch:conclusion} concludes with the decision table.
+round. Chapter~\ref{ch:discussion} collects the results in a table that tells people who divide
+goods by hand when to rely on Round Robin, and discusses the limits of our approach.
+Chapter~\ref{ch:conclusion} concludes.
