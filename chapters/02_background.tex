@@ -128,9 +128,9 @@ good that $i$ values positively, EFX is therefore equivalent to
   v_i(A_i)\;\geq\; v_i(A_j)-\min\{v_i(g) : g\in A_j,\ v_i(g)>0\}.
 \]
 The envy now has to disappear after removing \emph{any} good from $A_j$, in particular the one that
-$i$ values least. The formulation of \textcite[Def.~4]{amanatidis2023survey} drops the condition
-$v_i(g)>0$. The two versions differ only when some goods have value zero, which never happens here,
-since all values are positive (Section~\ref{sec:setting}). The notions are nested, $\mathrm{EF}\Rightarrow\mathrm{EFX}\Rightarrow
+$i$ values least. 
+
+The notions are nested, $\mathrm{EF}\Rightarrow\mathrm{EFX}\Rightarrow
 \mathrm{EF1}$, but not the other way around \parencite[p.~8]{amanatidis2023survey}. If a bundle
 contains a single good, removing it leaves nothing to envy, so every allocation in which each bundle
 contains at most one good is EFX. This is why we assume $m>n$ (Section~\ref{sec:setting}).
@@ -156,10 +156,8 @@ $v_i(A_i)\geq\alpha\cdot v_i(A_j\setminus\{g\})$ for all $i,j\in N$ and all $g\i
 $v_i(g)>0$.
 \end{definition}
 
-Earlier versions of this notion appear as $c$-EFX in \textcite[Def.~2.5]{plaut2020} and as
-$\alpha$-EFX in \textcite[Def.~2.2]{amanatidis2018comparing}.
 
-Whether an allocation is EFX is a yes or no question. To measure how close Round Robin comes to
+Whether an allocation is EFX is an absolute question. To measure how close Round Robin comes to
 EFX when it fails, we use the largest $\alpha$ for which the allocation is $\alpha$-EFX. For a pair
 of agents $i\neq j$, the binding good is again the one that $i$ values least, which gives
 \[
