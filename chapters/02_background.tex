@@ -281,54 +281,55 @@ case analysis therefore says nothing about how well Round Robin approximates EFX
 average case over a distribution of instances is informative. This is the approach of this thesis.
 
 \section{Does an EFX Allocation Exist?}\label{sec:existence}
-%% FUNCTION: Summarises where the literature proves EFX existence and defines the region of our
-%% design where it is open. For that region the section states explicitly that we assume
-%% existence, and why. This tells the reader for every result whether a failure of round robin is
-%% a failure of the mechanism or possibly of the problem itself.
+%% FUNCTION: Answers the question that Section 2.3 raises: when Round Robin misses EFX, is this a
+%% failure of Round Robin or of the problem? Lists where the literature proves EFX existence for
+%% our design and reports that, in the region where existence is open, an EFX allocation was found
+%% for every instance we drew (measured, not proven; checks in the Befundstand, A.1).
 
-When Round Robin fails to find an EFX allocation, this can mean two things: Round Robin missed an
-EFX allocation that exists, or no EFX allocation exists at all. For additive valuations, whether
-an EFX allocation always exists is open for four or more agents
-\parencite[Open Problem~2]{amanatidis2023survey}. For several special cases, however, existence
-is proven, and Table~\ref{tab:existence} lists those that cover cells of our design.
+When Round Robin misses EFX, this can have two reasons: Round Robin misses an EFX allocation that
+exists, or no EFX allocation exists at all. Only in the first case does the failure say something
+about Round Robin. For additive valuations, whether an EFX allocation always exists is open for
+four or more agents \parencite[Open Problem~2]{amanatidis2023survey}, although existence is widely
+conjectured \parencite[p.~2]{branzei2025}. For several special cases, existence is proven, and
+Table~\ref{tab:existence} lists those that cover parts of our simulation.
 
 \begin{table}[ht]
   \centering
-  \caption{Proven existence of EFX allocations and the cells of our design they cover.}
+  \caption{Proven existence of EFX allocations and the instances of our simulation they cover.}
   \label{tab:existence}
   \small
-  \begin{tabular}{p{4.6cm}p{4.4cm}p{4.2cm}}
+  \begin{tabular}{p{4.2cm}p{5.2cm}p{3.8cm}}
     \toprule
-    Condition & Source & Cells covered \\
+    Condition & Source & Instances covered \\
     \midrule
-    Two agents & \textcite{plaut2020} & all cells with $n=2$ \\
-    Three agents, additive valuations & \textcite{chaudhury2024} & all cells with $n=3$ \\
-    Identical valuations & \textcite{plaut2020}; alternative proof for additive valuations by \textcite[Prop.~1]{branzei2025} & all cells with $\rho=1$ \\
-    At most three types of valuations & \textcite{hv2025} & only $\rho=1$ \\
-    $m\leq n+2$, additive valuations & \textcite[Thm.~5.1]{amanatidis2020multiple} & $m=n+1,n+2$ \\
-    $m\leq n+3$ & \textcite{mahara2024general} & $m=n+1,\dots,n+3$ \\
+    Two agents & \textcite[Thm.~4.3]{plaut2020} & all with $n=2$ \\
+    Three agents, additive valuations & \textcite[Thm.~20]{chaudhury2024} & all with $n=3$ \\
+    At most $n+3$ goods & \textcite[Thm.~3]{mahara2024general} & all with $m\leq n+3$ \\
+    Identical valuations & \textcite[Thm.~4.2]{plaut2020}, for additive valuations also
+      \textcite[Prop.~1]{branzei2025} & all in which all agents value the goods identically \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-In our design, existence is therefore open exactly for four or more agents, at least four goods
-more than agents and less than full agreement: for $n=4$ from $m=8$ on and for $n=5$ from $m=9$
-on, each with $\rho<1$. This region contains the reference cell. In this region, we
-\textbf{assume} that an EFX allocation exists. Two observations support the assumption. Its
-existence is widely conjectured \parencite[p.~2]{branzei2025}, and the local search of
-\textcite{branzei2025} found an EFX allocation in every instance tested, including instances with
-independent and with correlated values. None of these instances lies in our open region, the
-closest being four agents with forty goods and independent values. We therefore checked our own
-instances. In the open region, at least one of the five allocation rules that we simulated returns
-an EFX allocation in $71\%$ of the $10{,}080{,}000$ instances. From the remaining instances, we
-took a sample of $2{,}485$ instances, up to six per cell from $419$ cells, and searched for an EFX
-allocation with an integer program. It found one in every instance. We thus never encountered an
-instance without an EFX allocation. This does not prove existence in general, but it supports the
-assumption for the kind of instances we study. Under the assumption, every failure of
-Round Robin is a failure of the mechanism. Outside the open region, this holds without any
-assumption, and our results state in every section which case applies.
+In our simulation, existence is therefore open for four or more agents with at least four goods more
+than agents, that is, for $n=4$ from $m=8$ on and for $n=5$ from $m=9$ on, unless all agents value
+the goods identically. This region contains the four children of the introduction as soon as the
+collection has at least eight records and the children do not all share the same taste.
+
+For this region, we searched for an EFX allocation in every instance of our simulation. The region
+comprises $10{,}080{,}000$ instances. In $45.0\%$ of them, Round Robin itself
+returns an EFX allocation. For each of the remaining $5{,}541{,}149$ instances, we searched in three
+steps and stopped at the first EFX allocation. The first step checked the allocations of the other
+mechanisms we simulated, three further picking sequences and a random allocation. The second step was
+a local search that starts from the Round Robin allocation and moves single goods or swaps two goods.
+The third step was an integer program. Of the $5{,}541{,}149$ instances, the first step resolved
+$47.5\%$, the second $50.9\%$ and the third the remaining $1.6\%$. Every allocation found was accepted only if the computation of $\astar$ that we
+use for all results confirms that it is EFX. The search found an EFX allocation in every instance.
+
+This does not prove that every instance of our model admits an EFX allocation, but none of the
+instances we drew lacks one. Every failure of Round Robin reported in this thesis is therefore a
+failure of Round Robin and not of the problem, inside the open region as well as outside it.
 
 For approximate EFX, allocations that are $0.618$-EFX are known to exist and can be computed
-efficiently \parencite[Thm.~4.4]{amanatidis2020multiple}; the best possible factor is open
-\parencite[Open Problem~3]{amanatidis2023survey}. These algorithms are not meant to be carried
-out by hand, which is the setting that motivates this thesis.
+efficiently \parencite[Thm.~4.4]{amanatidis2020multiple}, but such algorithms are not meant to be
+carried out by hand, which is the setting that motivates this thesis.
