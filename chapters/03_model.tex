@@ -27,8 +27,8 @@ single score, since $\Var(\Zig)=1$ for every $\rho$, but it determines how simil
 agents are, $\Corr(\Zig,Z_{jg})=\rho$ for $i\neq j$ (Lemma~\ref{lem:scores}). For $\rho=0$, the rankings of different agents
 are independent, and every ordering of the goods is equally likely. For $\rho=1$, all agents rank
 the goods identically. These two endpoints are the models \textit{full independence} and
-\textit{full correlation} of \textcite[p.~74]{bouveret2011}. In between, the rankings resemble each
-other the more, the higher $\rho$ is, as for children who grew up with the same records. \revisitinline{Since Round Robin only uses these
+\textit{full correlation} of \textcite[p.~74]{bouveret2011}. In between, the higher $\rho$ is, the more
+the rankings resemble each other, as for children who grew up with the same records. \revisitinline{Since Round Robin only uses these
 rankings, it matters that $\rho$ also describes them well: the rank correlation between two agents
 is almost exactly $\rho$ (Lemma~\ref{lem:scales}).}
 
@@ -54,8 +54,8 @@ translate it into the Gini coefficient of the values of a single agent, a famili
 inequality. It depends only on $\theta$ and increases from $0$, where all goods are worth the same,
 towards $1$, where a single good carries almost all the value (Lemma~\ref{lem:scales}). Like EFX,
 it compares values only relative to each other, so it does not depend on the unit in which values
-are measured. Table~\ref{tab:axes} lists the levels used in this thesis. At our reference level
-$\theta=1$, the Gini coefficient is $0.52$. We report every Gini value together with $\theta$ in
+are measured. Table~\ref{tab:axes} lists the levels used in this thesis. At $\theta=1$, the Gini
+coefficient is $0.52$. We report every Gini value together with $\theta$ in
 parentheses, for instance Gini $0.52$ ($\theta=1$).
 \end{revisit}
 
@@ -83,7 +83,7 @@ agreement $0.5$}, not as \textit{the children agree to $50\%$}.
 \section{Allocation and Evaluation}\label{sec:evaluation}
 
 Round Robin receives only the values and returns an allocation (Section~\ref{sec:setting}). It does
-not know $\rho$, $\theta$ or the cell from which an instance comes. Since every agent simply takes
+not know $\rho$ or $\theta$. Since every agent simply takes
 their most valuable remaining good, Round Robin only uses how each agent ranks the goods.
 
 \begin{lemma}\label{lem:thetainv}
@@ -124,7 +124,7 @@ The curve below $\alpha=1$ shows how far the remaining instances are from EFX.
 We summarise each cell by three key figures. The first is the \textit{EFX rate} $\Survhat(1)$. The
 other two describe the instances in which Round Robin fails EFX, that is, those with $\astar<1$.
 The \textit{conditional $5\%$ quantile} marks the level below which the worst five percent of
-these failures lie. The \textit{median of the failures} answers how far a typical failure is. We
+these failures lie. The \textit{median of the failures} answers how far from EFX a typical failure is. We
 report both figures only for cells with at least
 $200$ failures. We do not use the mean of $\astar$, because it mixes how often an allocation is EFX
 with how far it misses EFX. In every survival figure, the value of a curve at $\alpha=1$ is the EFX
@@ -169,8 +169,8 @@ compare cells by $m$ alone and make five comparisons:
 \end{itemize}
 
 Instance $k$ uses the same random numbers $\Wg$ and $\etaig$ at every level of agreement and
-dispersion and for every mechanism. When two such curves differ, the difference therefore comes
-from the condition and not from different draws. Cells with different numbers of agents or goods
+dispersion and for every mechanism. When results for two levels or two mechanisms differ, the difference
+therefore comes from the condition and not from different draws. Cells with different numbers of agents or goods
 share only part of these numbers. The other side is that cells are not independent of each other.
 When we count in how many cells a pattern holds, the count describes our data and is not a series
 of independent confirmations. Over dispersion, the pairing is even exact: by
@@ -181,6 +181,6 @@ thesis come from the main run with $R=20{,}000$ and seed $20260927$. The simulat
 file per cell with the raw matrix of $\aij$ values, so every number in this thesis can be
 recomputed from the stored cells.
 
-Proposition~\ref{prop:rrEF1} also provides a check of our implementation. An agent never envies an
+Proposition~\ref{prop:rrEF1} provides a check of our implementation. An agent never envies an
 agent who picks after them, so $\aij>1$ whenever $i$ picks before $j$ and $j$ holds more than one
-good. In all $25.2$ million stored instances, this holds for every such pair.
+good. In all $25.2$ million stored Round Robin allocations, this holds for every such pair.
