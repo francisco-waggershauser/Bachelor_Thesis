@@ -137,33 +137,47 @@ rate, and the marked point is the conditional $5\%$ quantile.
 The design combines $n\in\{2,3,4,5\}$ agents with $m=n+1,\dots,4n$ goods, the five levels of
 agreement and the six levels of dispersion from Table~\ref{tab:axes}. This gives $42$ pairs
 $(n,m)$ and $1{,}260$ cells, each with $R=20{,}000$ instances. With this number of instances, the
-standard error $\sqrt{\Survhat(1)(1-\Survhat(1))/R}$ of every EFX rate is at most $0.0035$,
+standard error $\sqrt{\Survhat(1)(1-\Survhat(1))/R}$ of every EFX rate is at most $0.0036$,
 attained at an EFX rate of $0.5$. The same instances are also allocated by the mechanisms of
 Chapter~\ref{ch:random}.
 
-All results refer to a common \textit{reference cell}: $n=4$ agents and $m=12$ goods, so $r=3$
-and $q=0$, with Spearman $0.48$ ($\rho=0.5$) and Gini $0.52$ ($\theta=1$). Each section of
-Chapter~\ref{ch:results} varies one of these quantities and keeps the others fixed. The reference
-cell lies in the region where the existence of an EFX allocation is open: four agents, at least
-four goods more than agents, and less than full agreement (Section~\ref{sec:existence}). As for every
-cell in this region, reading a failure of Round Robin as a failure of the mechanism rests on the
-assumption that an EFX allocation exists; in all instances that we checked, one did
-(Section~\ref{sec:existence}).
+All results start from a common \textit{reference cell}, which is the family from the
+introduction: a father leaves $m=12$ records to his $n=4$ children. Every child receives $r=3$
+records, and none is left over ($q=0$). The values are drawn with agreement $\rho=0.5$ and
+dispersion Gini $0.52$ ($\theta=1$). We chose this cell for three reasons. Agreement and
+dispersion lie inside the range of the design, so both can move in either direction. All bundles
+have the same size, so divisibility plays no role unless we change it. And four agents lie in the
+region where the existence of an EFX allocation is open. For every instance of this region, an EFX
+allocation was found (Section~\ref{sec:existence}), so every failure that we report is a failure
+of Round Robin and not of the instance.
 
-The seed of an instance depends only on a master seed and on $k$. Instance $k$ therefore uses the
-same random numbers $\Wg$ and $\etaig$ for every level of agreement and dispersion and for every
-mechanism (common random numbers). Curves over agreement, dispersion and mechanisms are thus
-paired, not independent. Differences between them are estimated more precisely, but counts over
-many cells are not independent confirmations. Over dispersion, the pairing is perfect: the
-allocation stays the same, and only its evaluation changes.
+Each section of Chapter~\ref{ch:results} starts from the reference cell and changes one quantity.
+For agreement and dispersion, this is straightforward. For the numbers of agents and goods, it is
+not, because they are tied by $m=rn+q$. More goods mean more goods per agent, a different
+remainder, or both. More agents with the same goods change both as well. We therefore never
+compare cells by $m$ alone and make five comparisons:
+\begin{itemize}
+  \item the goods per agent $r$ at $q=0$ (Section~\ref{sec:goods}),
+  \item the remainder $q$ at $r=3$ (Section~\ref{sec:divisibility}),
+  \item dispersion (Section~\ref{sec:dispersion}),
+  \item agreement (Section~\ref{sec:agreement}),
+  \item the number of agents at $r=3$ and $q=0$, that is, more agents who each receive the same
+    number of goods (Section~\ref{sec:agents}).
+\end{itemize}
 
-We ran the simulation twice. A first, exploratory run with $R=2{,}000$ and seed $12345$ served
-only to develop hypotheses. All numbers reported in this thesis come from a separate confirmatory
-run with $R=20{,}000$ and seed $20260927$, which we fixed before the run. Three comparisons were defined
-only after we had already seen parts of the results: the counts over all cells in
-Sections~\ref{sec:dispersion-rate} and~\ref{sec:goods-rate} and the comparison with the reversed
-last round in Section~\ref{sec:reversed}. They describe our data, but they are not tests of
-hypotheses stated in advance, and we call them exploratory. The simulation
-stores one file per cell with the raw matrix of $\aij$ values, so every number in this thesis can
-be recomputed from the stored cells.
-% TODO: public repository, Python and NumPy versions (NumPy does not guarantee identical random numbers across versions)
+Instance $k$ uses the same random numbers $\Wg$ and $\etaig$ at every level of agreement and
+dispersion and for every mechanism. When two such curves differ, the difference therefore comes
+from the condition and not from different draws. Cells with different numbers of agents or goods
+share only part of these numbers. The other side is that cells are not independent of each other.
+When we count in how many cells a pattern holds, the count describes our data and is not a series
+of independent confirmations. Over dispersion, the pairing is even exact: by
+Lemma~\ref{lem:thetainv}, every instance keeps its allocation, and only its evaluation changes.
+
+An earlier, smaller run with $R=2{,}000$ served only to set up the design. All numbers in this
+thesis come from the main run with $R=20{,}000$ and seed $20260927$. The simulation stores one
+file per cell with the raw matrix of $\aij$ values, so every number in this thesis can be
+recomputed from the stored cells.
+
+Proposition~\ref{prop:rrEF1} also provides a check of our implementation. An agent never envies an
+agent who picks after her, so $\aij>1$ whenever $i$ picks before $j$ and $j$ holds more than one
+good. In all $25.2$ million stored instances, this holds for every such pair.

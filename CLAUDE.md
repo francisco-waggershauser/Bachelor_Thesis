@@ -12,7 +12,7 @@ Supervisor Matthias Ammann. Synced with Overleaf via GitHub, Overleaf only sees 
 - Figures are copied into `figures/` by hand. Reference them by file name only
   (`\includegraphics{block2_fig_q.pdf}`), `\graphicspath` points to `figures/`.
 - No generated number macros. Numbers are typed in, and every number comes from the
-  confirmatory run `results/aggregate_R20000_seed20260927/` (see Befundstand in the project).
+  main run `results/aggregate_R20000_seed20260927/` (see Befundstand in the project).
 
 ## Writing
 - Thesis text in English, chat in German.
