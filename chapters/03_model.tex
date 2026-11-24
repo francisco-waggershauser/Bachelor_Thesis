@@ -130,8 +130,7 @@ $200$ failures. We do not use the mean of $\astar$, because it mixes how often a
 with how far it misses EFX. Figure~\ref{fig:reading} shows these figures for one cell of our design, the reference cell of
 Section~\ref{sec:design}. The curve starts at $1$, because every instance has $\astar>0$, and falls
 to the EFX rate at $\alpha=1$. The point at $\alpha=0.23$ is the conditional $5\%$ quantile, the
-point at $\alpha=0.60$ the median of the failures. In every later survival figure, the marked point
-is the conditional $5\%$ quantile.
+point at $\alpha=0.60$ the median of the failures.
 
 \begin{figure}[H]
   \centering
@@ -142,6 +141,13 @@ is the conditional $5\%$ quantile.
   the open point the median of $\astar$ among the instances that are not EFX.}
   \label{fig:reading}
 \end{figure}
+
+The end point of the curve, the EFX rate, answers the question in the title of this thesis for a
+single cell. The natural next question is how this rate changes when one quantity of our model
+changes. Each section of Chapter~\ref{ch:results} therefore begins with a figure that plots the
+EFX rate against the levels of one quantity, one point per cell. A second figure then shows the
+whole survival curves of the same cells, one curve per level, each with the same two points as
+Figure~\ref{fig:reading}, and reveals how far from EFX the failures are.
 
 \section{Design and Reference Cell}\label{sec:design}
 
