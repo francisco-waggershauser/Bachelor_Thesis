@@ -4,96 +4,81 @@
 %% round robin allocation and its evaluation, and finally the design grid with the reference cell.
 %% Random allocation and other picking sequences are introduced in Chapter 5, not here.
 
-Our simulation proceeds in four steps, and this chapter follows them. A \textit{scenario} fixes
-the number of agents, the number of goods, the agreement among the agents and the dispersion of
-the values. Since the scenarios form the grid of our design, we also call a scenario a
-\textit{cell}; both words mean the same. Section~\ref{sec:scenario} covers agents and goods,
-Section~\ref{sec:instances} the values with their agreement and dispersion. Round Robin then
-allocates the goods, and we measure how close the allocation comes to EFX
-(Section~\ref{sec:evaluation}). Repeating these steps many times for every scenario gives the
-design (Section~\ref{sec:design}).
-
-\section{Scenario}\label{sec:scenario}
-
-Every scenario has $n$ agents and $m$ goods with $m>n$; for $m\leq n$, every allocation by Round
-Robin is trivially EFX (Section~\ref{sec:notions}). We describe the number of goods by the number
-of full rounds $r$ and the remainder $q$ from Section~\ref{sec:setting}, so that $m=rn+q$.
-
-Because of this link, only some comparisons separate one effect from another. Comparing
-different numbers of goods at a fixed number of agents changes $r$ or $q$ or both, and comparing
-different numbers of agents at a fixed number of goods changes all of them. We therefore never
-speak of an effect of $m$ alone. Instead, we compare
-\begin{itemize}
-  \item different $r$ at fixed $q$ (Section~\ref{sec:goods}),
-  \item different $q$ at fixed $r$ (Section~\ref{sec:divisibility}), and
-  \item different $n$ at fixed $r$ and $q$, that is, more agents with the same number of goods
-  per agent (Section~\ref{sec:agents}).
-\end{itemize}
+Section~\ref{sec:rrEF1} showed that the worst case says nothing about how well Round Robin
+approximates EFX. We therefore measure the typical case. We draw many instances from a family of
+distributions, let Round Robin allocate the goods in each of them and record how close each
+allocation comes to EFX.
 
 \section{Values}\label{sec:instances}
 
-We generate the value that an agent attributes to a good in two steps. In the first step, we
-determine how the agents rank the goods. For every agent $i$ and good $g$, we draw a score $\Zig$
-that consists of a common component $\Wg$, shared by all agents, and a private component $\etaig$,
-which reflects the individual taste of agent $i$:
+Section~\ref{sec:setting} fixed the agents, the goods and how Round Robin distributes the goods over
+full rounds and a remainder. What the model still lacks is the value that each agent attributes to
+each good.
+
+A value has two sources. Part of it is shared, because some records appeal to all four children more
+than others. The other part is private, because each child also has a taste of their own. For every agent $i$ and good $g$, we therefore draw a score $\Zig$ from a common component
+$\Wg$, which is the same for all agents, and a private component $\etaig$:
 \[
   \Zig=\sqrt{\rho}\,\Wg+\sqrt{1-\rho}\,\etaig,\qquad \Wg,\etaig\sim\mathcal{N}(0,1).
 \]
-All $\Wg$ and $\etaig$ are mutually independent, and the parameter $\rho\in[0,1]$ sets the weight
-of the common component. Two properties motivate this construction: $\Var(\Zig)=1$ for every
-$\rho$, and $\Corr(\Zig,Z_{jg})=\rho$ for $i\neq j$. Thus, $\rho$ only influences how similarly the
-agents rank the goods, not the distribution of a single score. For $\rho=0$, the rankings of
-different agents are independent and uniformly distributed over all orderings of the goods,
-whereas $\rho=1$ makes all rankings identical. These two endpoints coincide with the models
-\textit{full independence} and \textit{full correlation} of \textcite[p.~74]{bouveret2011}. We call
-$\rho$ the \textit{agreement}.
+All $\Wg$ and $\etaig$ are mutually independent. The parameter $\rho\in[0,1]$ sets the weight of the
+common component, and we call it the \textit{agreement}. It does not change the distribution of a
+single score, since $\Var(\Zig)=1$ for every $\rho$, but it determines how similar the scores of two
+agents are, $\Corr(\Zig,Z_{jg})=\rho$ for $i\neq j$ (Lemma~\ref{lem:scores}). For $\rho=0$, the rankings of different agents
+are independent, and every ordering of the goods is equally likely. For $\rho=1$, all agents rank
+the goods identically. These two endpoints are the models \textit{full independence} and
+\textit{full correlation} of \textcite[p.~74]{bouveret2011}. In between, the rankings resemble each
+other the more, the higher $\rho$ is, as for children who grew up with the same records. \revisitinline{Since Round Robin only uses these
+rankings, it matters that $\rho$ also describes them well: the rank correlation between two agents
+is almost exactly $\rho$ (Lemma~\ref{lem:scales}).}
 
-In the second step, we stretch $\Zig$ to obtain the value
+The scores cannot serve as values directly. They are normally distributed and therefore negative
+in half of all cases, whereas Section~\ref{sec:setting} requires positive values. Moreover, the normal
+distribution is symmetric, while a record collection often contains a few records that are worth
+far more than the rest, such as a rare first pressing, just as a house often outweighs everything
+else in an inheritance. We therefore transform each score into a value
 \[
   v_i(g)=\exp(\theta\,\Zig),
 \]
-where $\theta>0$ controls how strongly the values are spread; we call it the
-\textit{dispersion}. Each $v_i(g)$ is lognormally distributed, and this distribution does not
-depend on $\rho$. The values are strictly positive and continuously distributed, so ties occur
-with probability zero. As $\theta\to0$, all values tend to $1$, and every good is worth almost the
-same. We chose the lognormal distribution because its values are positive and a single parameter
-controls their spread. This is our own modelling choice. Similar models that combine a common and
-an individual component appear in \textcite[p.~1406]{dickerson2014} and
-\textcite[p.~8]{branzei2025}; in the latter, the parameter is a mixing weight rather than a
-correlation.
+where $\theta>0$ sets how strongly the values are spread, and we call it the \textit{dispersion}.
+Every value is positive and lognormally distributed, and the larger $\theta$ is, the more the most
+valuable goods stand out. As $\theta\to0$, all values tend to $1$, and every good is worth almost
+the same. The distribution of a single value does not depend on $\rho$. Since the transformation is
+strictly increasing, it keeps every ranking: agreement determines how the agents rank the goods,
+and dispersion how far apart their values lie. The values are continuously distributed, so ties
+occur with probability zero.
 
-We report both parameters on interpretable scales. Agreement is reported as the Spearman rank
-correlation between the values of two agents over the goods,
-\[
-  \rho_S=\frac{6}{\pi}\arcsin\Big(\frac{\rho}{2}\Big),
-\]
-and dispersion as the Gini coefficient of the values of a single agent over the goods,
-\[
-  G=2\,\Phi\big(\theta/\sqrt{2}\big)-1,
-\]
-where $\Phi$ denotes the standard normal distribution function. Each scale reflects exactly one
-parameter. Table~\ref{tab:axes} lists the levels used in this thesis. We report every Gini value
-together with $\theta$ in parentheses.
+\begin{revisit}
+Unlike agreement, the dispersion $\theta$ has no intuitive meaning on its own. We therefore
+translate it into the Gini coefficient of the values of a single agent, a familiar measure of
+inequality. It depends only on $\theta$ and increases from $0$, where all goods are worth the same,
+towards $1$, where a single good carries almost all the value (Lemma~\ref{lem:scales}). Like EFX,
+it compares values only relative to each other, so it does not depend on the unit in which values
+are measured. Table~\ref{tab:axes} lists the levels used in this thesis. At our reference level
+$\theta=1$, the Gini coefficient is $0.52$. We report every Gini value together with $\theta$ in
+parentheses, for instance Gini $0.52$ ($\theta=1$).
+\end{revisit}
 
 \begin{table}[ht]
   \centering
-  \caption{Parameter levels and their interpretable counterparts.}\label{tab:axes}
+  \caption{Levels of agreement and dispersion.}\label{tab:axes}
   \begin{tabular}{lcccccc}
     \toprule
     Agreement $\rho$ & 0 & 0.25 & 0.5 & 0.75 & 1 & \\
-    Spearman $\rho_S$ & 0 & 0.24 & 0.48 & 0.73 & 1 & \\
     \midrule
     Dispersion $\theta$ & 0.1 & 0.25 & 0.5 & 0.75 & 1.0 & 1.5 \\
-    Gini $G$ & 0.06 & 0.14 & 0.28 & 0.40 & 0.52 & 0.71 \\
+    Gini & 0.06 & 0.14 & 0.28 & 0.40 & 0.52 & 0.71 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-The Spearman scale describes the distribution, not a single instance. With a finite number of
-goods, the rank correlation between two agents in a single instance can differ considerably from
-$\rho_S$. We therefore read a Spearman value as \textit{the values are drawn from a world with
-rank correlation $\rho_S$}, and not as \textit{the agents agree to $\rho_S$}. All measured results
-rest on this one family of distributions; Section~\ref{sec:limitations} discusses this limitation.
+\begin{revisit}
+Both $\rho$ and the Gini coefficient describe the distribution from which values are drawn, not a
+single instance. Twelve records drawn at $\theta=1$ can have a Gini coefficient well above or below
+$0.52$. Likewise, the rankings of two children drawn at $\rho=0.5$ can agree much more or much less
+than $\rho$ suggests. We therefore read a level as \textit{the values are drawn from a world with
+agreement $0.5$}, not as \textit{the children agree to $50\%$}.
+\end{revisit}
 
 \section{Allocation and Evaluation}\label{sec:evaluation}
 

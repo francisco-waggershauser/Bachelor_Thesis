@@ -1,4 +1,47 @@
 \chapter{Proofs}\label{app:proofs}
+%% FUNCTION: Contains short derivations that would interrupt the argument in the main text.
 
-FUNCTION: Contains full proofs that would interrupt the argument in the main text.
+\begin{lemma}\label{lem:scores}
+For every agent $i$ and good $g$, $\Var(\Zig)=1$. For agents $i\neq j$,
+$\Corr(\Zig,Z_{jg})=\rho$.
+\end{lemma}
 
+\begin{proof}
+The components $\Wg$, $\etaig$ and $\eta_{jg}$ are mutually independent, each with mean zero and
+variance one. Hence
+\[
+  \Var(\Zig)\;=\;\rho\,\Var(\Wg)+(1-\rho)\,\Var(\etaig)\;=\;\rho+(1-\rho)\;=\;1.
+\]
+For $i\neq j$, all scores have mean zero, and every product of two different components has
+expectation zero. Hence
+\[
+  \operatorname{Cov}(\Zig,Z_{jg})\;=\;\mathbb{E}\big[\Zig Z_{jg}\big]
+  \;=\;\rho\,\mathbb{E}\big[\Wg^2\big]\;=\;\rho.
+\]
+Since both scores have variance one, their correlation equals their covariance.
+\end{proof}
+
+\begin{revisit}
+\begin{lemma}\label{lem:scales}
+For agents $i\neq j$ and a good $g$, the Spearman rank correlation of $v_i(g)$ and $v_j(g)$ is
+$\frac{6}{\pi}\arcsin(\rho/2)$. The Gini coefficient of $v_i(g)$ is $2\Phi(\theta/\sqrt{2})-1$,
+where $\Phi$ denotes the standard normal distribution function.
+\end{lemma}
+
+\textbf{Open: proof or source for Lemma~\ref{lem:scales}.} Both formulas agree with $400{,}000$
+simulated draws up to $0.001$.
+
+\begin{table}[ht]
+  \centering
+  \caption{Parameter levels and their counterparts on the Spearman and Gini scales.}\label{tab:scales}
+  \begin{tabular}{lcccccc}
+    \toprule
+    Agreement $\rho$ & 0 & 0.25 & 0.5 & 0.75 & 1 & \\
+    Spearman & 0 & 0.24 & 0.48 & 0.73 & 1 & \\
+    \midrule
+    Dispersion $\theta$ & 0.1 & 0.25 & 0.5 & 0.75 & 1.0 & 1.5 \\
+    Gini & 0.06 & 0.14 & 0.28 & 0.40 & 0.52 & 0.71 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{revisit}
