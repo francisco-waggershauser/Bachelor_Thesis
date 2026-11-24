@@ -121,13 +121,14 @@ $\Survhat(\alpha)$ is the share of instances that come at least as close to EFX 
 non-increasing in $\alpha$, and its value at $\alpha=1$ is the share of instances that are EFX.
 The curve below $\alpha=1$ shows how far the remaining instances are from EFX.
 
-We summarise each cell by three key figures. The first is the \textit{EFX rate} $\Survhat(1)$. The
+We summarise each cell by three numbers. The first is the \textit{EFX rate} $\Survhat(1)$. The
 other two describe the instances in which Round Robin fails EFX, that is, those with $\astar<1$.
 The \textit{conditional $5\%$ quantile} marks the level below which the worst five percent of
 these failures lie. The \textit{median of the failures} answers how far from EFX a typical failure is. We
-report both figures only for cells with at least
-$200$ failures. We do not use the mean of $\astar$, because it mixes how often an allocation is EFX
-with how far it misses EFX. Figure~\ref{fig:reading} shows these figures for one cell of our design, the reference cell of
+report both numbers only for cells with at least $200$ failures. We do not use the mean of $\astar$, because it mixes how often an allocation is EFX
+with how far it misses EFX.
+
+Figure~\ref{fig:reading} shows all three for one cell of our design, the reference cell of
 Section~\ref{sec:design}. The curve starts at $1$, because every instance has $\astar>0$, and falls
 to the EFX rate at $\alpha=1$. The point at $\alpha=0.23$ is the conditional $5\%$ quantile, the
 point at $\alpha=0.60$ the median of the failures.
@@ -173,7 +174,7 @@ an EFX allocation, proven outside this region and found by search inside it
 (Section~\ref{sec:existence}), so every failure that we report is a failure of Round Robin and not
 of the instance.
 
-Each section of Chapter~\ref{ch:results} starts from the reference cell and changes one quantity.
+Each of these sections starts from the reference cell and changes one quantity.
 For agreement and dispersion, this is straightforward. For the numbers of agents and goods, it is
 not, because they are tied by $m=rn+q$. More goods mean more goods per agent, a different
 remainder, or both. More agents with the same goods change them as well. We therefore never
