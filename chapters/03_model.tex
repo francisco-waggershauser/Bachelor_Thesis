@@ -1,7 +1,7 @@
 \chapter{Model and Simulation Design}\label{ch:model}
 %% FUNCTION: Explains how we measure how often round robin achieves EFX, in the order in which the
-%% simulation itself proceeds: a scenario (agents and goods), values for every agent and good, the
-%% round robin allocation and its evaluation, and finally the design grid with the reference cell.
+%% simulation itself proceeds: values for every agent and good, the round robin allocation and its
+%% evaluation, and finally the design grid with the reference cell.
 %% Random allocation and other picking sequences are introduced in Chapter 5, not here.
 
 Section~\ref{sec:rrEF1} showed that the worst case says nothing about how well Round Robin
@@ -33,7 +33,7 @@ rankings, it matters that $\rho$ also describes them well: the rank correlation 
 is almost exactly $\rho$ (Lemma~\ref{lem:scales}).}
 
 The scores cannot serve as values directly. They are normally distributed and therefore negative
-in half of all cases, whereas Section~\ref{sec:setting} requires positive values. Moreover, the normal
+in half of all cases, whereas we assume positive values (Section~\ref{sec:setting}). Moreover, the normal
 distribution is symmetric, while a record collection often contains a few records that are worth
 far more than the rest, such as a rare first pressing, just as a house often outweighs everything
 else in an inheritance. We therefore transform each score into a value
@@ -74,7 +74,7 @@ parentheses, for instance Gini $0.52$ ($\theta=1$).
 
 \begin{revisit}
 Both $\rho$ and the Gini coefficient describe the distribution from which values are drawn, not a
-single instance. Twelve records drawn at $\theta=1$ can have a Gini coefficient well above or below
+single instance. Twelve records drawn at $\theta=1$ can have a Gini coefficient that differs from
 $0.52$. Likewise, the rankings of two children drawn at $\rho=0.5$ can agree much more or much less
 than $\rho$ suggests. We therefore read a level as \textit{the values are drawn from a world with
 agreement $0.5$}, not as \textit{the children agree to $50\%$}.
@@ -84,7 +84,7 @@ agreement $0.5$}, not as \textit{the children agree to $50\%$}.
 
 Round Robin receives only the values and returns an allocation (Section~\ref{sec:setting}). It does
 not know $\rho$, $\theta$ or the cell from which an instance comes. Since every agent simply takes
-her most valuable remaining good, Round Robin only uses how each agent ranks the goods.
+their most valuable remaining good, Round Robin only uses how each agent ranks the goods.
 
 \begin{lemma}\label{lem:thetainv}
 For a fixed draw of the scores $\Zig$, the Round Robin allocation is the same for every dispersion
@@ -101,12 +101,11 @@ $\theta$ is. Hence every pick, and with it the whole allocation, is the same for
 Dispersion therefore changes how a fixed allocation is evaluated, never the allocation itself.
 Since the agents are exchangeable in our model, letting agent $1$ pick first is no restriction.
 
-For every allocation, we compute the ratio $\aij$ for every pair of agents and the target quantity
-$\astar$ (Section~\ref{sec:notions}). By construction, $\astar=1$ exactly when the allocation is
-EFX, and $\astar<1$ measures how far it misses EFX. Pairs in which agent $j$ holds a single good
-cannot violate EFX and are left out. To read a value, return to the four children: $\astar=0.6$
-means that some child values her own allocation at only $60\%$ of what a sibling's allocation is
-worth to her, even after the least valuable record has been removed from it.
+For every allocation, we compute the target quantity $\astar$ (Section~\ref{sec:notions}), which
+equals $1$ exactly when the allocation is EFX and otherwise measures how far it misses EFX. To read
+a value, return to the four children: $\astar=0.6$ means that some child values their own
+allocation at only $60\%$ of what a sibling's allocation is worth to them, even after the record
+they value least has been removed from it.
 
 A \textit{cell} $X=(n,m,\rho,\theta)$ fixes the number of agents, the number of goods, the
 agreement and the dispersion. For each cell, we draw $R$ instances $k=1,\dots,R$ with values
@@ -124,18 +123,21 @@ The curve below $\alpha=1$ shows how far the remaining instances are from EFX.
 
 We summarise each cell by three key figures. The first is the \textit{EFX rate} $\Survhat(1)$. The
 other two describe the instances in which Round Robin fails EFX, that is, those with $\astar<1$.
-The \textit{conditional $5\%$ quantile} answers how far from EFX the worst five percent of these
-failures are. The \textit{median of the failures} answers how far a typical failure is. We never
-report the quantile alone, because it shows only the lowest end of the failures and can move in a
-different direction than the typical case. We report both figures only for cells with at least
+The \textit{conditional $5\%$ quantile} marks the level below which the worst five percent of
+these failures lie. The \textit{median of the failures} answers how far a typical failure is. We
+report both figures only for cells with at least
 $200$ failures. We do not use the mean of $\astar$, because it mixes how often an allocation is EFX
 with how far it misses EFX. In every survival figure, the value of a curve at $\alpha=1$ is the EFX
 rate, and the marked point is the conditional $5\%$ quantile.
 
 \section{Design and Reference Cell}\label{sec:design}
 
-The design combines $n\in\{2,3,4,5\}$ agents with $m=n+1,\dots,4n$ goods, the five levels of
-agreement and the six levels of dispersion from Table~\ref{tab:axes}. This gives $42$ pairs
+It remains to fix which cells we simulate. Our model accepts any number of agents and goods and
+any levels of agreement and dispersion. We restrict the design to small groups, because these are
+the groups that divide by hand: $n\in\{2,3,4,5\}$ agents with $m=n+1,\dots,4n$ goods, so that
+every agent receives at most four goods. Agreement takes the five levels and dispersion the six
+levels from Table~\ref{tab:axes}, which range from almost equally valuable goods, Gini $0.06$
+($\theta=0.1$), to very unequal ones, Gini $0.71$ ($\theta=1.5$). This gives $42$ pairs
 $(n,m)$ and $1{,}260$ cells, each with $R=20{,}000$ instances. With this number of instances, the
 standard error $\sqrt{\Survhat(1)(1-\Survhat(1))/R}$ of every EFX rate is at most $0.0036$,
 attained at an EFX rate of $0.5$. The same instances are also allocated by the mechanisms of
@@ -146,15 +148,16 @@ introduction: a father leaves $m=12$ records to his $n=4$ children. Every child 
 records, and none is left over ($q=0$). The values are drawn with agreement $\rho=0.5$ and
 dispersion Gini $0.52$ ($\theta=1$). We chose this cell for three reasons. Agreement and
 dispersion lie inside the range of the design, so both can move in either direction. All bundles
-have the same size, so divisibility plays no role unless we change it. And four agents lie in the
-region where the existence of an EFX allocation is open. For every instance of this region, an EFX
-allocation was found (Section~\ref{sec:existence}), so every failure that we report is a failure
-of Round Robin and not of the instance.
+have the same size, so divisibility plays no role unless we change it. And the reference cell lies
+in the region where the existence of an EFX allocation is open. Every instance of our design admits
+an EFX allocation, proven outside this region and found by search inside it
+(Section~\ref{sec:existence}), so every failure that we report is a failure of Round Robin and not
+of the instance.
 
 Each section of Chapter~\ref{ch:results} starts from the reference cell and changes one quantity.
 For agreement and dispersion, this is straightforward. For the numbers of agents and goods, it is
 not, because they are tied by $m=rn+q$. More goods mean more goods per agent, a different
-remainder, or both. More agents with the same goods change both as well. We therefore never
+remainder, or both. More agents with the same goods change them as well. We therefore never
 compare cells by $m$ alone and make five comparisons:
 \begin{itemize}
   \item the goods per agent $r$ at $q=0$ (Section~\ref{sec:goods}),
@@ -179,5 +182,5 @@ file per cell with the raw matrix of $\aij$ values, so every number in this thes
 recomputed from the stored cells.
 
 Proposition~\ref{prop:rrEF1} also provides a check of our implementation. An agent never envies an
-agent who picks after her, so $\aij>1$ whenever $i$ picks before $j$ and $j$ holds more than one
+agent who picks after them, so $\aij>1$ whenever $i$ picks before $j$ and $j$ holds more than one
 good. In all $25.2$ million stored instances, this holds for every such pair.
