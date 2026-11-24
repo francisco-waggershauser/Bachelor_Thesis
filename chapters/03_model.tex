@@ -82,20 +82,35 @@ agreement $0.5$}, not as \textit{the children agree to $50\%$}.
 
 \section{Allocation and Evaluation}\label{sec:evaluation}
 
-Round Robin receives only the values and returns an allocation (Section~\ref{sec:setting}). It
-does not know $\rho$, $\theta$ or the cell of the design from which an instance comes. Since it
-only compares values, it depends on the instance only through the rankings. Because
-$x\mapsto\exp(\theta x)$ is strictly increasing, $\theta$ does not change any ranking. Hence the
-Round Robin allocation of an instance is the same for every level of dispersion:
-dispersion changes how a fixed allocation is evaluated, never the allocation itself. Ties occur
-with probability zero, so the tie-breaking rule plays no role, and since the agents are
-exchangeable in our model, letting agent $1$ pick first is no restriction.
+Round Robin receives only the values and returns an allocation (Section~\ref{sec:setting}). It does
+not know $\rho$, $\theta$ or the cell from which an instance comes. Since every agent simply takes
+her most valuable remaining good, Round Robin only uses how each agent ranks the goods.
 
-For every allocation, we compute the ratio $\aij$ for every pair of agents and the target
-quantity $\astar$ from Section~\ref{sec:notions}. By construction, $\astar=1$ exactly when the
-allocation is EFX, and $\astar<1$ measures how far it misses EFX. A scenario
-$X=(n,m,\rho,\theta)$ is the unit of our simulation. For each cell, we generate $R$ instances
-$k=1,\dots,R$ with values $\astar_k$ and describe them by the survival function
+\begin{lemma}\label{lem:thetainv}
+For a fixed draw of the scores $\Zig$, the Round Robin allocation is the same for every dispersion
+$\theta>0$.
+\end{lemma}
+
+\begin{proof}
+At every turn, the agent who picks takes the remaining good with the highest value
+$v_i(g)=\exp(\theta\Zig)$. Since the transformation is strictly increasing
+(Section~\ref{sec:instances}), this is the remaining good with the highest score $\Zig$, whatever
+$\theta$ is. Hence every pick, and with it the whole allocation, is the same for every $\theta$.
+\end{proof}
+
+Dispersion therefore changes how a fixed allocation is evaluated, never the allocation itself.
+Since the agents are exchangeable in our model, letting agent $1$ pick first is no restriction.
+
+For every allocation, we compute the ratio $\aij$ for every pair of agents and the target quantity
+$\astar$ (Section~\ref{sec:notions}). By construction, $\astar=1$ exactly when the allocation is
+EFX, and $\astar<1$ measures how far it misses EFX. Pairs in which agent $j$ holds a single good
+cannot violate EFX and are left out. To read a value, return to the four children: $\astar=0.6$
+means that some child values her own allocation at only $60\%$ of what a sibling's allocation is
+worth to her, even after the least valuable record has been removed from it.
+
+A \textit{cell} $X=(n,m,\rho,\theta)$ fixes the number of agents, the number of goods, the
+agreement and the dispersion. For each cell, we draw $R$ instances $k=1,\dots,R$ with values
+$\astar_k$ and describe them by the survival function
 \[
   \Surv(\alpha)=\Pr\big[\astar\geq\alpha \mid X\big],\qquad \alpha\in(0,1],
 \]
@@ -107,14 +122,15 @@ $\Survhat(\alpha)$ is the share of instances that come at least as close to EFX 
 non-increasing in $\alpha$, and its value at $\alpha=1$ is the share of instances that are EFX.
 The curve below $\alpha=1$ shows how far the remaining instances are from EFX.
 
-We summarise each cell by two key figures. The first is the \textit{EFX rate} $\Survhat(1)$. The
-second is the $5\%$ quantile of $\astar$ among the instances with $\astar<1$, which we call the
-\textit{conditional $5\%$ quantile}. It answers the question: if Round Robin fails, how far from
-EFX are the worst five percent of the failures? We report it only if a cell contains at least
-$200$ failures and show cells with fewer failures in grey. We do not use the mean of $\astar$ as a
-key figure, because it mixes how often an allocation is EFX with how far it misses EFX. Since a
-single quantile shows only one point of the failures, our results always read the whole survival
-curve as well.
+We summarise each cell by three key figures. The first is the \textit{EFX rate} $\Survhat(1)$. The
+other two describe the instances in which Round Robin fails EFX, that is, those with $\astar<1$.
+The \textit{conditional $5\%$ quantile} answers how far from EFX the worst five percent of these
+failures are. The \textit{median of the failures} answers how far a typical failure is. We never
+report the quantile alone, because it shows only the lowest end of the failures and can move in a
+different direction than the typical case. We report both figures only for cells with at least
+$200$ failures. We do not use the mean of $\astar$, because it mixes how often an allocation is EFX
+with how far it misses EFX. In every survival figure, the value of a curve at $\alpha=1$ is the EFX
+rate, and the marked point is the conditional $5\%$ quantile.
 
 \section{Design and Reference Cell}\label{sec:design}
 
