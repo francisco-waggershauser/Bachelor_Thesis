@@ -33,9 +33,9 @@ failures at the last level.
 \begin{figure}[H]
   \centering
   \includegraphics{fig42_dispersion_rate.pdf}
-  \caption{EFX rate of Round Robin against the Gini coefficient of the values, for $n=4$ agents
-  and Spearman $0.48$ ($\rho=0.5$). Solid line: $m=12$ goods (reference cell, $q=0$). Dashed
-  line: $m=13$ goods ($q=1$). Each point rests on $R=20{,}000$ instances.}
+  \caption{EFX rate of Round Robin against dispersion $\theta$, for $n=4$ agents and agreement $\rho=0.5$.
+  Solid line: $m=12$ goods (reference cell, $q=0$). Dashed line: $m=13$ goods ($q=1$). Each
+  point rests on $R=20{,}000$ instances. The lines between the points are for illustration only.}
   \label{fig:dispersion}
 \end{figure}
 
@@ -110,9 +110,10 @@ the divisible cells stand out only slightly.
 \begin{figure}[H]
   \centering
   \includegraphics{fig42_dispersion_limit.pdf}
-  \caption{EFX rate of Round Robin against the number of goods $m$, for $n=4$ agents and Spearman
-  $0.48$ ($\rho=0.5$), at Gini $0.06$ ($\theta=0.1$) and Gini $0.52$ ($\theta=1$). Hollow
-  markers: $m$ divisible by $n$ ($q=0$). Each point rests on $R=20{,}000$ instances.}
+  \caption{EFX rate of Round Robin against the number of goods $m$, for $n=4$ agents and agreement
+  $\rho=0.5$, at dispersion $\theta=0.1$ and $\theta=1$. Hollow markers: $m$ divisible by $n$
+  ($q=0$). Each point rests on $R=20{,}000$ instances. The lines between the points are for
+  illustration only.}
   \label{fig:dispersion-limit}
 \end{figure}
 
@@ -135,10 +136,11 @@ high dispersion: the share of instances with $\astar<0.2$ is zero up to Gini $0.
 \begin{figure}[H]
   \centering
   \includegraphics{fig42_dispersion_survival.pdf}
-  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per level of
-  dispersion, for $n=4$ agents, $m=12$ goods and Spearman $0.48$ ($\rho=0.5$). Each curve rests
-  on $R=20{,}000$ instances. The point on each curve marks the $5\%$ quantile of $\astar$ among
-  the instances that are not EFX; the grey curve has no failures.}
+  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per level of dispersion
+  $\theta$, for $n=4$ agents, $m=12$ goods and agreement $\rho=0.5$. Each curve rests on
+  $R=20{,}000$ instances. The filled point on each curve marks the $5\%$ quantile and the open
+  point the median of $\astar$ among the instances that are not EFX. The grey curve at
+  $\theta=0.1$ has no failures.}
   \label{fig:dispersion-survival}
 \end{figure}
 

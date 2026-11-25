@@ -25,9 +25,9 @@ the EFX rate is $0.293$ at $q=0$ and $0.298$, $0.307$ and $0.342$ at $q=1$, $2$ 
 \begin{figure}[H]
   \centering
   \includegraphics{fig44_divisibility_rate.pdf}
-  \caption{EFX rate of Round Robin against the remainder $q$, for $n=4$ agents with $r=3$ goods
-  per agent ($m=12$ to $15$) and Spearman $0.48$ ($\rho=0.5$), at three levels of dispersion.
-  Each point rests on $R=20{,}000$ instances.}
+  \caption{EFX rate of Round Robin against the remainder $q$, for $n=4$ agents with $r=3$ goods per agent
+  ($m=12$ to $15$) and agreement $\rho=0.5$, one line per level of dispersion $\theta$. Each
+  point rests on $R=20{,}000$ instances. The lines between the points are for illustration only.}
   \label{fig:divisibility}
 \end{figure}
 
@@ -93,10 +93,11 @@ $0.93$ for $q=1$ to $3$, so even the worst failures miss EFX by less than ten pe
 \begin{figure}[H]
   \centering
   \includegraphics{fig44_divisibility_survival.pdf}
-  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per remainder
-  $q$, for $n=4$ agents with $r=3$ goods per agent ($m=12$ to $15$), Spearman $0.48$
-  ($\rho=0.5$) and Gini $0.52$ ($\theta=1$). Each curve rests on $R=20{,}000$ instances. The point
-  on each curve marks the $5\%$ quantile of $\astar$ among the instances that are not EFX.}
+  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per remainder $q$, for
+  $n=4$ agents with $r=3$ goods per agent ($m=12$ to $15$), agreement $\rho=0.5$ and dispersion
+  $\theta=1$. Each curve rests on $R=20{,}000$ instances. The filled point on each curve marks
+  the $5\%$ quantile and the open point the median of $\astar$ among the instances that are not
+  EFX.}
   \label{fig:divisibility-survival}
 \end{figure}
 

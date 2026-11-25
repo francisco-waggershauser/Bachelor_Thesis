@@ -29,9 +29,9 @@ them. We state this explanation as a conjecture.
 \begin{figure}[H]
   \centering
   \includegraphics{fig41_agreement_rate.pdf}
-  \caption{EFX rate of Round Robin against the Spearman rank correlation of the world from which
-  the instances are drawn, for $n=4$ agents, $m=12$ goods and Gini $0.52$ ($\theta=1$). Each
-  point rests on $R=20{,}000$ instances.}
+  \caption{EFX rate of Round Robin against agreement $\rho$, for $n=4$ agents, $m=12$ goods and dispersion
+  $\theta=1$. Each point rests on $R=20{,}000$ instances. The line between the points is for
+  illustration only.}
   \label{fig:agreement}
 \end{figure}
 
@@ -60,10 +60,11 @@ drops below $1$ and the lower it runs, the more severe are the failures.
 \begin{figure}[H]
   \centering
   \includegraphics{fig41_agreement_survival.pdf}
-  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per level of
-  Spearman rank correlation, for $n=4$ agents, $m=12$ goods and Gini $0.52$ ($\theta=1$). Each
-  curve rests on $R=20{,}000$ instances and ends at $\alpha=1$ in the EFX rate. The point on
-  each curve marks the $5\%$ quantile of $\astar$ among the instances that are not EFX.}
+  \caption{Share of instances with $\astar\geq\alpha$ under Round Robin, one curve per level of agreement
+  $\rho$, for $n=4$ agents, $m=12$ goods and dispersion $\theta=1$. Each curve rests on
+  $R=20{,}000$ instances and ends at $\alpha=1$ in the EFX rate. The filled point on each curve
+  marks the $5\%$ quantile and the open point the median of $\astar$ among the instances that
+  are not EFX.}
   \label{fig:agreement-survival}
 \end{figure}
 
