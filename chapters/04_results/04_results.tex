@@ -1,38 +1,22 @@
-\chapter{Results: One Condition at a Time}\label{ch:results}
+\chapter{The EFX Rate under Varying Conditions}\label{ch:results}
 
-%% FUNCTION: This is the main part of the thesis. A short head recalls the reference cell and the
-%% order of every section. Each section then varies exactly one quantity while all other quantities
-%% stay at the reference cell: goods per agent at remainder zero, the remainder at three goods per
-%% agent, dispersion, agreement, and the number of agents at three goods per agent and remainder
-%% zero (order agreed with Matthias, 18./19.11.). Everything about one quantity is said in one place before the next begins.
-%% The comparison with random allocation is Chapter 5, not part of this chapter.
+%% FUNCTION: Main part of the thesis. Each section starts from the reference cell (Section 3.3) and
+%% changes one quantity: goods per agent r at q = 0, the remainder q at r = 3, dispersion,
+%% agreement, and the number of agents at r = 3 and q = 0 (order agreed with Matthias, 18./19.11.).
+%% The comparison with random allocation is Chapter 5.
 %%
-%% WRITING TEMPLATE per section (order of paragraphs; subsections are only x.1 EFX Rate,
-%% x.2 special case with proof (where one exists), x.3 Severity of Failures):
-%% (1) what the quantity means in everyday terms and how we vary it, two or three sentences
-%% (2) read the main figure: key statement, cell values in the text (rate, R, failures), status
-%% (3) does it hold in general? one count over all cells
-%% (4) special case: statement, proof, "checked in the stored cells", figure only if needed
-%% (5) severity: read the survival curves, the whole curve, not only the quantile
-%% (6) relation to literature, including whether EFX existence is proven in these cells
-%% (7) recommendation in one sentence, then one sentence on the question of the next section
-%% Each section is one file; drop a section by removing its input line.
+%% TEMPLATE per section (Befundstand §2): (1) opening with the record collection, what the quantity
+%% means and what stays fixed, no preview; (2) EFX rate: first sentence is the statement, main
+%% figure (EFX rate on 0 to 1), reference values; (3) proven special case or back reference;
+%% (4) does it hold in general? one count over all cells, half sentence that cells share random
+%% numbers; (5) survival curves with conditional 5% quantile (filled) and median of failures
+%% (open); (6) closing summary of two or three sentences in running text. Literature only where it
+%% adds something at that point, no separate paragraph, no teaser for the next section.
 
-This chapter answers the research question one condition at a time. All results refer to a
-common reference cell: $n=4$ agents share $m=12$ goods, so that every agent receives $r=3$ goods
-and nothing is left over ($q=0$). The values are drawn from a world with Spearman $0.48$
-($\rho=0.5$) and Gini $0.52$ ($\theta=1$). In this cell, Round Robin achieves EFX in $0.293$ of
-the $20{,}000$ instances. Each section changes exactly one of these quantities and keeps all
-others at the reference cell: goods per agent (Section~\ref{sec:goods}), divisibility
-(Section~\ref{sec:divisibility}), dispersion (Section~\ref{sec:dispersion}), agreement
-(Section~\ref{sec:agreement}) and the number of agents (Section~\ref{sec:agents}). Where the
-interaction with a second quantity is the result itself, a figure shows more than one line.
-
-Every section follows the same order. It first describes the EFX rate in the reference cell and
-then checks with one count over all cells whether the pattern holds in general. Where a special
-case can be proven, the proof follows. The section then reads the survival curves to see how far
-the failing instances miss EFX, relates the findings to the literature, states whether the
-existence of an EFX allocation is proven in the cells concerned, and ends with a recommendation.
+In the reference cell of Section~\ref{sec:design}, in which four children divide twelve records
+with agreement $\rho=0.5$ and dispersion $\theta=1$, Round Robin achieves EFX in $29.3\%$ of the
+$20{,}000$ instances. Each of the following sections starts from this cell and changes one of the
+quantities listed there.
 
 \input{chapters/04_results/sec1_goods_per_agent}
 \input{chapters/04_results/sec2_divisibility}
