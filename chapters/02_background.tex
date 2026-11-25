@@ -58,7 +58,7 @@ agents $q+1,\dots,n$.
 \begin{example}\label{ex:records}
 In the example of the introduction, the four children are the agents and the records are the
 goods. Suppose the collection contains fourteen records. Then $n=4$, $m=14$, $r=3$ and $q=2$. The
-children choose in the order $1,2,3,4,\ 1,2,3,4,\ 1,2,3,4,\ 1,2$, so the first two children
+children choose in the order $1,2,3,4;\ 1,2,3,4;\ 1,2,3,4;\ 1,2$, so the first two children
 receive four records each and the other two receive three records each.
 \end{example}
 
@@ -115,14 +115,14 @@ most is removed. An EF1 allocation always exists: Round Robin returns one for ev
 (Proposition~\ref{prop:rrEF1}).
 
 EF1 is a weak notion, because the envy only has to vanish after removing the good that the envious
-agent values most. EFX requires more.
+agent values most. EFX is stricter.
 
 \begin{definition}[{Envy-freeness up to any good \parencite[Def.~4.5]{caragiannis2019}}]\label{def:efx}
 An allocation $A$ is \textit{envy-free up to any good} (EFX) if
 $v_i(A_i)\geq v_i(A_j\setminus\{g\})$ for all $i,j\in N$ and all $g\in A_j$ with $v_i(g)>0$.
 \end{definition}
 
-The condition is hardest to satisfy for the good that $i$ values least. Whenever $A_j$ contains a
+This condition is hardest to satisfy for the good that $i$ values least. Whenever $A_j$ contains a
 good that $i$ values positively, EFX is therefore equivalent to
 \[
   v_i(A_i)\;\geq\; v_i(A_j)-\min\{v_i(g) : g\in A_j,\ v_i(g)>0\}.
@@ -139,8 +139,8 @@ contains at most one good is EFX. This is why we assume $m>n$ (Section~\ref{sec:
 Two children divide three records $g_1,g_2,g_3$ by Round Robin. Child~1 values them at $10$, $2$
 and $7$, child~2 at $8$, $6$ and $3$. Child~1 takes $g_1$, child~2 takes $g_2$, and child~1 takes
 $g_3$, so $A_1=\{g_1,g_3\}$ and $A_2=\{g_2\}$. Child~2 values their own bundle at $6$ and the bundle
-of child~1 at $11$, so child~2 envies child~1. The allocation is EF1: without $g_1$, the record in
-$A_1$ that child~2 values most, the bundle of child~1 is worth $3$ to child~2. It is not EFX:
+of child~1 at $11$, so child~2 envies child~1. \textbf{The allocation is EF1: without $g_1$, the record in
+$A_1$ that child~2 values most, the bundle of child~1 is worth $3$ to child~2.}. However, it is not EFX:
 without $g_3$, the record that child~2 values least, it is still worth $8$. A fairer allocation
 exists. If child~1 receives only $g_1$ and child~2 receives $g_2$ and $g_3$, child~1 values the
 bundles at $10$ and $9$, child~2 at $9$ and $8$, and nobody envies anybody.
@@ -159,7 +159,7 @@ $v_i(g)>0$.
 
 Whether an allocation is EFX is an absolute question. To measure how close Round Robin comes to
 EFX when it fails, we use the largest $\alpha$ for which the allocation is $\alpha$-EFX. For a pair
-of agents $i\neq j$, the binding good is again the one that $i$ values least, which gives
+of agents $i\neq j$, the binding good is again the one that $i$ values least, which results in
 \[
   \aij \;=\; \frac{v_i(A_i)}{v_i(A_j)-\min\{v_i(g) : g\in A_j,\ v_i(g)>0\}}.
 \]
@@ -226,10 +226,10 @@ Hence $i$ does not envy $j$ if $i<j$, and the envy of $i$ disappears without $j_
 
 Envy can therefore only point from an agent who picks later to an agent who picks earlier, and it
 disappears once the first good of the earlier agent is removed. EFX, in contrast, requires that the
-envy disappears after removing the good that the envious agent values \emph{least}. The proof pairs
+envy disappears after removing the good that the envious agent values \emph{least}. \textbf{The proof pairs
 every good of $j$ except $j_1$ with a good of $i$ that is worth at least as much to $i$. If both
 agents receive the same number of goods, $|A_i|=|A_j|$, one good of $i$ remains unpaired, namely its
-last one.
+last one.}
 
 \begin{corollary}\label{cor:rrEFXpair}
 Let $i>j$, and suppose that $i$ and $j$ receive the same number of goods. If
@@ -240,19 +240,19 @@ then the EFX condition holds for agent $i$ towards agent $j$.
 \end{corollary}
 
 \begin{proof}
-Adding the value of the unpaired good $i_{|A_i|}$ to the inequality for $i>j$ in
+\textbf{Adding the value of the unpaired good $i_{|A_i|}$ to the inequality for $i>j$ in
 Proposition~\ref{prop:rrEF1} gives $v_i(A_i)\geq v_i(A_j)-v_i(j_1)+v_i(i_{|A_i|})$. Under the
 condition, the right-hand side is at least $v_i(A_j)-\min_{g\in A_j}v_i(g)$, which is the EFX
-condition of Section~\ref{sec:notions}, since all values are positive.
+condition of Section~\ref{sec:notions}, since all values are positive.}
 \end{proof}
 
-The condition is sufficient but not necessary. It states when the pairing argument alone ensures
+\textbf{The condition is sufficient but not necessary. It states when the pairing argument alone ensures
 EFX: the last good of $i$ together with the least valuable good of $j$ must be worth at least the
 first good of $j$, all as seen by $i$. EFX can also hold when the condition fails, because each
 paired good of $i$ may be worth considerably more to $i$ than its partner. The same holds in the
 other case, $|A_i|=|A_j|-1$, which occurs when $j$ receives one good more than $i$, that is, for
 $j\leq q<i$. No good of $i$ then remains unpaired, and the argument guarantees only EF1, as in
-Example~\ref{ex:ef1notefx}. EFX may still hold, for instance when the two agents want different
+Example~\ref{ex:ef1notefx}.} EFX may still hold, for instance when the two agents want different
 goods. The following example shows that Round Robin can nevertheless miss EFX by an arbitrarily
 large factor, even when both bundles have the same size.
 
@@ -271,14 +271,14 @@ the last good of agent~2 and the least valuable good of agent~1 are worth $\delt
 agent~2, far less than the value $1$ of the first good of agent~1.
 \end{example}
 
-The allocation in the example is EF1, as Proposition~\ref{prop:rrEF1} guarantees. Round Robin is
+\textbf{The allocation in the example is EF1, as Proposition~\ref{prop:rrEF1} guarantees. Round Robin is
 thus EF1 in every instance, but for every $\alpha\in(0,1]$ there is an instance in which its
 allocation is not $\alpha$-EFX: any $\delta<\alpha/4$ in Example~\ref{ex:witness}. This is the Round
 Robin counterpart of the general observation that an EF1 allocation need not be $\alpha$-EFX for
 any $\alpha>0$ \parencite[Prop.~3.1]{amanatidis2018comparing}. Since all values are positive,
 $\astar>0$ in every single instance, but no positive lower bound holds for all instances. A worst
 case analysis therefore says nothing about how well Round Robin approximates EFX, and only the
-average case over a distribution of instances is informative. This is the approach of this thesis.
+average case over a distribution of instances is informative. This is the approach of this thesis.}
 
 \section{Does an EFX Allocation Exist?}\label{sec:existence}
 %% FUNCTION: Answers the question that Section 2.3 raises: when Round Robin misses EFX, is this a
@@ -312,24 +312,26 @@ Table~\ref{tab:existence} lists those that cover parts of our simulation.
 \end{table}
 
 In our simulation, existence is therefore open for four or more agents with at least four goods more
-than agents, that is, for $n=4$ from $m=8$ on and for $n=5$ from $m=9$ on, unless all agents value
-the goods identically. This region contains the four children of the introduction as soon as the
+than agents, unless all agents value
+the goods identically. This \textbf{open field of research} contains the four children of the introduction as soon as the
 collection has at least eight records and the children do not all share the same taste.
 
-For this region, we searched for an EFX allocation in every instance of our simulation. The region
-comprises $10{,}080{,}000$ instances. In $45.0\%$ of them, Round Robin itself
+Therefore, we searched for an EFX allocation in every instance of our simulation. That
+comprises $10{,}080{,}000$ instances. \textbf{In $45.0\%$ of them, Round Robin itself
 returns an EFX allocation. For each of the remaining $5{,}541{,}149$ instances, we searched in three
 steps and stopped at the first EFX allocation. The first step checked the allocations of the other
 mechanisms we simulated, three further picking sequences and a random allocation. The second step was
 a local search that starts from the Round Robin allocation and moves single goods or swaps two goods.
 The third step was an integer program. Of the $5{,}541{,}149$ instances, the first step resolved
 $47.5\%$, the second $50.9\%$ and the third the remaining $1.6\%$. Every allocation found was accepted only if the computation of $\astar$ that we
-use for all results confirms that it is EFX. The search found an EFX allocation in every instance.
+use for all results confirms that it is EFX. The search found an EFX allocation in every instance.}
 
 This does not prove that every instance of our model admits an EFX allocation, but none of the
 instances we drew lacks one. Every failure of Round Robin reported in this thesis is therefore a
-failure of Round Robin and not of the problem, inside the open region as well as outside it.
+failure of Round Robin and not of the allocation itself.
 
 For approximate EFX, allocations that are $0.618$-EFX are known to exist and can be computed
 efficiently \parencite[Thm.~4.4]{amanatidis2020multiple}, but such algorithms are not meant to be
 carried out by hand, which is the setting that motivates this thesis.
+
+%einfach sagen dass es mit dem Separman und Gini zusammen hängt und dadsurch messbar ist und nicht in den Ergebnissen
