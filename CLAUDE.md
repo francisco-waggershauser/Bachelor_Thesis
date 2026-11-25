@@ -19,8 +19,8 @@ Supervisor Matthias Ammann. Synced with Overleaf via GitHub, Overleaf only sees 
 - No dashes (hyphen or em dash) as sentence punctuation. Compound words and math are fine.
 - Every claim carries exactly one status: proven, measured, or conjectured. Never blur it.
 - Cite named results by content, not by number alone.
-- Axis and text labels: Gini instead of theta, Spearman instead of rho; every Gini value
-  with theta in parentheses.
+- Text, axes and legends use rho and theta (Matthias, 25.11.). Spearman and Gini appear only as a
+  translation in Section 3.1 and in Appendix A (Lemma A.2, Table A.1).
 
 ## Notation (macros in `notation.tex`, use them)
 - `\astar` = alpha*, `\aij` = alpha_ij, `\Surv` / `\Survhat` = S_X / hat S_X.

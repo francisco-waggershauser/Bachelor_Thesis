@@ -28,9 +28,7 @@ agents are, $\Corr(\Zig,Z_{jg})=\rho$ for $i\neq j$ (Lemma~\ref{lem:scores}). Fo
 are independent, and every ordering of the goods is equally likely. For $\rho=1$, all agents rank
 the goods identically. These two endpoints are the models \textit{full independence} and
 \textit{full correlation} of \textcite[p.~74]{bouveret2011}. In between, the higher $\rho$ is, the more
-the rankings resemble each other, as for children who grew up with the same records. \revisitinline{Since Round Robin only uses these
-rankings, it matters that $\rho$ also describes them well: the rank correlation between two agents
-is almost exactly $\rho$ (Lemma~\ref{lem:scales}).}
+the rankings resemble each other, as for children who grew up with the same records.
 
 The scores cannot serve as values directly. They are normally distributed and therefore negative
 in half of all cases, whereas we assume positive values (Section~\ref{sec:setting}). Moreover, the normal
@@ -46,18 +44,8 @@ valuable goods stand out. As $\theta\to0$, all values tend to $1$, and every goo
 the same. The distribution of a single value does not depend on $\rho$. Since the transformation is
 strictly increasing, it keeps every ranking: agreement determines how the agents rank the goods,
 and dispersion how far apart their values lie. The values are continuously distributed, so ties
-occur with probability zero.
-
-\begin{revisit}
-Unlike agreement, the dispersion $\theta$ has no intuitive meaning on its own. We therefore
-translate it into the Gini coefficient of the values of a single agent, a familiar measure of
-inequality. It depends only on $\theta$ and increases from $0$, where all goods are worth the same,
-towards $1$, where a single good carries almost all the value (Lemma~\ref{lem:scales}). Like EFX,
-it compares values only relative to each other, so it does not depend on the unit in which values
-are measured. Table~\ref{tab:axes} lists the levels used in this thesis. At $\theta=1$, the Gini
-coefficient is $0.52$. We report every Gini value together with $\theta$ in
-parentheses, for instance Gini $0.52$ ($\theta=1$).
-\end{revisit}
+occur with probability zero. Table~\ref{tab:axes} lists the levels of both parameters used in
+this thesis.
 
 \begin{table}[ht]
   \centering
@@ -65,20 +53,22 @@ parentheses, for instance Gini $0.52$ ($\theta=1$).
   \begin{tabular}{lcccccc}
     \toprule
     Agreement $\rho$ & 0 & 0.25 & 0.5 & 0.75 & 1 & \\
-    \midrule
     Dispersion $\theta$ & 0.1 & 0.25 & 0.5 & 0.75 & 1.0 & 1.5 \\
-    Gini & 0.06 & 0.14 & 0.28 & 0.40 & 0.52 & 0.71 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-\begin{revisit}
-Both $\rho$ and the Gini coefficient describe the distribution from which values are drawn, not a
-single instance. Twelve records drawn at $\theta=1$ can have a Gini coefficient that differs from
-$0.52$. Likewise, the rankings of two children drawn at $\rho=0.5$ can agree much more or much less
-than $\rho$ suggests. We therefore read a level as \textit{the values are drawn from a world with
-agreement $0.5$}, not as \textit{the children agree to $50\%$}.
-\end{revisit}
+Agreement and dispersion are parameters of our model, and a real family cannot read them off its
+records. To describe a level outside the model, it can be expressed by a familiar statistic:
+agreement by the Spearman rank correlation between the values of two agents, which is almost
+exactly $\rho$, and dispersion by the Gini coefficient of the values of a single agent, which is
+$0.52$ at $\theta=1$ (Lemma~\ref{lem:scales} and Table~\ref{tab:scales}). Throughout this thesis,
+we work with $\rho$ and $\theta$.
+
+Both parameters describe the distribution from which values are drawn, not a single instance. The
+rankings of two children drawn at $\rho=0.5$ can agree much more or much less than $\rho$ suggests.
+We therefore read a level as \textit{the values are drawn from a world with agreement $0.5$}, not
+as \textit{the children agree to $50\%$}.
 
 \section{Allocation and Evaluation}\label{sec:evaluation}
 
@@ -137,7 +127,7 @@ point at $\alpha=0.60$ the median of the failures.
   \centering
   \includegraphics{fig32_reading.pdf}
   \caption{Share of instances with $\astar\geq\alpha$ under Round Robin for $n=4$ agents, $m=12$
-  goods, agreement $\rho=0.5$ and Gini $0.52$ ($\theta=1$). The curve rests on $R=20{,}000$
+  goods, agreement $\rho=0.5$ and dispersion $\theta=1$. The curve rests on $R=20{,}000$
   instances and ends at $\alpha=1$ in the EFX rate. The filled point marks the $5\%$ quantile and
   the open point the median of $\astar$ among the instances that are not EFX.}
   \label{fig:reading}
@@ -156,8 +146,8 @@ It remains to fix which cells we simulate. Our model accepts any number of agent
 any levels of agreement and dispersion. We restrict the design to small groups, because these are
 the groups that divide by hand: $n\in\{2,3,4,5\}$ agents with $m=n+1,\dots,4n$ goods, so that
 every agent receives at most four goods. Agreement takes the five levels and dispersion the six
-levels from Table~\ref{tab:axes}, which range from almost equally valuable goods, Gini $0.06$
-($\theta=0.1$), to very unequal ones, Gini $0.71$ ($\theta=1.5$). This gives $42$ pairs
+levels from Table~\ref{tab:axes}, which range from almost equally valuable goods at $\theta=0.1$
+to very unequal ones at $\theta=1.5$. This gives $42$ pairs
 $(n,m)$ and $1{,}260$ cells, each with $R=20{,}000$ instances. With this number of instances, the
 standard error $\sqrt{\Survhat(1)(1-\Survhat(1))/R}$ of every EFX rate is at most $0.0036$,
 attained at an EFX rate of $0.5$. The same instances are also allocated by the mechanisms of
@@ -166,7 +156,7 @@ Chapter~\ref{ch:random}.
 All results start from a common \textit{reference cell}, which is the family from the
 introduction: a father leaves $m=12$ records to his $n=4$ children. Every child receives $r=3$
 records, and none is left over ($q=0$). The values are drawn with agreement $\rho=0.5$ and
-dispersion Gini $0.52$ ($\theta=1$). We chose this cell for three reasons. Agreement and
+dispersion $\theta=1$. We chose this cell for three reasons. Agreement and
 dispersion lie inside the range of the design, so both can move in either direction. All bundles
 have the same size, so divisibility plays no role unless we change it. And the reference cell lies
 in the region where the existence of an EFX allocation is open. Every instance of our design admits
