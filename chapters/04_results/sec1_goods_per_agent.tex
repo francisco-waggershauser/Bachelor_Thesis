@@ -48,7 +48,7 @@ grows.
 
 \subsection{At Most Two Goods and Distinct Favourite Goods}\label{sec:bundlesize}
 
-With few goods per agent, there is a case in which Round Robin is guaranteed to achieve EFX. It
+With two goods per agent, there is a case in which Round Robin is guaranteed to achieve EFX. It
 depends on whether the agents have different favourite goods. We call an instance
 \textit{collision-free} if all agents have different favourite goods. Under full agreement
 ($\rho=1$), all agents have the same favourite good, so no instance is collision-free.
@@ -59,7 +59,7 @@ EFX towards an agent who receives at most two goods.
 \end{lemma}
 
 \begin{proof}
-Let $i$ and $j$ be two agents with $|A_j|\leq2$. Since all favourite goods differ, every agent
+Let $i$ and $j$ be two agents with $j<i$ and $|A_j|\leq2$. Since all favourite goods differ, every agent
 receives their favourite good in the first round, so $v_i(A_i)\geq v_i(g)$ for every good $g$. If
 $|A_j|=1$, EFX holds trivially for this pair. If $|A_j|=2$, removing either good from $A_j$ leaves
 a single good $g$, and $v_i(g)\leq v_i(A_i)$.
@@ -75,20 +75,13 @@ applies to every pair.
 \end{proof}
 
 The stored cells confirm the corollary: at every number of agents with $m\leq2n$, at every level
-of $\rho <1$ and at every level of dispersion, each collision-free instance is EFX. The
+of $\rho <1$ and at every level of dispersion $\theta$, each collision-free instance is EFX. The
 proof uses only the favourite goods and the bundle sizes, so the guarantee does not depend on our
 distribution of values.
 
-A related observation explains why the EFX rate at $m=n+1$ does not depend on dispersion
-(Section~\ref{sec:dispersion-rate}). With one good more than agents, only one agent receives two
-goods. For every other pair, EFX holds trivially or requires $v_i(A_i)\geq\max_{g\in A_j}v_i(g)$,
-a comparison of single goods that depends only on the rankings. Since dispersion does not change
-rankings, the EFX rate at $m=n+1$ is the same for every level of dispersion (proven; in the
-stored cells it is identical instance by instance).
-
 The condition of the corollary quickly becomes rare. Table~\ref{tab:collisionfree} shows the
 share of collision-free instances at $m=2n$, the largest number of goods the guarantee covers. It
-falls from $0.749$ for two agents without agreement to $0.010$ for five agents at $\rho=0.75$.
+falls from $0.749$ for two agents without agreement ($\rho = 0$) to $0.010$ for five agents at $\rho=0.75$.
 
 \begin{table}[H]
   \centering
@@ -110,9 +103,7 @@ falls from $0.749$ for two agents without agreement to $0.010$ for five agents a
 Figure~\ref{fig:goods-break} shows what happens beyond $m=2n$ for four agents, restricted to
 collision-free instances. Up to $m=8$, the EFX rate is exactly $1$, as the corollary states. As
 soon as one agent receives a third good, it drops to $0.830$ at $m=9$, and by
-Lemma~\ref{lem:bundlesize}, every violation is then towards the agent with three goods. The drop
-does not come from the remainder: at $m=5$, $6$ and $7$, goods are left over as well, and the EFX
-rate is still $1$. To the right of the break, the EFX rate recovers unevenly, to $0.941$ at
+Lemma~\ref{lem:bundlesize}, every violation is then towards the agent with three goods. To the right of the break, the EFX rate recovers unevenly, to $0.941$ at
 $m=16$.
 
 \begin{figure}[H]
@@ -127,7 +118,7 @@ $m=16$.
 \end{figure}
 
 This does not contradict Section~\ref{sec:goods-rate}, because the guarantee covers only the
-collision-free instances. Over all instances, the EFX rate still rises with the number of goods
+collision-free instances. Over all instances, the EFX rate rises with the number of goods
 per agent, from $0.212$ with two to $0.293$ with three (Figure~\ref{fig:goods}).
 
 \subsection{Severity of Failures}\label{sec:goods-severity}
