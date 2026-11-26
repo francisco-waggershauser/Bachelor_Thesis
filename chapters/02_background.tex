@@ -178,8 +178,7 @@ misses EFX by a quarter.
 
 \section{Why Round Robin Is EF1 but Not Approximately EFX}\label{sec:rrEF1}
 %% FUNCTION: Connects the two questions of the introduction for Round Robin. Proves that Round
-%% Robin is EF1 (known argument, written out turn by turn), derives a sufficient condition for EFX
-%% between two agents with bundles of equal size (anchor for the explanations in Chapter 4), and
+%% Robin is EF1 (known argument, written out turn by turn), and
 %% shows with a family of instances that Round Robin has no approximation guarantee for EFX, which
 %% motivates the average case.
 
@@ -226,59 +225,27 @@ Hence $i$ does not envy $j$ if $i<j$, and the envy of $i$ disappears without $j_
 
 Envy can therefore only point from an agent who picks later to an agent who picks earlier, and it
 disappears once the first good of the earlier agent is removed. EFX, in contrast, requires that the
-envy disappears after removing the good that the envious agent values \emph{least}. \textbf{The proof pairs
-every good of $j$ except $j_1$ with a good of $i$ that is worth at least as much to $i$. If both
-agents receive the same number of goods, $|A_i|=|A_j|$, one good of $i$ remains unpaired, namely its
-last one.}
-
-\begin{corollary}\label{cor:rrEFXpair}
-Let $i>j$, and suppose that $i$ and $j$ receive the same number of goods. If
-\[
-  v_i\big(i_{|A_i|}\big)+\min_{g\in A_j}v_i(g)\;\geq\;v_i(j_1),
-\]
-then the EFX condition holds for agent $i$ towards agent $j$.
-\end{corollary}
-
-\begin{proof}
-\textbf{Adding the value of the unpaired good $i_{|A_i|}$ to the inequality for $i>j$ in
-Proposition~\ref{prop:rrEF1} gives $v_i(A_i)\geq v_i(A_j)-v_i(j_1)+v_i(i_{|A_i|})$. Under the
-condition, the right-hand side is at least $v_i(A_j)-\min_{g\in A_j}v_i(g)$, which is the EFX
-condition of Section~\ref{sec:notions}, since all values are positive.}
-\end{proof}
-
-\textbf{The condition is sufficient but not necessary. It states when the pairing argument alone ensures
-EFX: the last good of $i$ together with the least valuable good of $j$ must be worth at least the
-first good of $j$, all as seen by $i$. EFX can also hold when the condition fails, because each
-paired good of $i$ may be worth considerably more to $i$ than its partner. The same holds in the
-other case, $|A_i|=|A_j|-1$, which occurs when $j$ receives one good more than $i$, that is, for
-$j\leq q<i$. No good of $i$ then remains unpaired, and the argument guarantees only EF1, as in
-Example~\ref{ex:ef1notefx}.} EFX may still hold, for instance when the two agents want different
-goods. The following example shows that Round Robin can nevertheless miss EFX by an arbitrarily
-large factor, even when both bundles have the same size.
+envy disappears after removing the good that the envious agent values \emph{least}. Round Robin
+cannot guarantee this. In fact, it cannot even guarantee $\alpha$-EFX for any fixed $\alpha>0$, as
+the following example shows.
 
 \begin{example}\label{ex:witness}
-Let $n=2$, $m=4$ and $0<\delta<1/4$, with values
+Two children divide four records $g_1,\dots,g_4$. Let $0<\delta<1/4$, and let the children value the
+records at
 \[
-  v_1=(10,\,1,\,9,\,1),\qquad v_2=(1,\,3\delta,\,2\delta,\,\delta)
+  v_1=(10,\,1,\,9,\,1),\qquad v_2=(1,\,3\delta,\,2\delta,\,\delta).
 \]
-for the goods $g_1,\dots,g_4$. Round Robin with the sequence $(1,2,1,2)$ proceeds as follows:
-agent~1 takes $g_1$, agent~2 takes $g_2$, agent~1 takes $g_3$, and agent~2 takes $g_4$. Hence
-$A_1=\{g_1,g_3\}$ and $A_2=\{g_2,g_4\}$. Agent~2 values their own bundle at $4\delta$ and the bundle
-of agent~1 at $1+2\delta$. Removing $g_3$, the good in $A_1$ that agent~2 values least, leaves a
-value of $1$. Thus $\alpha_{21}=4\delta<1$. Agent~1 does not envy agent~2 ($\alpha_{12}=19$), so
-$\astar=4\delta$, which tends to $0$ as $\delta\to0$. In terms of Corollary~\ref{cor:rrEFXpair},
-the last good of agent~2 and the least valuable good of agent~1 are worth $\delta+2\delta$ to
-agent~2, far less than the value $1$ of the first good of agent~1.
+Child~2 thus cares almost only about $g_1$. Child~1 takes $g_1$, child~2 takes $g_2$, child~1 takes
+$g_3$, and child~2 takes $g_4$. Child~2 values their own bundle at $4\delta$. Even without $g_3$, the
+record in the bundle of child~1 that child~2 values least, that bundle is still worth $1$ to
+child~2, so $\alpha_{21}=4\delta$. Child~1 envies nobody, so $\astar=4\delta$.
 \end{example}
 
-\textbf{The allocation in the example is EF1, as Proposition~\ref{prop:rrEF1} guarantees. Round Robin is
-thus EF1 in every instance, but for every $\alpha\in(0,1]$ there is an instance in which its
-allocation is not $\alpha$-EFX: any $\delta<\alpha/4$ in Example~\ref{ex:witness}. This is the Round
-Robin counterpart of the general observation that an EF1 allocation need not be $\alpha$-EFX for
-any $\alpha>0$ \parencite[Prop.~3.1]{amanatidis2018comparing}. Since all values are positive,
-$\astar>0$ in every single instance, but no positive lower bound holds for all instances. A worst
-case analysis therefore says nothing about how well Round Robin approximates EFX, and only the
-average case over a distribution of instances is informative. This is the approach of this thesis.}
+The allocation is EF1, as Proposition~\ref{prop:rrEF1} guarantees, but as $\delta$ shrinks,
+$\astar$ tends to $0$. This mirrors the general fact that an EF1 allocation need not be
+$\alpha$-EFX for any $\alpha>0$ \parencite[Prop.~3.1]{amanatidis2018comparing}. Since $\astar$ can be
+arbitrarily small, a worst-case analysis says nothing about how close Round Robin comes to EFX, so
+we study the average case over a distribution of instances.
 
 \section{Does an EFX Allocation Exist?}\label{sec:existence}
 %% FUNCTION: Answers the question that Section 2.3 raises: when Round Robin misses EFX, is this a
