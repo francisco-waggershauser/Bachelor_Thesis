@@ -6,16 +6,6 @@
 %% the guarantee breaks at m = 2n + 1. Since this break coincides with the first remainder, the
 %% section leads to divisibility.
 
-Return to the father and his four children, but suppose that his collection holds $8$, $12$ or
-$16$ records. Each child then picks two, three or four times. More picks give the children who
-pick late more chances to catch up, but they also give everyone more records to envy in a
-sibling's allocation. In our notation, the number of picks per child is the number of full rounds
-$r$. To keep divisibility out of this comparison, the number of records is always a multiple of
-four. Agreement and dispersion stay at $\rho=0.5$ and
-$\theta=1$, so that $r=3$ is the reference cell. With a single record per child, the collection
-would be no larger than the family, a case we exclude (Section~\ref{sec:setting}), so the
-comparison starts at $r=2$.
-
 \subsection{EFX Rate}\label{sec:goods-rate}
 
 As Figure~\ref{fig:goods} shows, Round Robin achieves EFX more often when every agent receives
@@ -123,14 +113,6 @@ per agent, from $0.212$ with two to $0.293$ with three (Figure~\ref{fig:goods}).
 
 \subsection{Severity of Failures}\label{sec:goods-severity}
 
-Figure~\ref{fig:goods-survival} shows the survival curves for two, three and four goods per
-agent. A curve for more goods per agent never lies below a curve for fewer goods, so more rounds
-reduce both the number and the depth of failures. At $\alpha=0.6$, the share of instances that
-reach at least this level is $0.468$, $0.651$ and $0.787$. The conditional $5\%$ quantile rises
-from $0.14$ to $0.23$ and $0.30$, and the median of $\astar$ among the instances that are not EFX
-rises from $0.47$ to $0.60$ and $0.69$. Severe failures become rare: the share of instances with
-$\astar<0.2$ falls from $0.090$ with two goods per agent to $0.024$ and $0.008$.
-
 \begin{figure}[H]
   \centering
   \includegraphics{fig43_goods_survival.pdf}
@@ -142,24 +124,3 @@ $\astar<0.2$ falls from $0.090$ with two goods per agent to $0.024$ and $0.008$.
   \label{fig:goods-survival}
 \end{figure}
 
-\paragraph{Relation to literature.}
-Our results fit the asymptotic picture for independent values. \textcite[Thm.~3.1]{manurangsi2021}
-show that Round Robin even achieves envy-freeness with high probability once the number of goods
-is of order $n\log n/\log\log n$, for independent values whose density on $[0,1]$ is bounded.
-Their result does not formally apply to our lognormal values, and it concerns many agents, but it
-points in the same direction as our measurements at low agreement: more goods per agent help.
-\textcite[p.~17]{manurangsi2021} also argue that standard Round Robin with one round and a large
-remainder fails EFX with constant probability, because the last agent may lose their favourite
-good to one of the agents who pick an extra good. This is the collision mechanism behind
-Lemma~\ref{lem:bundlesize}, in asymptotic form. The existence of an EFX allocation is proven in
-most cells with $m\leq2n$: for $n\leq3$ \parencite{plaut2020,chaudhury2024}, for $m\leq n+2$
-\parencite{amanatidis2020multiple} and for $m\leq n+3$ \parencite{mahara2024general}. For $n=4$,
-it is open from $m=8$ on, so all three cells of Figure~\ref{fig:goods} lie in the region where we
-assume existence (Section~\ref{sec:existence}).
-
-\paragraph{Recommendation.}
-If every person receives at most two goods and all favourite goods differ, Round Robin delivers
-EFX for certain, and both conditions can be checked before picking starts; beyond that, more goods
-per person make EFX more likely, unless everyone agrees on what is valuable. Because the
-guarantee breaks exactly where the first agent receives one good more than the others, the next
-section asks what divisibility does.
