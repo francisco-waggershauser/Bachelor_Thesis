@@ -19,8 +19,9 @@ comparison starts at $r=2$.
 \subsection{EFX Rate}\label{sec:goods-rate}
 
 As Figure~\ref{fig:goods} shows, Round Robin achieves EFX more often when every agent receives
-more goods. With two goods per agent, the EFX rate is $0.212$. It rises to $0.293$ with three
-goods and to $0.409$ with four. \textcite[Thm.~3.1]{manurangsi2021} find the same
+more goods. With two goods per agent, the EFX rate is $0.212$, with $15{,}755$ failures among
+$R=20{,}000$ instances. It rises to $0.293$ with three goods and to $0.409$ with four goods, where
+$11{,}828$ instances fail. \textcite[Thm.~3.1]{manurangsi2021} find the same
 direction in their model with independent values: once every agent receives sufficiently many
 goods, Round Robin is even envy-free with high probability. In our model, independent values
 correspond to $\rho=0$, and there the EFX rate rises as well, from $0.577$ to $0.741$ and $0.856$.
@@ -36,14 +37,12 @@ correspond to $\rho=0$, and there the EFX rate rises as well, from $0.577$ to $0
 
 To see whether this rise holds beyond the reference cell, we use all $1{,}260$ cells of our
 design. They form $420$ sets of three cells that differ only in the number of goods per agent, one
-set for each of the $14$ combinations of the number of agents and the remainder, each of the five
-levels of agreement and each of the six levels of dispersion ($14\times5\times6=420$). In $80$ of
-these sets, the number of goods per agent has no influence on the EFX rate, which the other
-quantities fix at $0$ or $1$ (Section~\ref{sec:divisibility}), so we leave these sets out.
+set for each of the $14$ combinations of the number of agents $n$ and the remainder $q$, each of the five
+levels of agreement $\rho$ and each of the six levels of dispersion $\theta$ ($14\times5\times6=420$). In $80$ of
+these sets, the number of goods per agent has no influence on the EFX rate (Section~\ref{sec:divisibility}), so we leave these sets out.
 
-In $306$ of the remaining $340$ sets, the EFX rate rises from each cell to the next. The
-exceptions are of two kinds. In $14$ sets, it falls once, by at most $2.5$ percentage points, and
-always at the step that takes the number of goods beyond $2n$. In the other $20$, all agents rank
+In $306$ of the remaining $340$ sets, the EFX rate rises from with growing $r$. The
+exceptions are of two kinds. In 14 sets, it falls once, by at most 2.5 percentage points, always at the first step. In the other $20$, all agents rank
 the goods in the same order ($\rho=1$), and the EFX rate falls as the number of goods per agent
 grows.
 
