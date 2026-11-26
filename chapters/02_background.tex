@@ -279,18 +279,15 @@ Table~\ref{tab:existence} lists those that cover parts of our simulation.
 
 In our simulation, existence is therefore open for four or more agents with at least four goods more
 than agents, unless all agents value
-the goods identically. This \textbf{open field of research} contains the four children of the introduction as soon as the
+the goods identically. This open region contains the four children of the introduction as soon as the
 collection has at least eight records and the children do not all share the same taste.
 
-Therefore, we searched for an EFX allocation in every instance of our simulation. That
-comprises $10{,}080{,}000$ instances. \textbf{In $45.0\%$ of them, Round Robin itself
-returns an EFX allocation. For each of the remaining $5{,}541{,}149$ instances, we searched in three
-steps and stopped at the first EFX allocation. The first step checked the allocations of the other
-mechanisms we simulated, three further picking sequences and a random allocation. The second step was
-a local search that starts from the Round Robin allocation and moves single goods or swaps two goods.
-The third step was an integer program. Of the $5{,}541{,}149$ instances, the first step resolved
-$47.5\%$, the second $50.9\%$ and the third the remaining $1.6\%$. Every allocation found was accepted only if the computation of $\astar$ that we
-use for all results confirms that it is EFX. The search found an EFX allocation in every instance.}
+Therefore, we searched for an EFX allocation in each of the $10{,}080{,}000$ instances of our
+simulation. In $45.0\%$ of them, Round Robin itself returns an EFX allocation. For every other
+instance, one of the further methods we used found an EFX allocation: the allocations of the other
+mechanisms we simulate, a local search starting from the Round Robin allocation, or an integer
+program. We accepted an allocation only if the computation of $\astar$ that we use for all results
+confirms that it is EFX.
 
 This does not prove that every instance of our model admits an EFX allocation, but none of the
 instances we drew lacks one. Every failure of Round Robin reported in this thesis is therefore a
