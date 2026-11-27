@@ -15,7 +15,7 @@ Section~\ref{sec:setting} fixed the agents, the goods and how Round Robin distri
 full rounds and a remainder. What the model still lacks is the value that each agent attributes to
 each good.
 
-A value has two sources. Part of it is shared, because some records appeal to all four children more
+We assume that a value has two sources. Part of it is shared, because some records appeal to all four children more
 than others. The other part is private, because each child also has a taste of their own. For every agent $i$ and good $g$, we therefore draw a score $\Zig$ from a common component
 $\Wg$, which is the same for all agents, and a private component $\etaig$:
 \[
@@ -59,7 +59,7 @@ this thesis.
 \end{table}
 
 Agreement and dispersion are parameters of our model, and a real family cannot read them off its
-records. To describe a level outside the model, it can be expressed by a familiar statistic:
+records. \textbf{However, it is a quantitative way showcase broad scenarios. A family can relatively determine if the children have rather high agreement or not and whether the value of the goods are similar or spread.} Additionally, to describe a level outside the model, it can be expressed by a familiar statistic:
 agreement by the Spearman rank correlation between the values of two agents, which is almost
 exactly $\rho$, and dispersion by the Gini coefficient of the values of a single agent, which is
 $0.52$ at $\theta=1$ (Lemma~\ref{lem:scales} and Table~\ref{tab:scales}). Throughout this thesis,
@@ -97,8 +97,7 @@ a value, return to the four children: $\astar=0.6$ means that some child values 
 allocation at only $60\%$ of what a sibling's allocation is worth to them, even after the record
 they value least has been removed from it.
 
-A \textit{cell} $X=(n,m,\rho,\theta)$ fixes the number of agents, the number of goods, the
-agreement and the dispersion. For each cell, we draw $R$ instances $k=1,\dots,R$ with values
+\textcolor{red}{Definition???} A \textit{cell} $X=(n,m,\rho,\theta)$ fixes the number of agents, the number of goods, the agreement and the dispersion. For each cell, we draw $R$ instances $k=1,\dots,R$ with values
 $\astar_k$ and describe them by the survival function
 \[
   \Surv(\alpha)=\Pr\big[\astar\geq\alpha \mid X\big],\qquad \alpha\in(0,1],
@@ -107,7 +106,7 @@ and its empirical estimator
 \[
   \Survhat(\alpha)=\frac{1}{R}\sum_{k=1}^{R}\mathbf{1}\{\astar_k\geq\alpha\}.
 \]
-$\Survhat(\alpha)$ is the share of instances that come at least as close to EFX as $\alpha$. It is
+$\Survhat(\alpha)$ is the share of instances that achieve a certain $\alpha$-EFX for a specific $\alpha$. It is
 non-increasing in $\alpha$, and its value at $\alpha=1$ is the share of instances that are EFX.
 The curve below $\alpha=1$ shows how far the remaining instances are from EFX.
 
@@ -146,12 +145,11 @@ It remains to fix which cells we simulate. Our model accepts any number of agent
 any levels of agreement and dispersion. We restrict the design to small groups, because these are
 the groups that divide by hand: $n\in\{2,3,4,5\}$ agents with $m=n+1,\dots,4n$ goods, so that
 every agent receives at most four goods. Agreement takes the five levels and dispersion the six
-levels from Table~\ref{tab:axes}, which range from almost equally valuable goods at $\theta=0.1$
-to very unequal ones at $\theta=1.5$. This gives $42$ pairs
+levels from Table~\ref{tab:axes}. This gives $42$ pairs
 $(n,m)$ and $1{,}260$ cells, each with $R=20{,}000$ instances. With this number of instances, the
 standard error $\sqrt{\Survhat(1)(1-\Survhat(1))/R}$ of every EFX rate is at most $0.0036$,
-attained at an EFX rate of $0.5$. The same instances are also allocated by the mechanisms of
-Chapter~\ref{ch:random}.
+attained at an EFX rate of $0.5$. \textcolor{red}{The same instances are also allocated by the mechanisms of
+Chapter~\ref{ch:random}.}
 
 All results start from a common \textit{reference cell}, which is the family from the
 introduction: a father leaves $m=12$ records to his $n=4$ children. Every child receives $r=3$
@@ -181,9 +179,9 @@ compare cells by $m$ alone and make five comparisons:
 Instance $k$ uses the same random numbers $\Wg$ and $\etaig$ at every level of agreement and
 dispersion and for every mechanism. When results for two levels or two mechanisms differ, the difference
 therefore comes from the condition and not from different draws. Cells with different numbers of agents or goods
-share only part of these numbers. The other side is that cells are not independent of each other.
+share only part of these numbers. \textcolor{red}{The other side is that cells are not independent of each other.
 When we count in how many cells a pattern holds, the count describes our data and is not a series
-of independent confirmations. Over dispersion, the pairing is even exact: by
+of independent confirmations.} Over dispersion, the pairing is even exact: by
 Lemma~\ref{lem:thetainv}, every instance keeps its allocation, and only its evaluation changes.
 
 An earlier, smaller run with $R=2{,}000$ served only to set up the design. All numbers in this
