@@ -70,11 +70,35 @@ rankings of two children drawn at $\rho=0.5$ can agree much more or much less th
 We therefore read a level as \textit{the values are drawn from a world with agreement $0.5$}, not
 as \textit{the children agree to $50\%$}.
 
-\section{Allocation and Evaluation}\label{sec:evaluation}
+\section{From a Cell to an EFX Rate}\label{sec:evaluation}
 
-Round Robin receives only the values and returns an allocation (Section~\ref{sec:setting}). It does
-not know $\rho$ or $\theta$. Since every agent simply takes
-their most valuable remaining good, Round Robin only uses how each agent ranks the goods.
+The values, Round Robin and the target quantity $\astar$ are now defined. This section puts them
+together and describes, in five steps, how the simulation gets from a few parameters to the share
+of instances in which Round Robin is EFX. We follow the steps with the father who leaves twelve
+records to his four children.
+
+\paragraph{Step 1: Fix a cell.}
+The first two steps bring together what the previous sections defined, the agents and goods of
+Section~\ref{sec:setting} and the values of Section~\ref{sec:instances}. A \textit{cell}
+$X=(n,m,\rho,\theta)$ fixes the number of agents, the number of goods, the agreement and the
+dispersion. It describes a kind of situation, not a concrete one. Our example is the cell with
+$n=4$, $m=12$, $\rho=0.5$ and $\theta=1$: four children, twelve records, tastes that are partly
+alike, and records whose values differ clearly.
+
+\paragraph{Step 2: Draw an instance.}
+An instance consists of the agents, the goods and their valuations (Section~\ref{sec:setting}). To
+obtain one, we draw the numbers $\Wg$ and $\etaig$ once and turn them into values as described in
+Section~\ref{sec:instances}. The result is the valuation matrix $V$ with $n$ rows and $m$ columns,
+whose entry in row $i$ and column $g$ is $v_i(g)$. In the example, one instance is one particular
+family, in which we know how much each child values each record. A second draw from the same cell
+gives a family with different tastes.
+
+\paragraph{Step 3: Allocate.}
+This step answers the first question of the introduction, how to divide, within our model. Round
+Robin receives only $V$ and returns an allocation $A$ (Section~\ref{sec:setting}). It does not
+know $\rho$ or $\theta$. The children pick in the order $1,2,3,4$, and each takes the remaining
+record they value most, until all twelve records are gone. Since every agent simply takes their
+most valuable remaining good, Round Robin only uses how each agent ranks the goods.
 
 \begin{lemma}\label{lem:thetainv}
 For a fixed draw of the scores $\Zig$, the Round Robin allocation is the same for every dispersion
@@ -90,15 +114,21 @@ $\theta$ is. Hence every pick, and with it the whole allocation, is the same for
 
 Dispersion therefore changes how a fixed allocation is evaluated, never the allocation itself.
 Since the agents are exchangeable in our model, letting agent $1$ pick first is no restriction.
+\textcolor{red}{In Chapter~\ref{ch:random}, other mechanisms take the place of Round Robin in this
+step, and all other steps stay the same.}
 
-For every allocation, we compute the target quantity $\astar$ (Section~\ref{sec:notions}), which
-equals $1$ exactly when the allocation is EFX and otherwise measures how far it misses EFX. To read
-a value, return to the four children: $\astar=0.6$ means that some child values their own
-allocation at only $60\%$ of what a sibling's allocation is worth to them, even after the record
-they value least has been removed from it.
+\paragraph{Step 4: Evaluate.}
+This step answers the second question, whether the result is fair. For every pair of agents, we
+compute $\aij$ and from these the target quantity $\astar$ (Section~\ref{sec:notions}). It equals
+$1$ exactly when the allocation is EFX, and otherwise it measures how far the allocation misses
+EFX. In the example, $\astar=0.6$ means that some child values their own allocation at only $60\%$
+of what a sibling's allocation is worth to them, even after the record they value least has been
+removed from it.
 
-\textcolor{red}{Definition???} A \textit{cell} $X=(n,m,\rho,\theta)$ fixes the number of agents, the number of goods, the agreement and the dispersion. For each cell, we draw $R$ instances $k=1,\dots,R$ with values
-$\astar_k$ and describe them by the survival function
+\paragraph{Step 5: Repeat and summarise.}
+One instance answers both questions for one family, not for the cell. We therefore repeat steps 2
+to 4 for $R=20{,}000$ independent instances $k=1,\dots,R$ and obtain the values
+$\astar_1,\dots,\astar_R$. We describe them by the survival function
 \[
   \Surv(\alpha)=\Pr\big[\astar\geq\alpha \mid X\big],\qquad \alpha\in(0,1],
 \]
@@ -106,21 +136,24 @@ and its empirical estimator
 \[
   \Survhat(\alpha)=\frac{1}{R}\sum_{k=1}^{R}\mathbf{1}\{\astar_k\geq\alpha\}.
 \]
-$\Survhat(\alpha)$ is the share of instances that achieve a certain $\alpha$-EFX for a specific $\alpha$. It is
-non-increasing in $\alpha$, and its value at $\alpha=1$ is the share of instances that are EFX.
-The curve below $\alpha=1$ shows how far the remaining instances are from EFX.
+$\Survhat(\alpha)$ is the share of instances whose allocation is $\alpha$-EFX, that is, that come
+at least as close to EFX as $\alpha$. The curve starts at $1$, because every instance has
+$\astar>0$, and it never rises as $\alpha$ grows. Its value at $\alpha=1$ is the \textit{EFX
+rate}, the share of instances in which Round Robin is EFX. It estimates how often Round Robin
+achieves EFX in this cell. Its standard error $\sqrt{\Survhat(1)(1-\Survhat(1))/R}$ is at most
+$0.0036$, reached at an EFX rate of $0.5$. Halving this error would require four times as many
+instances.
 
-We summarise each cell by three numbers. The first is the \textit{EFX rate} $\Survhat(1)$. The
-other two describe the instances in which Round Robin fails EFX, that is, those with $\astar<1$.
-The \textit{conditional $5\%$ quantile} marks the level below which the worst five percent of
-these failures lie. The \textit{median of the failures} answers how far from EFX a typical failure is. We
-report both numbers only for cells with at least $200$ failures. We do not use the mean of $\astar$, because it mixes how often an allocation is EFX
-with how far it misses EFX.
+The EFX rate shows how often Round Robin fails, but not by how much. Two further numbers therefore
+describe the instances with $\astar<1$. The \textit{conditional $5\%$ quantile} marks the level
+below which the worst five percent of these failures lie. The \textit{median of the failures}
+answers how far from EFX a typical failure is. We report both only for cells with at least $200$
+failures. We do not use the mean of $\astar$, because it mixes how often an allocation is EFX with
+how far it misses EFX.
 
-Figure~\ref{fig:reading} shows all three for one cell of our design, the reference cell of
-Section~\ref{sec:design}. The curve starts at $1$, because every instance has $\astar>0$, and falls
-to the EFX rate at $\alpha=1$. The point at $\alpha=0.23$ is the conditional $5\%$ quantile, the
-point at $\alpha=0.60$ the median of the failures.
+Figure~\ref{fig:reading} shows the three numbers for the example cell. Round Robin is EFX in
+$29.3\%$ of the $20{,}000$ instances. Among the other instances, one in twenty stays below
+$\astar=0.23$, and half stay below $0.60$.
 
 \begin{figure}[H]
   \centering
@@ -132,37 +165,38 @@ point at $\alpha=0.60$ the median of the failures.
   \label{fig:reading}
 \end{figure}
 
-The end point of the curve, the EFX rate, answers the question in the title of this thesis for a
-single cell. The natural next question is how this rate changes when one quantity of our model
-changes. Each section of Chapter~\ref{ch:results} therefore begins with a figure that plots the
-EFX rate against the levels of one quantity, one point per cell. A second figure then shows the
-whole survival curves of the same cells, one curve per level, each with the same two points as
-Figure~\ref{fig:reading}, and reveals how far from EFX the failures are.
-
 \section{Design and Reference Cell}\label{sec:design}
 
-It remains to fix which cells we simulate. Our model accepts any number of agents and goods and
-any levels of agreement and dispersion. We restrict the design to small groups, because these are
-the groups that divide by hand: $n\in\{2,3,4,5\}$ agents with $m=n+1,\dots,4n$ goods, so that
-every agent receives at most four goods. Agreement takes the five levels and dispersion the six
-levels from Table~\ref{tab:axes}. This gives $42$ pairs
-$(n,m)$ and $1{,}260$ cells, each with $R=20{,}000$ instances. With this number of instances, the
-standard error $\sqrt{\Survhat(1)(1-\Survhat(1))/R}$ of every EFX rate is at most $0.0036$,
-attained at an EFX rate of $0.5$. \textcolor{red}{The same instances are also allocated by the mechanisms of
-Chapter~\ref{ch:random}.}
+Steps 1 to 5 give one survival curve and one EFX rate for one cell. To see under which conditions
+Round Robin achieves EFX, we repeat them for many cells. Our model accepts any number of agents
+and goods and any levels of agreement and dispersion. We restrict the design to small groups,
+because these are the groups that divide by hand: $n\in\{2,3,4,5\}$ agents with $m=n+1,\dots,4n$
+goods, so that every agent receives at most four goods. Agreement takes the five levels and
+dispersion the six levels from Table~\ref{tab:axes}. The four numbers of agents give
+$6+9+12+15=42$ pairs $(n,m)$. With five levels of agreement and six of dispersion, we obtain
+$42\times5\times6=1{,}260$ cells. Each rests on $20{,}000$ instances, $25.2$ million instances in
+total.
 
-All results start from a common \textit{reference cell}, which is the family from the
-introduction: a father leaves $m=12$ records to his $n=4$ children. Every child receives $r=3$
-records, and none is left over ($q=0$). The values are drawn with agreement $\rho=0.5$ and
-dispersion $\theta=1$. We chose this cell for three reasons. Agreement and
-dispersion lie inside the range of the design, so both can move in either direction. All bundles
-have the same size, so divisibility plays no role unless we change it. And the reference cell lies
-in the region where the existence of an EFX allocation is open. Every instance of our design admits
-an EFX allocation, proven outside this region and found by search inside it
-(Section~\ref{sec:existence}), so every failure that we report is a failure of Round Robin and not
-of the instance.
+Our results therefore have two levels. Within a cell, the survival curve describes all $20{,}000$
+values of $\astar$, and its end point, the EFX rate, answers the question in the title of this
+thesis for that cell. Across cells, we compare EFX rates, one number per cell, each based on its
+own $20{,}000$ instances. Each section of Chapter~\ref{ch:results} first plots the EFX rate against
+the levels of one quantity, one point per cell, and shows how often Round Robin achieves EFX as
+this quantity changes. A second figure then shows the whole survival curves of the same cells, one
+curve per level, each with the same two points as Figure~\ref{fig:reading}, and reveals how far
+from EFX the failures are.
 
-Each of these sections starts from the reference cell and changes one quantity.
+The example cell of Section~\ref{sec:evaluation} serves as the common \textit{reference cell}: a
+father leaves $m=12$ records to his $n=4$ children, every child receives $r=3$ records and none is
+left over ($q=0$), and the values are drawn with agreement $\rho=0.5$ and dispersion $\theta=1$.
+We chose this cell for three reasons. Agreement and dispersion lie inside the range of the design,
+so both can move in either direction. All bundles have the same size, so divisibility plays no
+role unless we change it. And the reference cell lies in the region where the existence of an EFX
+allocation is open. Every instance of our design admits an EFX allocation, proven outside this
+region and found by search inside it (Section~\ref{sec:existence}), so every failure that we
+report is a failure of Round Robin and not of the instance.
+
+Each section of Chapter~\ref{ch:results} starts from the reference cell and changes one quantity.
 For agreement and dispersion, this is straightforward. For the numbers of agents and goods, it is
 not, because they are tied by $m=rn+q$. More goods mean more goods per agent, a different
 remainder, or both. More agents with the same goods change them as well. We therefore never
