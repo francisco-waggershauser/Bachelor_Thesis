@@ -11,10 +11,7 @@
 As Figure~\ref{fig:goods} shows, Round Robin achieves EFX more often when every agent receives
 more goods. With two goods per agent, the EFX rate is $0.212$, with $15{,}755$ failures among
 $R=20{,}000$ instances. It rises to $0.293$ with three goods and to $0.409$ with four goods, where
-$11{,}828$ instances fail. \textcite[Thm.~3.1]{manurangsi2021} find the same
-direction in their model with independent values: once every agent receives sufficiently many
-goods, Round Robin is even envy-free with high probability. In our model, independent values
-correspond to $\rho=0$, and there the EFX rate rises as well, from $0.577$ to $0.741$ and $0.856$.
+$11{,}828$ instances fail. 
 
 \begin{figure}[H]
   \centering
@@ -24,6 +21,11 @@ correspond to $\rho=0$, and there the EFX rate rises as well, from $0.577$ to $0
   $R=20{,}000$ instances. The line between the points is for illustration only.}
   \label{fig:goods}
 \end{figure}
+
+\textcite[Thm.~3.1]{manurangsi2021} find the same
+direction in their model with independent values: once every agent receives sufficiently many
+goods, Round Robin is even envy-free with high probability. In our model, independent values
+correspond to $\rho=0$, and there the EFX rate rises as well, from $0.577$ to $0.741$ and $0.856$.
 
 To see whether this rise holds beyond the reference cell, we use all $1{,}260$ cells of our
 design. They form $420$ sets of three cells that differ only in the number of goods per agent, one
